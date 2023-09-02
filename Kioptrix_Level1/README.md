@@ -1,7 +1,7 @@
 # Kioptrix Level 1
 
 ### 1.Get VM IP
-Use nmap to find the ip address of the machine :
+Use `nmap` to find the ip address of the machine :
 
 ```text
 root@kali:~# nmap -sn 192.168.127.0/24
@@ -81,7 +81,7 @@ Host script results:
 
 as we can see the interesting ports are `139` and `80`.
 
-on port 80 there is a test page of apache but let's enumerate port 139 with metasploit :
+on port 80 there is a test page of apache but let's enumerate port 139 with `metasploit` :
 
 
 ![msfconsole](https://github.com/Git-K3rnel/VulnHub/assets/127470407/e04f5491-f079-492a-9ac2-2c8d21be8bc2)
