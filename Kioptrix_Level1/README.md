@@ -92,7 +92,7 @@ version of samba is `2.2.1a`, i use `searchsploit` to find any exploit for this 
 searchsploit samba 2.2.1a
 ```
 
-![searchsploit](https://github.com/Git-K3rnel/VulnHub/assets/127470407/5bf347cd-9c35-4eb2-8a2d-baec00b797c5)
+![searchsploit](https://github.com/Git-K3rnel/VulnHub/assets/127470407/6c7f7f21-fc35-4b1b-ac69-8c465839900c)
 
 
 ### 3.Gaining Shell
