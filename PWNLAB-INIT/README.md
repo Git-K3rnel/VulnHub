@@ -278,7 +278,7 @@ mike@pwnlab: export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/game
 
 ## 4.Privilege Escalation
 
-navigate to mike home directory :
+Navigate to mike home directory :
 
 ![root](https://github.com/Git-K3rnel/VulnHub/assets/127470407/700c079b-7e37-47df-821d-064d9b86db8f)
 
@@ -288,12 +288,12 @@ the `msg2root` binary has SUID so we look at the strings of it :
 ![strings2](https://github.com/Git-K3rnel/VulnHub/assets/127470407/1df07df4-ebc4-43eb-9fc1-44ee3a2c0c23)
 
 
-here we can exploit the `echo` so we execute the binary itself :
+here we can not exploit the `echo`, so we execute the binary itself :
 
 
 ![msgroot](https://github.com/Git-K3rnel/VulnHub/assets/127470407/03ba8c47-8d4b-459a-9357-d86bd6c11422)
 
-it just echos back whatever you give it , so it is worth trying command injection
+it just echos back whatever you give it , so it's worth trying command injection.
 
 simply add `;` after you input and try to get a shell :
 
