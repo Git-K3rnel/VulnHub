@@ -81,7 +81,7 @@ back to website at login menu :
 
 ![loginpage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/2b717679-27b0-4d26-862a-650c4b22ea8e)
 
-look at the url parameter `page`, try different `LFI` payloads bur didnot work:
+look at the url parameter `page`, tried different `LFI` payloads but none of them worked:
 
 ```text
 http://192.168.127.133/?page=../../../../../../../../etc/passwd
