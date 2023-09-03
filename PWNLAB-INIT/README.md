@@ -116,4 +116,15 @@ provide the password and get all the information from database :
 
 ![mysql](https://github.com/Git-K3rnel/VulnHub/assets/127470407/e1257850-8b93-462d-a687-4953066e060a)
 
+here is the users base64 encoded passwords, login to the site with one of them for example `kent` :
+
+![upload](https://github.com/Git-K3rnel/VulnHub/assets/127470407/b6fb91f5-2690-4d05-9a73-f4b1a2fc5837)
+
+i tried to upload a php file but i couldn't, after spending some time to find out how to upload a file i came to notinng then i decided to get the source php code of the page :
+
+
+
+
+
+
 
