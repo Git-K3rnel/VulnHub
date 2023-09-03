@@ -1,1 +1,3 @@
 # PWNLAB: INIT
+
+## 1.Get VM IP
