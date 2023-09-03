@@ -17,7 +17,7 @@ Nmap scan report for 192.168.127.128
 Host is up.
 Nmap done: 256 IP addresses (4 hosts up) scanned in 15.04 seconds
 ```
-the ip address is `192.168.127.133`, so we begin the enumeration phase
+Tthe ip address is `192.168.127.133`, so we begin the enumeration phase
 
 ## 2.Enumeration
 ```text
@@ -52,7 +52,7 @@ PORT     STATE SERVICE VERSION
 |_  Auth Plugin Name: mysql_native_password
 MAC Address: 00:0C:29:31:80:7A (VMware)
 ```
-so the box has port `80` and ofcourse a mysql database on port `3306`
+So the box has port `80` and ofcourse a mysql database on port `3306`
 
 exploring the port 80 will result in the page where it has 3 menues :
 
@@ -209,7 +209,7 @@ if (isset($_COOKIE['lang']))
 
 ## 3.Gaining Shell
 
-yes, there is a `LFI` vulnerability in the cookie, so add the following cookie to your browser :
+Yes, there is a `LFI` vulnerability in the cookie, so add the following cookie to your browser :
 
 ```text
 lang=../upload/843eb8966ba95af4e3b673970ba8ebe8.png
