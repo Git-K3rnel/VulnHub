@@ -304,7 +304,7 @@ try to read the `flag.txt` form the `/root` directory :
 
 ![congrat](https://github.com/Git-K3rnel/VulnHub/assets/127470407/da50e641-454e-41a8-a032-fd931b5c08a4)
 
-yeeeee, ou are now the root :)
+yeeeee, you are now the root :)
 
 
 
