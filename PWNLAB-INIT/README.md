@@ -207,6 +207,8 @@ if (isset($_COOKIE['lang']))
 ?
 ```
 
+## 3.Gaining Shell
+
 yes, there is a `LFI` vulnerability in the cookie, so add the following cookie to your browser :
 
 ```text
@@ -238,7 +240,7 @@ now that we are in the machine try to login with another user we already found i
 root@kali~# su kane
 ```
 
-`notice that you can not login with `mike` with the password found in the database.`
+`notice that you can not login to mike account with the password found in the database.`
 
 naviage to home page and kane directory :
 
@@ -266,5 +268,35 @@ kane@pwnlab:~$ ./msgmike
 
 ![cat](https://github.com/Git-K3rnel/VulnHub/assets/127470407/117f88cc-1be9-4278-91fb-19751b4cf7a8)
 
-now you are use mike
+now you are user mike.
+
+bring back the `PATH` variable to original state :
+
+```text
+mike@pwnlab: export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
+```
+
+## 4.Privilege Escalation
+
+navigate to mike home directory :
+
+![root](https://github.com/Git-K3rnel/VulnHub/assets/127470407/700c079b-7e37-47df-821d-064d9b86db8f)
+
+the `msg2root` binary has SUID so we look at the strings of it :
+
+
+![strings2](https://github.com/Git-K3rnel/VulnHub/assets/127470407/1df07df4-ebc4-43eb-9fc1-44ee3a2c0c23)
+
+
+here we can exploit the `echo` so we execute the binary itself :
+
+
+![msgroot](https://github.com/Git-K3rnel/VulnHub/assets/127470407/03ba8c47-8d4b-459a-9357-d86bd6c11422)
+
+it just echos back whatever you give it , so it is worth trying command injection
+
+simply add `;` after you input 
+
+
+
 
