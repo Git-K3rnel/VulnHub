@@ -299,7 +299,7 @@ simply add `;` after you input and try to get a shell :
 
 ![root2](https://github.com/Git-K3rnel/VulnHub/assets/127470407/fd448ed0-082d-48f4-813c-d0513d819dc1)
 
-try to read the `flag.txt` form the `/root` directory :
+try to read the `flag.txt` from the `/root` directory :
 
 
 ![congrat](https://github.com/Git-K3rnel/VulnHub/assets/127470407/da50e641-454e-41a8-a032-fd931b5c08a4)
