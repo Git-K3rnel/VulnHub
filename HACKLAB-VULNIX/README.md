@@ -200,7 +200,9 @@ with this user we can almost do nothing but checking the `/etc/passwd` file to s
 
 ![passwd](https://github.com/Git-K3rnel/VulnHub/assets/127470407/c643665f-8437-4708-a3ed-e386d3efcea8)
 
-as it shows 2008:2008 is the UID and GID of the vulnix user.
+as it shows `2008:2008` is the UID and GID of the vulnix user.
+
+## 4.Privilege Escalation Part 1
 
 on attacker machine :
 
@@ -287,8 +289,43 @@ applicable law.
 vulnix@vulnix:~$ 
 ```
 
+## Privileg Escalation Part 2
 
+We immediately see out sudo permissions :
 
+```bash
+vulnix@vulnix:~$ sudo -l
+Matching 'Defaults' entries for vulnix on this host:
+    env_reset, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User vulnix may run the following commands on this host:
+    (root) sudoedit /etc/exports, (root) NOPASSWD: sudoedit /etc/exports
+```
+
+it allows us to edit `/etc/exports` which is The primary configuration for the NFS server is the /etc/exports file.
+
+This is the file that you use to specify what directories you want to share with the NFS clients
+
+```bash
+vulnix@vulnix:~$ sudoedit /etc/exports
+
+# /etc/exports: the access control list for filesystems which may be exported
+#               to NFS clients.  See exports(5).
+#
+# Example for NFSv2 and NFSv3:
+# /srv/homes       hostname1(rw,sync,no_subtree_check) hostname2(ro,sync,no_subtree_check)
+#
+# Example for NFSv4:
+# /srv/nfs4        gss/krb5i(rw,sync,fsid=0,crossmnt,no_subtree_check)
+# /srv/nfs4/homes  gss/krb5i(rw,sync,no_subtree_check)
+#
+/home/vulnix    *(rw,root_squash)
+```
+
+nfs has these to options :
+
+- root_squash : which does not allow the root use on the client to create file with root permissions (differentiates local root account with user root account)
+- no_root_squash : which allows root user on the client to create any file or binary with root permissions
 
 
 
