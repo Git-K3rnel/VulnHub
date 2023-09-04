@@ -139,9 +139,9 @@ The `finger` service on port `79` allows us to enumerate users on the system usi
 [+] 192.168.127.134:79    - 192.168.127.134:79 - Found user: whoopsie
 [+] 192.168.127.134:79    - 192.168.127.134:79 - Found user: www-data
 ```
-ignoring the default system users, i see two users important one is `www-data` and `user`, fortunately we have finger protocol
+ignoring the default system users, i see two important users, one is `www-data` and `user`, fortunately we have finger protocol
 
-availabel so we can check users on the system :
+available so we can check users on the system :
 
 ```bash
 root@kali: finger user@192.168.127.134
@@ -161,7 +161,7 @@ No Plan.
 
 ### 2.2.NFS Enumeration
 
-You can use metasploit for this `(auxiliary/scanner/nfs/nfsmount)` or use the `showmount` command :
+You can use metasploit for NFS enumeration `(auxiliary/scanner/nfs/nfsmount)` or use the `showmount` command :
 
 ```bash
 root@kali: showmount -e 192.168.127.134
@@ -181,7 +181,7 @@ but we dont't have access to this directory yet.
 
 in order to gain access to this directory we can create a user simulating the `vulnix` user on the target machine.
 
-for doing this we should know the UID and GID of the vulnix user on the victim machine.
+for doing this we should know the `UID` and `GID` of the vulnix user on the victim machine.(continue)
 
 ## 3.Gaining Shell
 
