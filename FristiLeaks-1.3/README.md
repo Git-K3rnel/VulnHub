@@ -76,13 +76,55 @@ using `eezeepz` as user and the string in the picture `keKkeKKeKKeKkEkkEk` you c
 
 ![login](https://github.com/Git-K3rnel/VulnHub/assets/127470407/5b34ac61-581a-42ee-b6bf-0c18c48db81a)
 
+## 3.Gaining Shell
+
 here we see an upload functionality that only allows uploading `png,jpg,gif` files, after trying afew methods to bypass it
 
 i found that it checks only the last extention of a file, for example `test.php.png` is acceptable. so i uploaded a php reverse shell
 
-and navigated to `/uploads/test.php.png` directory
+navigated to `/uploads/test.php.png` directory, with a listener on my system i got the shell :
 
+![shell1](https://github.com/Git-K3rnel/VulnHub/assets/127470407/ed033369-cd57-468d-93b6-d6dfabdba2e7)
 
+in `/var/www` there is a file `notes.txt` :
+```bash
+bash-4.1$ cat notes.txt
+hey eezeepz your homedir is a mess, go clean it up, just dont delete
+the important stuff.
+
+-jerry
+```
+
+as jerry says here the home dir of user eezeepz is a mess.
+
+navigate to `/home` directory and there are 3 users here and we can only access the eezeepz directory
+
+in this directory there is a `notes.txt` again :
+
+```bash
+bash-4.1$ cat notes.txt
+Yo EZ,
+
+I made it possible for you to do some automated checks, 
+but I did only allow you access to /usr/bin/* system binaries. I did
+however copy a few extra often needed commands to my 
+homedir: chmod, df, cat, echo, ps, grep, egrep so you can use those
+from /home/admin/
+
+Don't forget to specify the full path for each binary!
+
+Just put a file called "runthis" in /tmp/, each line one command. The 
+output goes to the file "cronresult" in /tmp/. It should 
+run every minute with my account privileges.
+
+- Jerry
+```
+as it seems in this note admin provides us afew capabilities :
+- we can run all binaries in `/usr/bin/`
+- we can run afew binaries in `/home/admin/`
+- we should create a file called `runthis` in `/tmp/` and put our commands into this file
+- runthis file will be executed with admin privileges every one minute
+- the result will be saved in `cronresult` file
 
 
 
