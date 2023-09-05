@@ -213,7 +213,7 @@ now we pass this function the content of the other two files :
 python decode.py =RFn0AKnlMHMPIzpyuTI0ITG
 b'LetThereBeFristi!'
 
-python decode.py =RFn0AKnlMHMPIzpyuTI0ITG
+python decode.py mVGZ3O3omkJLmy2pcuTq
 b'thisisalsopw123'
 ```
 
