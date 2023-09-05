@@ -68,11 +68,19 @@ scrolling down a little shows base64 data image :
 
 ![datablob](https://github.com/Git-K3rnel/VulnHub/assets/127470407/606d6e18-a4a9-46d1-984b-e566391651c3)
 
-convert it 
+convert it back to image using an online service or browser itself :
 
+![kekek](https://github.com/Git-K3rnel/VulnHub/assets/127470407/bfffc291-b028-4751-9678-e301cc6def0d)
 
+using `eezeepz` as user and the string in the picture `keKkeKKeKKeKkEkkEk` you can login to website :
 
+![login](https://github.com/Git-K3rnel/VulnHub/assets/127470407/5b34ac61-581a-42ee-b6bf-0c18c48db81a)
 
+here we see an upload functionality that only allows uploading `png,jpg,gif` files, after trying afew methods to bypass it
+
+i found that it checks only the last extention of a file, for example `test.php.png` is acceptable. so i uploaded a php reverse shell
+
+and navigated to `/uploads/test.php.png` directory
 
 
 
