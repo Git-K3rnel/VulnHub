@@ -3,6 +3,6 @@
 
 In this repo i provide write-ups for VulnHub machines : 
 
-* [Kioptrix Level 1](https://github.com/Git-K3rnel/VulnHub/tree/main/Kioptrix_Level1)
+* [Kioptrix Level-1](https://github.com/Git-K3rnel/VulnHub/tree/main/Kioptrix_Level1)
 * [PWNLAB: INIT](https://github.com/Git-K3rnel/VulnHub/tree/main/PWNLAB-INIT)
 * [HACKLAB: VULNIX](https://github.com/Git-K3rnel/VulnHub/tree/main/HACKLAB-VULNIX)
