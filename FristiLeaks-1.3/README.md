@@ -78,7 +78,7 @@ using `eezeepz` as user and the string in the picture `keKkeKKeKKeKkEkkEk` you c
 
 ## 3.Gaining Shell
 
-here we see an upload functionality that only allows uploading `png,jpg,gif` files, after trying afew methods to bypass it
+Here we see an upload functionality that only allows uploading `png,jpg,gif` files, after trying afew methods to bypass it
 
 i found that it checks only the last extention of a file, for example `test.php.png` is acceptable. so i uploaded a php reverse shell
 
@@ -130,7 +130,7 @@ so what is better than another reverse shell ?
 
 ## Privilege Escalation to admin user
 
-i prepared another reverse shell, this time a perl reverse shell in my kali machine
+I prepared another reverse shell, this time a perl reverse shell in my kali machine
 
 because `perl` binary exist in `/usr/bin` directory and we can execute it :
 
@@ -192,7 +192,7 @@ cryptoResult=encodeString(sys.argv[1])
 print cryptoResult
 ```
 
-it seems the python file is using ase64 to encode the input and then `rot13` algorithm. and the other 2 files are the output of this python function.
+it seems the python file is using base64 to encode the input and then `rot13` algorithm. and the other 2 files are the output of this python function.
 
 we need to reverse the process so i write a python script to reverse it :
 
