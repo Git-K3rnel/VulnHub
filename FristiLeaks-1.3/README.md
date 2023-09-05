@@ -148,9 +148,47 @@ and yes we got the shell with admin privileges :
 
 ![shell2](https://github.com/Git-K3rnel/VulnHub/assets/127470407/1c6d7bc4-3db4-4e55-82d6-3cc29d66cabf)
 
+we navigate to `/home/admin` directory and there are afew files here :
 
+```bash
+admin@localhost ~]$ ls -l
+total 632
+-rwxr-xr-x 1 admin     admin      45224 Nov 18  2015 cat
+-rwxr-xr-x 1 admin     admin      48712 Nov 18  2015 chmod
+-rw-r--r-- 1 admin     admin        737 Nov 18  2015 cronjob.py
+-rw-r--r-- 1 admin     admin         21 Nov 18  2015 cryptedpass.txt
+-rw-r--r-- 1 admin     admin        258 Nov 18  2015 cryptpass.py
+-rwxr-xr-x 1 admin     admin      90544 Nov 18  2015 df
+-rwxr-xr-x 1 admin     admin      24136 Nov 18  2015 echo
+-rwxr-xr-x 1 admin     admin     163600 Nov 18  2015 egrep
+-rwxr-xr-x 1 admin     admin     163600 Nov 18  2015 grep
+-rwxr-xr-x 1 admin     admin      85304 Nov 18  2015 ps
+-rw-r--r-- 1 fristigod fristigod     25 Nov 19  2015 whoisyourgodnow.txt
+```
 
+interesting files are :
+- whoisyourgodnow.txt
+- cryptedpass.txt
+- cryptpass.py
 
+we look at all these files :
+
+```bash
+[admin@localhost ~]$ cat whoisyourgodnow.txt
+=RFn0AKnlMHMPIzpyuTI0ITG
+[admin@localhost ~]$ cat cryptedpass.txt
+mVGZ3O3omkJLmy2pcuTq
+[admin@localhost ~]$ cat cryptpass.py
+#Enhanced with thanks to Dinesh Singh Sikawar @LinkedIn
+import base64,codecs,sys
+
+def encodeString(str):
+    base64string= base64.b64encode(str)
+    return codecs.encode(base64string[::-1], 'rot13')
+
+cryptoResult=encodeString(sys.argv[1])
+print cryptoResult
+```
 
 
 
