@@ -219,7 +219,7 @@ b'thisisalsopw123'
 
 ## Privilege Escalation to fristigod user
 
-Now that we have decoded the strings, we can change the user to `fristigod`
+Now that we have decoded the strings, we can change the user to `fristigod` with the password `LetThereBeFristi!` :
 
 ```bash
 [admin@localhost ~]$ su fristigod
