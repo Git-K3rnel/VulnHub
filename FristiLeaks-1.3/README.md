@@ -26,4 +26,55 @@ The IP address is `192.168.127.135`, let scan it.
 
 ```bash
 root@kali: nmap -sV -sC 192.168.127.135 -oN nmapresult
+
+Nmap scan report for 192.168.127.135
+Host is up (0.00025s latency).
+Not shown: 989 filtered tcp ports (no-response), 10 filtered tcp ports (host-prohibited)
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.2.15 ((CentOS) DAV/2 PHP/5.3.3)
+|_http-server-header: Apache/2.2.15 (CentOS) DAV/2 PHP/5.3.3
+| http-robots.txt: 3 disallowed entries 
+|_/cola /sisi /beer
+| http-methods: 
+|_  Potentially risky methods: TRACE
+|_http-title: Site doesn't have a title (text/html; charset=UTF-8).
+MAC Address: 08:00:27:A5:A6:76 (Oracle VirtualBox virtual NIC)
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 18.12 seconds
 ```
+The only open port here is `80`, from the nmap report we see `robots.txt` has 3 routes
+
+navigating to these directories shows the same content :
+
+![page](https://github.com/Git-K3rnel/VulnHub/assets/127470407/2d1e90c6-1d88-4740-8469-f6c61cdbe270)
+
+i started fuzzing the application with different methods but found nothing except `/images/` and `/icons/` directory that had nothing intersting.
+
+back to the main page saying "KEEP CALM AND DRINK FRISTI", the word `fristi` was weird for me so tried navigating to `fristi` :
+
+![fristipage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/86780385-6f4b-4857-9104-30b6d7043aea)
+
+yes, we found a login page, i tried some sql injection payloads but did not work.
+
+viewing the page source :
+
+![pagesource](https://github.com/Git-K3rnel/VulnHub/assets/127470407/8cc548d1-f8b8-434e-aa7d-2e33b2f66633)
+
+the comment here is by `eezeepz`, maybe a username ? write it down.
+
+scrolling down a little shows base64 data image :
+
+
+![datablob](https://github.com/Git-K3rnel/VulnHub/assets/127470407/606d6e18-a4a9-46d1-984b-e566391651c3)
+
+convert it 
+
+
+
+
+
+
+
+
+
