@@ -289,7 +289,7 @@ applicable law.
 vulnix@vulnix:~$ 
 ```
 
-## Privileg Escalation Part 2
+## 5.Privileg Escalation Part 2
 
 We immediately see our sudo permissions :
 
