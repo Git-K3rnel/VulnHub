@@ -45,7 +45,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 Ports `22` and `8081` is open, so lets begin navigating the site.
 
-in the first page we see a message and menue above :
+in the first page we see a message and a menu above :
 
 ![mainpage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/42697f15-e96d-47f2-921d-062fa3897420)
 
