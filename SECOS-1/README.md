@@ -62,7 +62,7 @@ gathering the above information we begin our work.
 
 i signed up for an account : `myacc:123`
 
-three new functionality appears after loggin in :
+three new functionalities appears after loggin in :
 
 ![afterlogin](https://github.com/Git-K3rnel/VulnHub/assets/127470407/5a75cc52-f54e-4473-995e-d0106d3b9ffc)
 
@@ -82,7 +82,7 @@ we see that user `spiderman` is administrator so we should some how try to reach
 
 ## Gaining Shell
 
-since we have CSRF vulnerability and can send message to spiderman we create a CSRF POC and send a link to spiderman (remember that admin will run service locally)
+Since we have CSRF vulnerability and can send message to spiderman we create a CSRF POC and send a link to spiderman (remember that admin will run service locally)
 
 ```html
 <html>
@@ -118,7 +118,7 @@ Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
 ```
 yes we got a request it means spiderman should have our provided password.
 
-we logout with out account and login with spiderman and password 123 and navigate to messages menu :
+we logout our account and login with spiderman and password 123 and navigate to messages menu :
 
 ![spidermessage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/05b17044-239b-4c20-8f31-ef5f9222da8b)
 
@@ -130,7 +130,7 @@ all we need now is to SSH to machine with `spiderman:CrazyPassword!` :
 
 ## Privilege Escalation Method 1
 
-if we check the linux kernel version we see the information below :
+If we check the linux kernel version we see the information below :
 
 ```bash
 spiderman@SecOS-1:~$ uname -a
@@ -155,7 +155,7 @@ root@kali: searchsploit kernel 3.13
 Linux Kernel 3.13.0 < 3.19 (Ubuntu 12.04/14.04/14.10/15.04) - 'overlayfs' Local Privilege Escalation   | linux/local/37292.c
 ```
 
-our version meets exactly with this exploit we download this exploit and upload it on the victim on `/tmp` directory
+our version meets exactly with this exploit we download it and upload it on the victim on `/tmp` directory
 
 compile it on victim :
 
@@ -285,7 +285,7 @@ server.listen(9000, '127.0.0.1', function() {
 });
 ```
 
-we see here that the application is using some kind of ping here command here and is listening on port 9000
+we see here that the application is using some kind of ping command here and is listening on port 9000
 
 i check if this port is actually listening on the server :
 
@@ -454,4 +454,4 @@ you can see from the result that our `id` command worked and it shows `root` id.
 
 now we can print the content of `/root/flag.txt` or gain a reverse shell and cat the content.
 
-this is how you can root the `SecOS: 1` machine :)
+This is how you can root the `SecOS: 1` machine :)
