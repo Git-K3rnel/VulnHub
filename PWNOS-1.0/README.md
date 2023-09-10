@@ -1,6 +1,6 @@
 # PWNOS: 1.0
 
-## Get VM IP
+## 1.Get VM IP
 ```bash
 root@kali: nmap -sn 192.168.127.0/24
 
@@ -20,7 +20,7 @@ Host is up.
 
 The IP address is `192.168.127.138`, let's enumerate the machine.
 
-## Enumeration
+## 2.Enumeration
 
 ```bash
 root@kali: nmap -sV -sC 192.168.127.138 -oN fullscan
@@ -66,4 +66,39 @@ smb enumeration led to nothing intresting.
 but exploring the web showed a web application :
 
 ![mainpage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/4b436200-9be0-449e-aa5d-135320f2a4d0)
+
+despite having XSS here, it does not help for exploiting but manipulating the `connect` parameter will show an error :
+
+![erropage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/2873eb2c-ebf4-43cd-9ded-055b81013eb5)
+
+the error shows some kind of inclusion in the page that is intresting for testing LFI, changing the connect parameter to show
+
+the `/etc/passwd` is successful when using the path traversal payload :
+
+![etcpasswd](https://github.com/Git-K3rnel/VulnHub/assets/127470407/3b41a83d-191d-4ebd-be02-bbce458eeda8)
+
+after showing the `/etc/passwd` we detect 4 users in the system :
+
+- vmware
+- obama
+- osama
+- yomama
+
+this is greate, we now know the users on the system by this vulnerability.
+
+now its time to check the other open port (10000)
+
+### 2.1.Webmin
+
+
+
+
+
+
+
+
+
+
+
+
 
