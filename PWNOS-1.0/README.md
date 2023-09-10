@@ -216,7 +216,7 @@ vmware@ubuntuvm:/home$ uname -a
 Linux ubuntuvm 2.6.22-14-server #1 SMP Sun Oct 14 23:34:23 GMT 2007 i686 GNU/Linux
 ```
 
-this an old kernel we search for any exploit for it :
+this is an old kernel we search for any exploit for it :
 
 ```bash
 vmware@ubuntuvm:/home$ searchsploit kernel 2.6 | grep -i escalation
