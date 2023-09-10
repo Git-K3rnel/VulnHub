@@ -1,4 +1,4 @@
-# pWnOS: 1.0
+# pWnOS:1.0
 
 ## 1.Get VM IP
 ```bash
