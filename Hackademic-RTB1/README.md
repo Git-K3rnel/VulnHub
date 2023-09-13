@@ -158,6 +158,9 @@ Table: wp_users
 +--------------+---------------------------------------------+------------+-------------------------+
 ```
 
+as we see here sqlmap has cracked some of the hashes and according to `user_level` user `GeorgeMiller` has the highest level of `10`
+
+we use this user to login to `/wp-admin`
 
 
 
