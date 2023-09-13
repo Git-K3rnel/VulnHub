@@ -9,3 +9,4 @@ In this repo i provide write-ups for VulnHub machines :
 * [FristiLeaks: 1.3](https://github.com/Git-K3rnel/VulnHub/tree/main/FristiLeaks-1.3)
 * [SecOS: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/SECOS-1)
 * [pWnOS: 1.0](https://github.com/Git-K3rnel/VulnHub/tree/main/PWNOS-1.0)
+* [Hackademic: RTB1](https://github.com/Git-K3rnel/VulnHub/tree/main/Hackademic-RTB1)
