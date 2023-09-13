@@ -40,3 +40,18 @@ MAC Address: 00:0C:29:F6:75:CB (VMware)
 ```
 
 ## 2.1.Web Enumeration
+
+Visit the main page and if you click on `Uncategorized` link on the bottom of the page a new url parameter will be used `cat=1`
+
+this paramter is vulnerable to sql injection
+
+
+
+
+
+
+
+
+
+
+
