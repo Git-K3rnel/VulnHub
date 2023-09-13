@@ -38,3 +38,5 @@ PORT   STATE  SERVICE VERSION
 |_  Potentially risky methods: TRACE
 MAC Address: 00:0C:29:F6:75:CB (VMware)
 ```
+
+## 2.1.Web Enumeration
