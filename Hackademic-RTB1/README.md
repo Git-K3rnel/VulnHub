@@ -39,9 +39,42 @@ PORT   STATE  SERVICE VERSION
 MAC Address: 00:0C:29:F6:75:CB (VMware)
 ```
 
-## 2.1.Web Enumeration
 
-Visit the main page and if you click on `Uncategorized` link on the bottom of the page a new url parameter will be used `cat=1`
+Visit the main page and click on `target` link and you will be redirected to `http://192.168.127.140/Hackademic_RTB1/`
+
+let's fuzz this path :
+
+```bash
+root@kali: ffuf -w ~/wordlist/raft-large-directories.txt  -u http://192.168.127.140/Hackademic_RTB1/FUZZ/
+
+[Status: 200, Size: 1160, Words: 64, Lines: 16, Duration: 11ms]
+    * FUZZ: wp-content
+
+[Status: 200, Size: 6523, Words: 301, Lines: 41, Duration: 13ms]
+    * FUZZ: wp-includes
+
+[Status: 200, Size: 2010, Words: 98, Lines: 20, Duration: 10ms]
+    * FUZZ: wp-images
+
+[Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 693ms]
+    * FUZZ: wp-admin
+
+[Status: 500, Size: 1881, Words: 127, Lines: 44, Duration: 681ms]
+    * FUZZ:
+```
+
+we have found `wp-admin` directory and we find that it is like a wordpress CMS
+
+
+
+
+
+
+
+
+back to main page, if you click on `Uncategorized` link on the bottom of the page a new url parameter will be used `cat=1`
+
+
 
 
 
