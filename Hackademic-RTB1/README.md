@@ -223,6 +223,8 @@ uid=48(apache) gid=489(apache) groups=489(apache)
 sh-4.0$
 ```
 
+## 4.Privilege Escalation
+
 now we are on the victim machine, after checking various PE vectors i came to nothing but checking the kernel version 
 
 showed that this version is vulnerable :
