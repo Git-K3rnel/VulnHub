@@ -18,6 +18,7 @@ MAC Address: 00:50:56:EF:E6:A0 (VMware)
 Nmap scan report for 192.168.127.128
 Host is up.
 ```
+
 The machine IP is `192.168.127.140`, lets enumerate it.
 
 ## 2.Enumeration
