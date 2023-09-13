@@ -66,30 +66,18 @@ root@kali: ffuf -w ~/wordlist/raft-large-directories.txt  -u http://192.168.127.
 we have found `wp-admin` directory and we find that it is like a wordpress CMS
 
 
-
-
-
-
-
+![wordpress](https://github.com/Git-K3rnel/VulnHub/assets/127470407/4e5f0d96-8003-43d6-8017-cf754c9dd903)
 
 back to main page, if you click on `Uncategorized` link on the bottom of the page a new url parameter will be used `cat=1`
 
 
-
+![mainpage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/c52c6ac0-63be-4823-9489-7a5679510cd8)
 
 
 this paramter is vulnerable to sql injection if you put a `"` after it :
 
 
-
-
-
-
-
-
-
-
-
+![sqli](https://github.com/Git-K3rnel/VulnHub/assets/127470407/feabd11a-29df-4ea8-84f3-c31e5217fa4f)
 
 i tried with `sqlmap` to inject into this paramter and get the database :
 
@@ -195,13 +183,14 @@ as we see here sqlmap has cracked some of the hashes and according to `user_leve
 
 we use this user with credentials `GeorgeMiller:q1w2e3` to login to `/wp-admin` directory.
 
-
-img:adminpage
-
+![adminpage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/202f3a0a-7eb7-4365-b2a9-236c13b190b1)
 
 ## 3.Gaining Shell 
 
 After checking various parts of the CMS i found that in `Manage` menu and in `Files` submenu we can edit a `hello.php` file.
+
+![managePage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/4c17ebfc-14fc-40d8-b56b-b81b95a47e16)
+
 
 i just paste a php reverse shell (pentestmonkey) payload and updated the file.
 
@@ -225,7 +214,7 @@ sh-4.0$
 
 ## 4.Privilege Escalation
 
-now we are on the victim machine, after checking various PE vectors i came to nothing but checking the kernel version 
+Now we are on the victim machine, after checking various PE vectors i came to nothing but checking the kernel version 
 
 showed that this version is vulnerable :
 
