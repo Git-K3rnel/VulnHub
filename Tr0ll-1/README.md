@@ -96,11 +96,23 @@ filter for `ftp-data` and you will find the packet wihch contains the secret dir
 
 ![wireshark](https://github.com/Git-K3rnel/VulnHub/assets/127470407/556e5be5-5371-4f56-aafc-d4f58dff2da1)
 
+just go to `sup3rs3cr3tdirlol` directory and there is file here called `roflmao` :
 
+![download](https://github.com/Git-K3rnel/VulnHub/assets/127470407/56f7a830-c9af-4f5f-b2f5-85fd70b04fd7)
 
+get this file and we notice this an executable, just run the program :
 
+```bash
+root@kali: ./roflmao
 
+Find address 0x0856BF to proceed
+```
 
+it just prints a address of memory, since we have no program here that this executable knows the location already, i guessed
+
+that it might me the actual directory we should navigate in the web site so go to `/0x0856BF` :
+
+![directory](https://github.com/Git-K3rnel/VulnHub/assets/127470407/10cd92b7-4704-48c5-a92e-e5df417f47de)
 
 
 
