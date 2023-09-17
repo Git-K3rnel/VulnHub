@@ -279,6 +279,32 @@ this is one method to get the flag.
 
 ## 5.Privilege Escalation Method 2
 
+If you notice, you will get disconnected after afew minutes, this behavior is odd, so i just checked the `/etc/crontab`
+
+but found nothing, and then checked `/var/log/cronlog` :
+
+```bash
+$ cat /var/log/cronlog
+*/2 * * * * cleaner.py
+```
+
+yes we guessed correctly, the `cleaner.py` file is executed every 2 minutes.
+
+we find the cleaner.py which is located here :
+
+```bash
+$ find / -name cleaner.py 2>/dev/null
+/lib/log/cleaner.py
+```
+
+checking the permissions shows it is world writable :
+
+```bash
+$ ls -l /lib/log/cleaner.py
+-rwxrwxrwx 1 root root 114 Sep 13 05:25 /lib/log/cleaner.py
+```
+
+
 
 
 
