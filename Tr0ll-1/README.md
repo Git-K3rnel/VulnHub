@@ -19,3 +19,8 @@ Nmap scan report for 192.168.127.128
 Host is up.
 Nmap done: 256 IP addresses (4 hosts up) scanned in 15.60 seconds
 ```
+
+The ip address is `192.168.127.141`, let's enumerate it.
+
+## 2.Enumeration
+
