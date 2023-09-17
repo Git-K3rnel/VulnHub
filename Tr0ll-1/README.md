@@ -139,6 +139,8 @@ overflow
 
 and inside `Pass.txt`, it just says `Good_job_:)`
 
+## 3.Gaining Shell
+
 i tried brute forcing the ssh with `Good_job` password but it did not work.
 
 since it is just a crazy and ridiculous machine, i though that the folder `this_folder_contains_the_password` in the web site
@@ -171,6 +173,7 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-09-17 07:29:
 Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2023-09-17 07:29:11
 ```
 
+yes the user `overflow` has the password `Pass.txt` so we can login to SSH with these credentials.
 
 
 
