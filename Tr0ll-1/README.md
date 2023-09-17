@@ -62,7 +62,7 @@ MAC Address: 00:0C:29:1C:FD:35 (VMware)
 Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 ```
 
-visit `/robots.txt` of the web page and it shows a disallowed directory :
+Visit `/robots.txt` of the web page and it shows a disallowed directory :
 
 ```text
 User-agent:*
@@ -141,7 +141,7 @@ and inside `Pass.txt`, it just says `Good_job_:)`
 
 ## 3.Gaining Shell
 
-i tried brute forcing the ssh with `Good_job` password but it did not work.
+I tried brute forcing the ssh with `Good_job` password but it did not work.
 
 since it is just a crazy and ridiculous machine, i though that the folder `this_folder_contains_the_password` in the web site
 
@@ -225,7 +225,7 @@ SUPPORT_URL="http://help.ubuntu.com/"
 BUG_REPORT_URL="http://bugs.launchpad.net/ubuntu/"
 ```
 
-if we check the `searchsploit` for any public exploit for this version we see :
+If we check the `searchsploit` for any public exploit for this version we see :
 
 ```bash
 root@kali: searchsploit linux 3.13
