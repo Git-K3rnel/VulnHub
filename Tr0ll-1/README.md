@@ -229,7 +229,7 @@ if we check the `searchsploit` for any public exploit for this version we see :
 
 ```bash
 root@kali: searchsploit linux 3.13
-Linux Kernel 3.13.0 < 3.19 (Ubuntu 12.04/14.04/14.10/15.04) - 'overlayfs' Local Privilege Escalation                           | linux/local/37292.c
+Linux Kernel 3.13.0 < 3.19 (Ubuntu 12.04/14.04/14.10/15.04) - 'overlayfs' Local Privilege Escalation | linux/local/37292.c
 ```
 
 this exploit matches with victim kernel version just upload it on the victim and compile and execute it :
