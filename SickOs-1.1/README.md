@@ -63,7 +63,7 @@ the path `wolfcmd` is dissalowed here, i just set my firefox proxy to point to `
 
 ![mainpage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/d1740ada-f57f-4b86-bed9-010d97eac250)
 
-since this is a cms i quickly checked searchsploit for any exploit :
+since this is a CMS, i quickly checked searchsploit for any exploits :
 
 ```text
 searchsploit wolf cms  
@@ -79,6 +79,7 @@ Wolf CMS 0.8.3.1 - Remote Code Execution (RCE)          | php/webapps/51421.txt
 ----------------------------------------------------------------------------------
 Shellcodes: No Results
 ```
+
 i looked at one of [them](https://www.exploit-db.com/exploits/38000), and it mentioned a vulnerable URL there (http://targetsite.com/wolfcms/?/admin/plugin/file_manager/browse/)
 
 just manually visited the url and i was redirected to a login page (i did not know the exact path of admin page but i found it this way)
