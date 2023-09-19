@@ -35,7 +35,7 @@ MAC Address: 00:0C:29:25:B7:8A (VMware)
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
 
-port `3128` is for squid proxy and is open, so the system is using some kind of proxy here
+Port `3128` is for squid proxy and is open, so the system is using some kind of proxy here
 
 and port 8080 is closed, maybe because of proxy.
 
