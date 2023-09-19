@@ -79,7 +79,13 @@ Wolf CMS 0.8.3.1 - Remote Code Execution (RCE)          | php/webapps/51421.txt
 ----------------------------------------------------------------------------------
 Shellcodes: No Results
 ```
-i looked at one of [them](https://www.exploit-db.com/exploits/38000)
+i looked at one of [them](https://www.exploit-db.com/exploits/38000), and it mentioned a vulnerable URL there (http://targetsite.com/wolfcms/?/admin/plugin/file_manager/browse/)
+
+just manually visited the url and i was redirected to a login page (i did not know the exact path of admin page but i found it this way)
+
+simply tried `admin:admin` and booom, i was in.
+
+looking at the result of the searchsploit for RCE [php/webapps/51421.txt](https://www.exploit-db.com/exploits/51421)
 
 
 
