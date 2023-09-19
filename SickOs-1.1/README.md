@@ -39,7 +39,7 @@ port `3128` is for squid proxy and is open, so the system is using some kind of 
 
 and port 8080 is closed, maybe because of proxy.
 
-so we need to proxy our traffic through squid to see if any website is available 
+so we need to proxy our traffic through squid to see if any website is available, go [here](https://book.hacktricks.xyz/network-services-pentesting/3128-pentesting-squid) for details
 
 
 
