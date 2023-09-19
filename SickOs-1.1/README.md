@@ -39,11 +39,47 @@ port `3128` is for squid proxy and is open, so the system is using some kind of 
 
 and port 8080 is closed, maybe because of proxy.
 
-so we need to proxy our traffic through squid to see if any website is available, go [here](https://book.hacktricks.xyz/network-services-pentesting/3128-pentesting-squid) for details
+so we need to proxy our traffic through squid to see if any website is available, go [here](https://book.hacktricks.xyz/network-services-pentesting/3128-pentesting-squid) for details.
 
+```text
+root㉿kali:~# curl --proxy http://192.168.127.229:3128 http://192.168.127.229
 
+<h1>
+BLEHHH!!!
+</h1>
+```
 
+yes, there is a website here, let's check for `robots.txt` :
 
+```text
+root㉿kali:~# curl --proxy http://192.168.127.229:3128 http://192.168.127.229/robots.txt
+
+User-agent: *
+Disallow: /
+Dissalow: /wolfcms
+```
+
+the path `wolfcmd` is dissalowed here, i just set my firefox proxy to point to `192.168.127.229:3128` and visited the `/wolfcms` :
+
+![mainpage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/d1740ada-f57f-4b86-bed9-010d97eac250)
+
+since this is a cms i quickly checked searchsploit for any exploit :
+
+```text
+searchsploit wolf cms  
+----------------------------------------------------------------------------------
+ Exploit Title                                          |  Path
+----------------------------------------------------------------------------------
+Wolf CMS - Arbitrary File Upload / Execution            | php/webapps/38000.txt
+Wolf CMS 0.6.0b - Multiple Vulnerabilities              | php/webapps/15614.html
+Wolf CMS 0.7.5 - Multiple Vulnerabilities               | php/webapps/18545.txt
+Wolf CMS 0.8.2 - Arbitrary File Upload                  | php/webapps/36818.php
+Wolf CMS 0.8.2 - Arbitrary File Upload (Metasploit)     | php/remote/40004.rb
+Wolf CMS 0.8.3.1 - Remote Code Execution (RCE)          | php/webapps/51421.txt
+----------------------------------------------------------------------------------
+Shellcodes: No Results
+```
+i looked at one of [them](https://www.exploit-db.com/exploits/38000)
 
 
 
