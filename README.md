@@ -11,3 +11,4 @@ In this repo i provide write-ups for VulnHub machines :
 * [pWnOS: 1.0](https://github.com/Git-K3rnel/VulnHub/tree/main/PWNOS-1.0)
 * [Hackademic: RTB1](https://github.com/Git-K3rnel/VulnHub/tree/main/Hackademic-RTB1)
 * [Tr0ll: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/Tr0ll-1)
+* [SickOs: 1.1](https://github.com/Git-K3rnel/VulnHub/tree/main/SickOs-1.1)
