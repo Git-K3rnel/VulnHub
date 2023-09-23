@@ -38,3 +38,28 @@ PORT   STATE SERVICE VERSION
 MAC Address: 00:0C:29:A0:3B:C4 (VMware)
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
+
+lets' see the web page :
+
+![mainPage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/1d8bfdcd-6cef-4e90-8159-46237d681b72)
+
+analyzing the website shows that it is using basic functions and have basic pages, 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
