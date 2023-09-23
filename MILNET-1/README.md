@@ -85,12 +85,21 @@ it shows phpinfo which is alot useful, pay attention to this section :
 
 ![urlopen](https://github.com/Git-K3rnel/VulnHub/assets/127470407/74d321a3-7aa5-4f23-ad53-aa2d0c3425e6)
 
-this line shows that we can include external URLs and it loads it, meaning we have RFI here, the `route`
+this line shows that we can include external URLs and it loads it, meaning we have `RFI` here, the `route`
 
-parameter is interesting because it suspicious too LFI too
+parameter is interesting because it suspicious to `LFI` too :
 
+![LFI](https://github.com/Git-K3rnel/VulnHub/assets/127470407/25f01221-8a2c-45b0-87a8-9f48772b0242)
 
+as you can see, it loads the info page again. so since we have LFI and RFI here, if first tried to load the
 
+source code of the pages with PHP wrapper base64 encode :
+
+![wrapper](https://github.com/Git-K3rnel/VulnHub/assets/127470407/1483dd4b-0c48-45ab-a622-bb0bbe4d3040)
+
+but it did not show anything, i tried to use RFI and used pentest monkey php reverse shell and saved it to `revshell.php`
+
+and using python http server i sent a request to my server to get a reverse shell
 
 
 
