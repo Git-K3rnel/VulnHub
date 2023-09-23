@@ -50,7 +50,44 @@ that is used to call each page, `route`, which opens new pages :
 
 ![route](https://github.com/Git-K3rnel/VulnHub/assets/127470407/7fb366da-a6bd-4447-85c8-1c60876b3dea)
 
+since this is a parameter that loads other pages, i decided to first FUZZ any other pages available by this parameter :
 
+```text
+root@kali: ffuf -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt  -H "Content-Type: application/x-www-form-urlencoded" -X POST -d "route=FUZZ" -u http://192.168.127.231/content.php -fs 1
+
+[Status: 200, Size: 146, Words: 7, Lines: 10, Duration: 13ms]
+    * FUZZ: index
+
+[Status: 200, Size: 110, Words: 8, Lines: 6, Duration: 14ms]
+    * FUZZ: main
+
+[Status: 200, Size: 64312, Words: 2958, Lines: 703, Duration: 12ms]
+    * FUZZ: info
+
+[Status: 200, Size: 533, Words: 31, Lines: 16, Duration: 12ms]
+    * FUZZ: nav
+
+[Status: 500, Size: 369, Words: 37, Lines: 12, Duration: 609ms]
+    * FUZZ: content
+
+[Status: 200, Size: 3902, Words: 519, Lines: 30, Duration: 7ms]
+    * FUZZ: bomb
+
+[Status: 200, Size: 254, Words: 26, Lines: 14, Duration: 6ms]
+    * FUZZ: props
+```
+
+yes, i found `info` directory and navigated to it using firefox `edit and resend`:
+
+![php](https://github.com/Git-K3rnel/VulnHub/assets/127470407/38b760ba-2a44-4598-aea3-b1390c349ab3)
+
+it shows phpinfo which is alot useful, pay attention to this section :
+
+![urlopen](https://github.com/Git-K3rnel/VulnHub/assets/127470407/74d321a3-7aa5-4f23-ad53-aa2d0c3425e6)
+
+this line shows that we can include external URLs and it loads it, meaning we have RFI here, the `route`
+
+parameter is interesting because it suspicious too LFI too
 
 
 
