@@ -14,7 +14,7 @@ Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)
 192.168.127.254 00:50:56:fd:64:8a       (Unknown)
 ```
 
-the VM IP is `192.168.127.231`, let's enumerate it.
+The VM IP is `192.168.127.231`, let's enumerate it.
 
 ## 2.Enumeration
 
@@ -39,7 +39,7 @@ MAC Address: 00:0C:29:A0:3B:C4 (VMware)
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
 
-lets' see the web page :
+Lets' see the web page :
 
 ![mainPage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/1d8bfdcd-6cef-4e90-8159-46237d681b72)
 
@@ -97,12 +97,22 @@ source code of the pages with PHP wrapper base64 encode :
 
 ![wrapper](https://github.com/Git-K3rnel/VulnHub/assets/127470407/1483dd4b-0c48-45ab-a622-bb0bbe4d3040)
 
-but it did not show anything, i tried to use RFI and used pentest monkey php reverse shell and saved it to `revshell.php`
+but it did not show anything.
 
-and using python http server i sent a request to my server to get a reverse shell.
+## 3.Gaining Shell
 
+I tried to use RFI and used pentest monkey php reverse shell and saved it to `revshell.php`
+
+and using python http server i served the file and sent a request to my server to get a reverse shell.
+
+![revshell2](https://github.com/Git-K3rnel/VulnHub/assets/127470407/697ee6df-ce27-4ce6-9b59-ba01419cfbfa)
 
 ![revshell](https://github.com/Git-K3rnel/VulnHub/assets/127470407/ea55107b-0949-4777-a469-91908ddc07df)
+
+yes, this is our shell.
+
+## 4.Privilege Escalation
+
 
 
 
