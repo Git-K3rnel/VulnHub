@@ -50,7 +50,7 @@ that is used to call each page, `route`, which opens new pages :
 
 ![route](https://github.com/Git-K3rnel/VulnHub/assets/127470407/7fb366da-a6bd-4447-85c8-1c60876b3dea)
 
-since this is a parameter that loads other pages, i decided to first FUZZ any other pages available by this parameter :
+since this is a parameter that loads other pages, i decided to first FUZZ for any other pages available by this parameter :
 
 ```text
 root@kali: ffuf -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt  -H "Content-Type: application/x-www-form-urlencoded" -X POST -d "route=FUZZ" -u http://192.168.127.231/content.php -fs 1
@@ -85,13 +85,13 @@ it shows phpinfo which is alot useful, pay attention to this section :
 
 ![urlopen](https://github.com/Git-K3rnel/VulnHub/assets/127470407/74d321a3-7aa5-4f23-ad53-aa2d0c3425e6)
 
-this line shows that we can include external URLs and it loads it, meaning we have `RFI` here, the `route`
+this line shows that we can include external URLs and it loads it, meaning maybe we have `RFI` here, the `route`
 
 parameter is interesting because it suspicious to `LFI` too :
 
 ![LFI](https://github.com/Git-K3rnel/VulnHub/assets/127470407/25f01221-8a2c-45b0-87a8-9f48772b0242)
 
-as you can see, it loads the info page again. so since we have LFI and RFI here, if first tried to load the
+as you can see, it loads the info page again. so since we have LFI and RFI here, i first tried to load the
 
 source code of the pages with PHP wrapper base64 encode :
 
@@ -135,7 +135,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
 ```
 
-luckily we see that every one minute a file `backup.sh` is beding executed, let see the permission and content of this file :
+luckily we see that every one minute a file `backup.sh` is being executed, let's see the permission and content of this file :
 
 ```text
 $ ls -l /backup/backup.sh
@@ -149,7 +149,7 @@ tar cf /backup/backup.tgz *
 
 as it is shown, it has root permissions and it is going to make a backup of all `/var/www/html` contents by using `tar` command.
 
-i just got confused by the way it is doing it, after alittle research and seeing hacktricks site for `tar` command [here](https://book.hacktricks.xyz/linux-hardening/privilege-escalation/wildcards-spare-tricks#tar)
+i just got confused by the way it is doing it, after a little research and seeing hacktricks site for `tar` command [here](https://book.hacktricks.xyz/linux-hardening/privilege-escalation/wildcards-spare-tricks#tar)
 
 i noticed that using wildcard here is the problem and can lead to arbitary command execution since it is in `Wildcards Spare tricks` section of hacktricks website.
 
