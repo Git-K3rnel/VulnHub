@@ -99,7 +99,10 @@ source code of the pages with PHP wrapper base64 encode :
 
 but it did not show anything, i tried to use RFI and used pentest monkey php reverse shell and saved it to `revshell.php`
 
-and using python http server i sent a request to my server to get a reverse shell
+and using python http server i sent a request to my server to get a reverse shell.
+
+
+![revshell](https://github.com/Git-K3rnel/VulnHub/assets/127470407/ea55107b-0949-4777-a469-91908ddc07df)
 
 
 
