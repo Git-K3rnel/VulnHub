@@ -113,10 +113,43 @@ yes, this is our shell.
 
 ## 4.Privilege Escalation
 
+One of the first things i do each time gaining access to a machine is to check crontab file and its subdirectories :
 
+```text
+$ cat /etc/crontab
 
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
 
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
+# m h dom mon dow user  command
+*/1 *   * * *   root    /backup/backup.sh
+17 *    * * *   root    cd / && run-parts --report /etc/cron.hourly
+25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+47 6    * * 7   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+```
+
+luckily we see that every one minute a file `backup.sh` is beding executed, let see the permission and content of this file :
+
+```text
+$ ls -l /backup/backup.sh
+-rw-r--r-x 1 root root 57 May 21  2016 /backup/backup.sh
+
+$ cat /backup/backup.sh
+#!/bin/bash
+cd /var/www/html
+tar cf /backup/backup.tgz *
+```
+
+as it is shown, it has root permissions and it is going to make a backup of all `/var/www/html` contents by using `tar` command.
+
+i just got confused by the way it is doing it, after alittle research and seeing hacktricks site for `tar` command [here](https://book.hacktricks.xyz/linux-hardening/privilege-escalation/wildcards-spare-tricks#tar)
 
 
 
