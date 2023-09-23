@@ -43,7 +43,12 @@ lets' see the web page :
 
 ![mainPage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/1d8bfdcd-6cef-4e90-8159-46237d681b72)
 
-analyzing the website shows that it is using basic functions and have basic pages, 
+analyzing the website shows that it is using basic functions and have basic pages, but if you look closer you see a parameter
+
+that is used to call each page, `route`, which opens new pages :
+
+
+![route](https://github.com/Git-K3rnel/VulnHub/assets/127470407/7fb366da-a6bd-4447-85c8-1c60876b3dea)
 
 
 
