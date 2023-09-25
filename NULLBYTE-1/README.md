@@ -105,6 +105,11 @@ root@kali: ffuf -w /usr/share/wordlists/rockyou.txt  -H "Content-Type: applicati
     * FUZZ: elite
 ```
 
+just provide the `elite` in the key input box and you will see the below page :
+
+![index](https://github.com/Git-K3rnel/VulnHub/assets/127470407/80cac999-57d2-4378-862a-a7cbfa7c47f7)
+
+
 
 
 
