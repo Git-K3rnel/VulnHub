@@ -209,7 +209,7 @@ ramses@NullByte:~$ find / -user root -perm /4000 2>/dev/null
 /sbin/mount.nfs
 ```
 
-the binary `procwatch` is interesting let's check it :
+the binary `procwatch` is interesting, let's check it :
 
 ```text
 ramses@NullByte:~$ cd /var/www/backup/
