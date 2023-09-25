@@ -54,9 +54,9 @@ On port 80, we see a web page like this :
 
 ![mainPage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/c2abb771-965c-4fbf-a5db-1906e0d2dc71)
 
-fuzzing the website leads to finding a `phpmyadmin` path and nothing else, because there is no clue here i thought that there might be something in the image itself
+fuzzing the website leads to finding a `phpmyadmin` path and nothing else, because there is no clue here, i thought that there might be something in the image itself
 
-so i downloaded the image (which is a gif file) and inspect it with `exiftool` :
+so i downloaded the image (which is a gif file) and inspected it with `exiftool` :
 
 ```text
 root@kali: exiftool main.gif
