@@ -84,9 +84,9 @@ Image Size                      : 235x302
 Megapixels                      : 0.071
 ```
 
-as it is shows in `Comment` section we see a string, `kzMb5nVYJw`, which is more likely to be the path
+as it is shown in `Comment` section we see a string, `kzMb5nVYJw`, which is more likely to be the path.
 
-by adding this string to the path in the website, page below is shown :
+by adding this string to the path in the website, the page below is shown :
 
 ![keypage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/1c4156b7-7c45-4c95-bbb5-c9cb7be3d9ac)
 
