@@ -49,3 +49,59 @@ PORT      STATE SERVICE VERSION
 MAC Address: 00:0C:29:5A:43:E9 (VMware)
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
+
+On port 80, we see a web page like this :
+
+![mainPage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/c2abb771-965c-4fbf-a5db-1906e0d2dc71)
+
+fuzzing the website leads to finding a `phpmyadmin` path and nothing else, because there is no clue here i thought that there might be something in the image itself
+
+so i downloaded the image (which is a gif file) and inspect it with `exiftool` :
+
+```text
+root@kali: exiftool main.gif
+
+ExifTool Version Number         : 12.65
+File Name                       : main.gif
+Directory                       : .
+File Size                       : 17 kB
+File Modification Date/Time     : 2015:08:01 12:39:30-04:00
+File Access Date/Time           : 2023:09:23 07:03:57-04:00
+File Inode Change Date/Time     : 2023:09:23 06:52:11-04:00
+File Permissions                : -rw-r--r--
+File Type                       : GIF
+File Type Extension             : gif
+MIME Type                       : image/gif
+GIF Version                     : 89a
+Image Width                     : 235
+Image Height                    : 302
+Has Color Map                   : No
+Color Resolution Depth          : 8
+Bits Per Pixel                  : 1
+Background Color                : 0
+Comment                         : P-): kzMb5nVYJw
+Image Size                      : 235x302
+Megapixels                      : 0.071
+```
+
+as it is shows in `Comment` section we see a string, `kzMb5nVYJw`, which is more likely to be the path
+
+by adding this string to the path in the website, page below is shown :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
