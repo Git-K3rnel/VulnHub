@@ -88,7 +88,7 @@ as it is shows in `Comment` section we see a string, `kzMb5nVYJw`, which is more
 
 by adding this string to the path in the website, page below is shown :
 
-
+![keypage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/1c4156b7-7c45-4c95-bbb5-c9cb7be3d9ac)
 
 
 
