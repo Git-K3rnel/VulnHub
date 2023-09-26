@@ -1,4 +1,4 @@
-![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/38870c8b-0936-492b-bd14-1062ee90c440)# VulnOS: 2
+# VulnOS: 2
 
 ## 1.Get VM IP
 
@@ -305,7 +305,7 @@ Hope you enjoyed it.
 What do you think of A.I.?
 ```
 
-
+This is how you can root this machine :)
 
 
 
