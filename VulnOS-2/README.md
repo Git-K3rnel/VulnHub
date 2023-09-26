@@ -206,7 +206,26 @@ root@kali: sqlmap -u "http://192.168.56.104/jabcd0cs/ajax_udf.php/?q=1&add_value
 +----+--------------------+-------------+----------------------------------+----------+-----------+------------+------------+---------------+
 ```
 
-perfect, we know have the hashes, i just go for `webmin` user to crack the hash
+perfect, we now have the hashes, i just go for `webmin` user to crack the hash using an online tool
+
+and i got the cracked hash as `webmin1980` and immediately checked SSH to connect.
+
+```text
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
