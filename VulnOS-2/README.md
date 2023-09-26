@@ -48,7 +48,12 @@ or highlight the page, it mentions a directory (/jabcd0cs/) ;
 
 ![path](https://github.com/Git-K3rnel/VulnHub/assets/127470407/eb055fed-4dab-4632-b8c8-c9cdd5758e61)
 
+is also started fuzzing the website and checking robots.txt which revealed new directories :
 
+```text
+
+
+```
 
 
 
