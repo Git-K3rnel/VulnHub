@@ -1,4 +1,4 @@
-# VulnOS: 2
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/38870c8b-0936-492b-bd14-1062ee90c440)# VulnOS: 2
 
 ## 1.Get VM IP
 
@@ -37,3 +37,26 @@ PORT     STATE SERVICE VERSION
 MAC Address: 08:00:27:57:4F:AA (Oracle VirtualBox virtual NIC)
 Service Info: Host: irc.example.net; OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
+
+checking port 80 shows a basic website :
+
+![mainPage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/378a7c15-24ab-4726-9a9e-d20150ac6047)
+
+i first navigated each menu and its page source, `documentation` menu is weird and has nothing in UI but if you see the page source
+
+or highlight the page, it mentions a directory (/jabcd0cs/) ;
+
+![path](https://github.com/Git-K3rnel/VulnHub/assets/127470407/eb055fed-4dab-4632-b8c8-c9cdd5758e61)
+
+
+
+
+
+
+
+
+
+
+
+
+
