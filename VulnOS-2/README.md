@@ -95,6 +95,11 @@ Disallow: /?q=user/login/
 Disallow: /?q=user/logout/
 ```
 
+there is nothing interesting in these directories, so let's check the `/jabcd0cs/` :
+
+![docman](https://github.com/Git-K3rnel/VulnHub/assets/127470407/47cbb7ec-3500-4723-878d-6fa4fb98b793)
+
+
 
 
 
