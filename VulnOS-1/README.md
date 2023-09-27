@@ -230,7 +230,7 @@ i found afew directories and we need to check them all, after searching and gain
 
 on this machine, i tried several brute force attacks against login pages but did not succeed :(
 
-i decided to go for another port enumeration that i knew might have vulnerabilities, port `10000` which for webmin
+i decided to go for another port enumeration that i knew might have vulnerabilities, port `10000` which is for webmin
 
 i used metasploit `auxiliary(admin/webmin/file_disclosure)` to see the `/etc/passwd` file :
 
@@ -350,7 +350,7 @@ i tried to crack the hash with john and rockyou.txt but did not succeed.
 
 at least we have something to work with.
 
-i tried enumerating other ports and services but none of the gave something interesting except port `389`
+i tried enumerating other ports and services but none of them gave something interesting except port `389`
 
 which is for `ldap`, after alittle reserach on ldap for unix machines i came accross a file which drew my attention
 
