@@ -15,3 +15,4 @@ In this repo i provide write-ups for VulnHub machines :
 * [Milnet: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/MILNET-1)
 * [NULLBYTE: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/NULLBYTE-1)
 * [VULNOS: 2](https://github.com/Git-K3rnel/VulnHub/tree/main/VulnOS-2)
+* [VulnOS: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/VulnOS-1)
