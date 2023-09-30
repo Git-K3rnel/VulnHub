@@ -322,7 +322,7 @@ use `/server 192.168.127.233 6667` to connect to server :
 again i connected to waldo tmux session and entered the `/list` to find whcih channels waldo has joined :
 
 ```text
-waldo@ubuntu:~$ tmux attack
+waldo@ubuntu:~$ tmux attach
 
 /list
 
