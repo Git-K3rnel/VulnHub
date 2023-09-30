@@ -156,10 +156,12 @@ yes, we have command injection here, and we can get a reverse shell.
 
 ## 3.Gaining Shell
 
+I used a python reverse shell and URL encoded it, started a listener and got the shell as below :
+
+![shell](https://github.com/Git-K3rnel/VulnHub/assets/127470407/dff8d11f-e174-4d70-b476-be2747674f33)
 
 
-
-
+## 4.Privilege Escalation
 
 
 
