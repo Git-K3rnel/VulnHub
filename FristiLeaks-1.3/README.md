@@ -246,7 +246,7 @@ bash-4.1$ find / -user fristigod -o -group fristigod 2> /dev/null
 
 ## Privilege Escalation to root
 
-Interesting!! there is two hidden files in `/var/fristigod`, examining the `.bash_history` shows previous commands :
+Interesting!! there are two hidden files in `/var/fristigod`, examining the `.bash_history` shows previous commands :
 
 ```bash
 bash-4.1$ cd /var/fristigod
