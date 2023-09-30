@@ -302,7 +302,27 @@ waldo@ubuntu:~$ tmux ls
 irssi: 1 windows (created Sat Sep 30 03:23:22 2023) [80x23]
 ```
 
-let's connect to this tmux session and see what's going on
+let's connect to this tmux session and see what's going on :
+
+```text
+waldo@ubuntu:~$ tmux attach
+```
+
+it shows that waldo has connected to server, we can connect to server with hexchat too :
+
+after adding the server, we see there is no channel to join ;
+
+![hexchat](https://github.com/Git-K3rnel/VulnHub/assets/127470407/aa1af440-ee16-4829-a6ca-13b95380a607)
+
+
+
+
+
+
+
+
+
+
 
 
 
