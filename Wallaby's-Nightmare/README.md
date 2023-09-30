@@ -339,7 +339,27 @@ we can now join to this channel too in hexchat with `/join` command :
 
 as we see here, me and waldo and wallabys bot are in the same chat.
 
+i navigated to wallaby home directory and found `.sopel`, from there i checked the sub directories untill i reached the `modules` directory
 
+which has a `run.py` in it, see the content :
+
+```python
+waldo@ubuntu:/home/wallaby/.sopel/modules$ cat run.py
+
+import sopel.module, subprocess, os
+from sopel.module import example
+
+@sopel.module.commands('run')
+@example('.run ls')
+def run(bot, trigger):
+     if trigger.owner:
+          os.system('%s' % trigger.group(2))
+          runas1 = subprocess.Popen('%s' % trigger.group(2), stdout=subprocess.PIPE).communicate()[0]
+          runas = str(runas1)
+          bot.say(' '.join(runas.split('\\n')))
+     else:
+          bot.say('Hold on, you aren\'t Waldo?')
+```
 
 
 
