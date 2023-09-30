@@ -56,13 +56,47 @@ now i'm suspicious to this parameter, i tried path traversal payloads and it wor
 
 ![pathTraversal](https://github.com/Git-K3rnel/VulnHub/assets/127470407/661ac9e0-e246-4ff4-96bf-dd340e447687)
 
-then i tried to see other files like `/etc/shadow` that this message appeared :
+we found three users here :
 
+```text
+walfin:x:1000:1000:walfin,,,:/home/walfin:/bin/bash
+steven?:x:1001:1001::/home/steven?:/bin/bash
+ircd:x:1003:1003:,,,:/home/ircd:/bin/bash
+```
+
+then i tried to see other files like `/etc/shadow` that this message appeared :
 
 ![shadowFile](https://github.com/Git-K3rnel/VulnHub/assets/127470407/4a39972b-2181-4e13-bec2-7d313a7ed7c1)
 
+after this i could not connect to machine on port 80 any more, i think diffucly increase is that the service is not 
 
+available on port 80, so i scanned the machine one more time :
 
+```text
+root@kali: nmap -sV -sC  -p- -v -oN fullscan2 192.168.127.233
+
+Nmap scan report for 192.168.127.233
+Host is up (0.00013s latency).
+Not shown: 65532 closed tcp ports (reset)
+PORT      STATE    SERVICE VERSION
+22/tcp    open     ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.1 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey:
+|   2048 6e:07:fc:70:20:98:f8:46:e4:8d:2e:ca:39:22:c7:be (RSA)
+|   256 99:46:05:e7:c2:ba:ce:06:c4:47:c8:4f:9f:58:4c:86 (ECDSA)
+|_  256 4c:87:71:4f:af:1b:7c:35:49:ba:58:26:c1:df:b8:4f (ED25519)
+6667/tcp  filtered irc
+60080/tcp open     http    Apache httpd 2.4.18 ((Ubuntu))
+| http-methods:
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-title: Wallaby's Server
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+MAC Address: 00:0C:29:96:AB:45 (VMware)
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+```
+
+yes, the service is now has been moved on port 60080, so let's open the site on this port :
+
+![newPage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/ad7c2230-6008-43b3-84ea-83c93f0719d5)
 
 
 
