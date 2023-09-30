@@ -56,7 +56,10 @@ now i'm suspicious to this parameter, i tried path traversal payloads and it wor
 
 ![pathTraversal](https://github.com/Git-K3rnel/VulnHub/assets/127470407/661ac9e0-e246-4ff4-96bf-dd340e447687)
 
-then i tried to see other files like `/etc/shadow` that this message appeared
+then i tried to see other files like `/etc/shadow` that this message appeared :
+
+
+![shadowFile](https://github.com/Git-K3rnel/VulnHub/assets/127470407/4a39972b-2181-4e13-bec2-7d313a7ed7c1)
 
 
 
