@@ -314,12 +314,30 @@ after adding the server, we see there is no channel to join ;
 
 ![hexchat](https://github.com/Git-K3rnel/VulnHub/assets/127470407/aa1af440-ee16-4829-a6ca-13b95380a607)
 
+use `/server 192.168.127.233 6667` to connect to server :
+
+![hexchat2](https://github.com/Git-K3rnel/VulnHub/assets/127470407/dd81e8e7-f08c-45f6-96db-a53e036091b2)
 
 
+again i connected to waldo tmux session and entered the `/list` to find whcih channels waldo has joined :
+
+```text
+waldo@ubuntu:~$ tmux attack
+
+/list
+
+04:47 -!- Channel Users  Name
+04:47 -!- #wallabyschat 2
+04:47 -!- End of /LIST
+```
+
+we can now join to this channel too in hexchat with `/join` command :
 
 
+![hexchat3](https://github.com/Git-K3rnel/VulnHub/assets/127470407/9805bf87-adb4-4c76-97ab-ae97efee62a2)
 
 
+as we see here, me and waldo and wallabys bot are in the same chat.
 
 
 
