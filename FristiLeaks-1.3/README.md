@@ -281,5 +281,5 @@ Shoutout to people of #fristileaks (twitter) and #vulnhub (FreeNode)
 Flag: Y0u_kn0w_y0u_l0ve_fr1st1
 ```
 
-This is how you can pawn this box :)
+This is how you can hack this box :)
 
