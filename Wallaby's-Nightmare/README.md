@@ -275,12 +275,34 @@ waldo@ubuntu:~$ id
 uid=1000(waldo) gid=1000(waldo) groups=1000(waldo),24(cdrom),30(dip),46(plugdev),114(lpadmin),115(sambashare)
 ```
 
+## 5.Privilege Escalation 2
 
+Now that we have waldo access, go to home directory and visite waldo home :
 
+```text
+waldo@ubuntu:~$ ls -l
+total 4
+-rwxrwxr-x 1 waldo waldo 113 Dec 16  2016 irssi.sh
+```
 
+this script exists here and when you see the content, there is a tmux session in it :
 
+```text
+waldo@ubuntu:~$ cat irssi.sh
+#!/bin/bash
+tmux new-session -d -s irssi
+tmux send-keys -t irssi 'n' Enter
+tmux send-keys -t irssi 'irssi' Ente
+```
 
+see the tmux list :
 
+```text
+waldo@ubuntu:~$ tmux ls
+irssi: 1 windows (created Sat Sep 30 03:23:22 2023) [80x23]
+```
+
+let's connect to this tmux session and see what's going on
 
 
 
