@@ -331,7 +331,7 @@ waldo@ubuntu:~$ tmux attack
 04:47 -!- End of /LIST
 ```
 
-we can now join to this channel too in hexchat with `/join` command :
+we can now join to this channel too in hexchat with `/join #wallabyschat` command :
 
 
 ![hexchat3](https://github.com/Git-K3rnel/VulnHub/assets/127470407/9805bf87-adb4-4c76-97ab-ae97efee62a2)
