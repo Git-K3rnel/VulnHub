@@ -20,7 +20,7 @@ Host is up.
 Nmap done: 256 IP addresses (4 hosts up) scanned in 15.07 seconds
 ```
 
-The IP address is `192.168.127.135`, let scan it.
+The IP address is `192.168.127.135`, let's scan it.
 
 ## 2.Enumeration
 
