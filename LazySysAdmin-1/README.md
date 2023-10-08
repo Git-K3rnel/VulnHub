@@ -143,9 +143,21 @@ define('DB_USER', 'Admin');
 define('DB_PASSWORD', 'TogieMYSQL12345^^');
 ```
 
+we also download the `deets.txt` from the share.
+
+content of deets.txt
+
+```text
+CBF Remembering all these passwords.
+
+Remember to remove this file and update your password after we push out the server.
+
+Password 12345
+```
+
 ## 3.Gaining Shell
 
-we can not connect to mysql remotely but can connect to wordpress admin panel using the credentials found in `wp-config.php`:
+We can not connect to mysql remotely but can connect to wordpress admin panel using the credentials found in `wp-config.php`:
 
 ![wordpress panel](https://github.com/Git-K3rnel/VulnHub/assets/127470407/f0e53320-202e-4a26-958d-b0f565a74b04)
 
@@ -174,6 +186,8 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 $ id
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
+
+## 4.Privilege Escalation
 
 
 
