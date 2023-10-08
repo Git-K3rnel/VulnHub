@@ -1,0 +1,2 @@
+# LazySysAdmin: 1
+
