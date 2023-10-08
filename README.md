@@ -17,3 +17,4 @@ In this repo i provide write-ups for VulnHub machines :
 * [VulnOS: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/VulnOS-1)
 * [VulnOS: 2](https://github.com/Git-K3rnel/VulnHub/tree/main/VulnOS-2)
 * [WALLABY'S: NIGHTMARE](https://github.com/Git-K3rnel/VulnHub/tree/main/Wallaby's-Nightmare)
+* [LazySysAdmin: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/LazySysAdmin-1)
