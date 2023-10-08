@@ -87,7 +87,7 @@ Host script results:
 |_  WORKGROUP<1e>        Flags: <group><active>
 ```
 
-let's first go for SMB :
+Let's first go for SMB :
 
 ```bash
 root@kali: smbmap -H 192.168.56.106
@@ -189,7 +189,7 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 
 ## 4.Privilege Escalation
 
-navigate to `/home` and you see user `togie`.
+Navigate to `/home` and you see user `togie`.
 
 change user to togie and privide the password `12345` we found in deets.txt previously :
 
