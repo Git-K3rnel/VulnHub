@@ -160,7 +160,7 @@ read the note and try to execute the `customPermissionApp` but it is not possibl
 
 ![password](https://github.com/Git-K3rnel/VulnHub/assets/127470407/8e8d5869-eac3-49f0-b114-0e3fd5b5b552)
 
-put these lined together and remove the `H` from it and you will get :
+put these lines together and remove the `H` from it and you will get :
 
 ```text
 SUPERultimatePASSWORDyouCANTget
