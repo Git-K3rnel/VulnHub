@@ -64,6 +64,39 @@ so we go to `/dev` :
 
 here we see afew users mentioned at the bottom of the page, but if we see the page source we find user passwords hashes too :
 
+![hash](https://github.com/Git-K3rnel/VulnHub/assets/127470407/fee2a848-115a-40e9-b002-823b1782c436)
+
+we try to crack these hashes and only 2 of them is cracked, the one for user `nick` and `sarah`.
+
+use an online resource to crack the hashes :
+
+```text
+nick  | ddf45997a7e18a25ad5f5cf222da64814dd060d5 = bulldog
+sarah | d8b8dd5e7f000b8dea26ef8428caf38c04466b3e = bulldoglover
+```
+
+there is also a link in `/dev` which redirects us to `/dev/shell` and here we must first be authenticated :
+
+![shell](https://github.com/Git-K3rnel/VulnHub/assets/127470407/3f52cd3b-6c74-4d25-8158-f5da8909a0de)
+
+since we found passwords of the users, try to login to `/admin` path with user nick or sarah :
+
+![login](https://github.com/Git-K3rnel/VulnHub/assets/127470407/f754b5c3-8af8-44dc-9f6d-9cf2e93f4ab1)
+
+now we can go to `/dev/shell` and this page is shown :
+
+![webshell](https://github.com/Git-K3rnel/VulnHub/assets/127470407/2b55ef5b-1d21-411d-9251-10c8e5001961)
+
+here we can run afew commands, but if we use `&&` we can execute another command too, so there is a command injection vulnerability here :
+
+
+
+
+
+
+
+
+
 
 
 
