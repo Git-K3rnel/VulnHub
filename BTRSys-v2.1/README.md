@@ -68,7 +68,43 @@ root@kali: gobuster dir --url http://192.168.127.235 --wordlist /usr/share/wordl
 /CHANGELOG            (Status: 200) [Size: 224]
 ```
 
-so we have wordpress here, we can enumerate it with `wpscan`
+so we have wordpress here, we can enumerate it with `wpscan` :
+
+```bash
+root@kali: wpscan --url http://192.168.127.235/wordpress -e u,vp
+...
+[i] User(s) Identified:
+
+[+] btrisk
+ | Found By: Author Id Brute Forcing - Author Pattern (Aggressive Detection)
+
+[+] admin
+ | Found By: Author Id Brute Forcing - Author Pattern (Aggressive Detection)
+ | Confirmed By: Login Error Messages (Aggressive Detection)
+```
+
+##3. Gaining Shell
+
+Now we can test the admin panel with these users, i tried to login with `admin:admin` and it worked.
+
+all we need to do now is to use a reverse shell in `Appereance -> editor -> Main Index Template (index.php) `
+
+start a listener and use a PHP pnetest monkey reverse shell.
+
+## 4.Privilege Escalation
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
