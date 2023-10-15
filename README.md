@@ -19,3 +19,4 @@ In this repo i provide write-ups for VulnHub machines :
 * [WALLABY'S: NIGHTMARE](https://github.com/Git-K3rnel/VulnHub/tree/main/Wallaby's-Nightmare)
 * [LazySysAdmin: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/LazySysAdmin-1)
 * [Bulldog: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/Bulldog-1)
+* [BTRSys: v2.1](https://github.com/Git-K3rnel/VulnHub/tree/main/BTRSys-v2.1)
