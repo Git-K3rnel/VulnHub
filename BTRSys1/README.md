@@ -50,3 +50,70 @@ PORT   STATE SERVICE VERSION
 MAC Address: 00:0C:29:25:E6:E8 (VMware)
 Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 ```
+
+We check the web page and it is like this :
+
+![mainpage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/31e72086-acf2-4ea5-8f1a-be8f1bd6c255)
+
+there is no information here so we use gobuster to fuzz the web application :
+
+```bash
+root@kali: gobuster dir --url http://192.168.127.236 --wordlist /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+/uploads              (Status: 301) [Size: 319] [--> http://192.168.127.236/uploads/]
+/assets               (Status: 301) [Size: 318] [--> http://192.168.127.236/assets/]
+/javascript           (Status: 301) [Size: 322] [--> http://192.168.127.236/javascript/]
+/server-status        (Status: 403) [Size: 295]
+```
+
+checking the above directories has nothing to do with, so is used nikto against the website :
+
+```bash
+root@kali: nikto -host http://192.168.127.236
+
++ /config.php: PHP Config file may contain database IDs and passwords.
++ /icons/README: Apache default file found. See: https://www.vntweb.co.uk/apache-restricting-access-to-iconsreadme/
++ /login.php: Admin login page/section found
+```
+
+we can now check the `login.php` page : 
+
+![loginpage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/506a2422-24a5-460e-ab9d-efd97297958f)
+
+website is in Turkish language so if you dont know the language use google translate.
+
+in this login page, first check the page source and you see a javascript is used here :
+
+```javascript
+function control(){
+	var user = document.getElementById("user").value;
+    var pwd = document.getElementById("pwd").value;
+
+	var str=user.substring(user.lastIndexOf("@")+1,user.length);
+    
+    if((pwd == "'")){
+		alert("Hack Denemesi !!!");
+		
+    }
+	else if (str!="btrisk.com"){
+		alert("Yanlis Kullanici Bilgisi Denemektesiniz");
+	
+	}	
+	else{
+		
+      document.loginform.submit();
+    }
+}
+```
+
+
+
+
+
+
+
+
+
