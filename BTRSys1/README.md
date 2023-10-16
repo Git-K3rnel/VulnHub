@@ -109,6 +109,18 @@ function control(){
 }
 ```
 
+so we need to put `@btrisk.com` string in the user field to fullfil the javascript needs
+
+if you only put the `@btrisk.com` in the username, you will be logged in but you see no information because does not select anything
+
+![empty](https://github.com/Git-K3rnel/VulnHub/assets/127470407/5b9e58f0-f5a4-45e1-9f21-8a72f5519a4b)
+
+but if you check for the SQLi here and use the following payload, you see the results :
+
+![sqli](https://github.com/Git-K3rnel/VulnHub/assets/127470407/dc1a4fbc-79b5-49a8-9172-6335ac18c05e)
+
+
+![fullpage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/a4f99e40-d9f2-4d1c-b628-eab8473c8f3d)
 
 
 
