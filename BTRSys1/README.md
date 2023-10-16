@@ -122,6 +122,34 @@ but if you check for the SQLi here and use the following payload, you see the re
 
 ![fullpage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/a4f99e40-d9f2-4d1c-b628-eab8473c8f3d)
 
+now we can upload a file here, but first check the page source and you see the javascript again :
+
+```javascript
+// accept=".jpg,.png"
+function getFile(){
+    var filename = document.getElementById("dosya").value;
+    var sonuc = ((/[.]/.exec(filename)) ? /[^.]+$/.exec(filename) : undefined);
+    if((sonuc == "jpg") || (sonuc == "gif") || (sonuc == "png")){
+		document.myform.submit();
+    }else{
+        //mesaj
+        alert("Yanlizca JPG,PNG dosyalari yukleyebilirsiniz.");
+		return false;
+		
+		
+    }
+}
+```
+
+## 3.Gaining Shell
+
+this code just prevents us from uploading files which does not have `jpg`, `gif` or `png` extensions.
+
+but frontend control mechanism can be bypassed by intercepting the traffic with a proxy like burp so prepare
+
+a reverse shell and call the file `revshell.png`, intercept the traffic in burp and change the extension :
+
+![revshell](https://github.com/Git-K3rnel/VulnHub/assets/127470407/14561d2e-280c-443c-b504-54d7bbf1173c)
 
 
 
