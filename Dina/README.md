@@ -31,3 +31,59 @@ PORT   STATE SERVICE VERSION
 |_http-title: Dina
 MAC Address: 08:00:27:B9:C3:C6 (Oracle VirtualBox virtual NIC)
 ```
+
+We explore the website and fuzz the web application :
+
+![MainPage](https://github.com/Git-K3rnel/VulnHub/assets/127470407/cd80ecb5-6813-4ff2-9c0b-adbe5f7088b6)
+
+see robots.txt and the following directories are disallowed :
+
+```text
+User-agent: *
+Disallow: /ange1
+Disallow: /angel1
+Disallow: /nothing
+Disallow: /tmp
+Disallow: /uploads
+```
+
+go to `nothing` directory and see the page source, there is a comment here :
+
+```text
+<!--
+#my secret pass
+freedom
+password
+helloworld!
+diana
+iloveroot
+-->
+```
+
+we collect these possible passwords for later use, and now we can fuzz the application :
+
+```bash
+root@kali: gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://192.168.56.108
+
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+/index                (Status: 200) [Size: 3618]
+/uploads              (Status: 301) [Size: 318] [--> http://192.168.56.108/uploads/]
+/secure               (Status: 301) [Size: 317] [--> http://192.168.56.108/secure/]
+/robots               (Status: 200) [Size: 102]
+/tmp                  (Status: 301) [Size: 314] [--> http://192.168.56.108/tmp/]
+/nothing              (Status: 301) [Size: 318] [--> http://192.168.56.108/nothing/]
+```
+
+
+
+
+
+
+
+
+
+
+
+
