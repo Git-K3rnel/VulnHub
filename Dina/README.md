@@ -76,6 +76,46 @@ Starting gobuster in directory enumeration mode
 /nothing              (Status: 301) [Size: 318] [--> http://192.168.56.108/nothing/]
 ```
 
+navigate to `/secure` and download the `backup.zip` file :
+
+![zipfile](https://github.com/Git-K3rnel/VulnHub/assets/127470407/0d31dd89-96eb-4572-86a1-ea84fb5ce581)
+
+to unzip the file you need to provide a password, i used `freedom` as we found a list of passwords previously on comment in `/nothing` directory :
+
+```bash
+root@kali: 7za e backup.zip
+
+Enter password (will not be echoed):
+Everything is Ok      
+
+Size:       176
+Compressed: 336
+```
+see the file type of `backup-cred.mp3 ` :
+
+```bash
+file backup-cred.mp3                                                                                
+backup-cred.mp3: ASCII tex
+```
+
+now cat the content of backup-cred.mp3 
+
+```bash
+cat backup-cred.mp3
+
+I am not toooo smart in computer .......dat the resoan i always choose easy password...with creds backup file....
+
+uname: touhid
+password: ******
+
+
+url : /SecreTSMSgatwayLogin
+```
+
+great now we have a user `touhid` and new directory `/SecreTSMSgatwayLogin`
+
+navigate to this directory and try to login with user touhid and test the passwords you found on comment previously :
+
 
 
 
