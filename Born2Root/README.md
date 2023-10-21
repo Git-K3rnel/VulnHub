@@ -64,7 +64,7 @@ If you see the home page of user jimmy, there is a file called `networker` and w
 
 this binary is a rabbit hole and has nothing to do with it, since we logged in as 2 users out of 3 possible users
 
-now the only option is to brute force the last user password, user `hadi`, we can generate a new wordlist 
+now the only option is to brute force the last user password, user `hadi`, we can generate a new wordlist or use `rockyou.txt`
 
 
 
