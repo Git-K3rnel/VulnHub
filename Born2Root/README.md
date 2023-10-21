@@ -64,14 +64,54 @@ If you see the home page of user jimmy, there is a file called `networker` and w
 
 this binary is a rabbit hole and has nothing to do with, since we logged in as 2 users out of 3 possible users
 
-now the only option is to brute force the last user password, user `hadi`, we can generate a new wordlist or use `rockyou.txt`
+now the only option is to brute force the last user password, user `hadi`, we can generate a new wordlist or use `rockyou.txt` :
+
+```bash
+root@kali: cat /usr/share/wordlists/rockyou.txt | grep hadi > hadi.txt
+```
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/f536fb33-3d0d-42f7-bbcc-57c4d435085f)
+
+
+now we can log in with password `hadi123`, again in home directory we see binaries that has nothing to do with
+
+they are just rabbit holes, so annoying ...
+
+just reuse the password to get root :
+
+```bash
+hadi@debian:~$ su root
+su root
+Mot de passe : hadi123
+
+root@debian:/home/hadi# cd /root
+cd /root
+root@debian:~# cat flag.txt
+cat flag.txt
+                                                                      
+,-----.                         ,---. ,------.                 ,--.   
+|  |) /_  ,---. ,--.--.,--,--, '.-.  \|  .--. ' ,---.  ,---. ,-'  '-. 
+|  .-.  \| .-. ||  .--'|      \ .-' .'|  '--'.'| .-. || .-. |'-.  .-' 
+|  '--' /' '-' '|  |   |  ||  |/   '-.|  |\  \ ' '-' '' '-' '  |  |   
+`------'  `---' `--'   `--''--''-----'`--' '--' `---'  `---'   `--'   
+
+
+Congratulations ! you  pwned completly Born2root's CTF .
+
+I hope you enjoyed it and you have made Tea's overdose or coffee's overdose :p 
+
+I have blocked some easy ways to complete the CTF ( Kernel Exploit ... ) for give you more fun and more knownledge ...
+
+Pwning the box with a linux binary misconfiguration is more fun than with a Kernel Exploit !
+
+Enumeration is The Key .
 
 
 
+Give me feedback :[FB] Hadi Mene
+```
 
-
-
-
+this is how you can get root on this machine :)
 
 
 
