@@ -22,3 +22,4 @@ In this repo i provide write-ups for VulnHub machines :
 * [BTRSys: v2.1](https://github.com/Git-K3rnel/VulnHub/tree/main/BTRSys-v2.1)
 * [BTRSys1](https://github.com/Git-K3rnel/VulnHub/tree/main/BTRSys1)
 * [DINA: 1.0.1](https://github.com/Git-K3rnel/VulnHub/tree/main/Dina)
+* [Born2Root: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/Born2Root)
