@@ -34,4 +34,27 @@ check the file named `VDSoyuAXiO.txt` and you see a SSH private key here :
 
 we can now check which user does this private key belongs to, i try user `martin` :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/726b9871-be30-4f9e-ac46-ab00b27ca1a4)
+
+and for secret password just use a blank password
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
