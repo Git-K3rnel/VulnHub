@@ -56,7 +56,7 @@ import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/57fb2b39-c6cc-4e35-b08f-bcdce6e93eac)
 
-## 5.Privilege Escalation 2 (root)
+## 5.Privilege Escalation 2 (hadi)
 
 If you see the home page of user jimmy, there is a file called `networker` and when execurting it :
 
@@ -77,7 +77,9 @@ now we can log in with password `hadi123`, again in home directory we see binari
 
 they are just rabbit holes, so annoying ...
 
-just reuse the password to get root :
+## Privilege Escalation 3 (root)
+
+Just reuse the password to get root :
 
 ```bash
 hadi@debian:~$ su root
