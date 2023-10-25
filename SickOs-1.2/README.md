@@ -26,3 +26,12 @@ PORT   STATE SERVICE VERSION
 MAC Address: 00:0C:29:67:CE:D7 (VMware)
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
+
+Visiting the web application has nothing :
+- no robots.txt
+- no special directory
+- no nikto special results
+- no directory traversal vector
+- no session management
+
+  the only useful information from nikto is `/test` directory
