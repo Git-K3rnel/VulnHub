@@ -33,5 +33,47 @@ Visiting the web application has nothing :
 - no nikto special results
 - no directory traversal vector
 - no session management
+- no exploit for `lighttpd 1.4.28`
 
-  the only useful information from nikto is `/test` directory
+the only useful information from nikto is `/test` directory
+
+this directory is a simple directory listing and has nothing interesting, but if we curl to this page :
+
+```bash
+root@kali: curl http://192.168.127.230/test -X OPTIONS -v
+
+*   Trying 192.168.127.230:80...
+* Connected to 192.168.127.230 (192.168.127.230) port 80
+> OPTIONS /test HTTP/1.1
+> Host: 192.168.127.230
+> User-Agent: curl/8.3.0
+> Accept: */*
+> 
+< HTTP/1.1 301 Moved Permanently
+< DAV: 1,2
+< MS-Author-Via: DAV
+< Allow: PROPFIND, DELETE, MKCOL, PUT, MOVE, COPY, PROPPATCH, LOCK, UNLOCK
+< Location: http://192.168.127.230/test/
+< Content-Length: 0
+< Date: Wed, 25 Oct 2023 17:00:21 GMT
+< Server: lighttpd/1.4.28
+< 
+* Connection #0 to host 192.168.127.230 left intact
+```
+ we can see that allowed methods are strang and one of them is put, so we can simply test if we can upload a file here :
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
