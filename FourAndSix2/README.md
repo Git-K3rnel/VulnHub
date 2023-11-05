@@ -230,9 +230,4 @@ acd043bc3103ed3dd02eee99d5b0ff42
 ```
 
 
-
-
-
-
-
-
+this is how you can finish the machine :)
