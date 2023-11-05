@@ -23,3 +23,5 @@ In this repo i provide write-ups for VulnHub machines :
 * [BTRSys1](https://github.com/Git-K3rnel/VulnHub/tree/main/BTRSys1)
 * [DINA: 1.0.1](https://github.com/Git-K3rnel/VulnHub/tree/main/Dina)
 * [Born2Root: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/Born2Root)
+* [Toppo: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/Toppo-1)
+* [FourAndSix: 2.01](https://github.com/Git-K3rnel/VulnHub/tree/main/FourAndSix2)
