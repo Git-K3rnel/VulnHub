@@ -121,7 +121,17 @@ i used `Drupalgeddon2` from metasploit to get the shell.
 
 ## 3.Gaining Shell
 
+In metasploit :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/e6e85c62-d67e-4771-a186-e5449f3c1cbe)
+
+use `exploit/unix/webapp/drupal_drupalgeddon2` and you will get the shell :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/0ca7fd90-88af-4caf-851d-85e8ebbd39e2)
+
+yes, we got the shell
+
+## 4.Privilege Escalation
 
 
 
