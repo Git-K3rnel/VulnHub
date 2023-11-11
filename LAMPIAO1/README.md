@@ -111,7 +111,16 @@ we can see from `robots.txt` that there is a directory `/CHANGELOG.txt` which re
 
 so i just searched for any exploit with this version on the internet and came accross [this](https://www.exploit-db.com/exploits/41564) exploit but it did not work
 
-because we have no `rest_endpoint` or `rest` in web server as it mentions in the code
+because we have no `rest_endpoint` or `rest` in web server as it mentions in the code.
+
+so using searchsploit i found another one which suits our situation :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/065d5f0f-37de-4019-b386-1b5cd4333e4c)
+
+i used `Drupalgeddon2` from metasploit to get the shell.
+
+## 3.Gaining Shell
+
 
 
 
