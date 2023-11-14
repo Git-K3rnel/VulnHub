@@ -42,10 +42,19 @@ and let's check the content of the messages :
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/62bb996a-b70d-44f2-89ba-c3b2a6708549)
 
+in this message we find a possible ssh password, now we should test it again all users.
 
+## 3.Gaining Shell
 
+Again we try to brute force the ssh service with the newly found password and the list of users we created before :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/cfc5caf8-dea8-4ae2-a680-5ca0c6f34760)
 
+yes, we found a credential for ssh login :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/02565803-a334-4347-9fde-dcea5db429d1)
+
+## 4.Privilege Escalation
 
 
 
