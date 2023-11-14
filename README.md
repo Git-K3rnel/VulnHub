@@ -27,3 +27,4 @@ In this repo i provide write-ups for VulnHub machines :
 * [FourAndSix: 2.01](https://github.com/Git-K3rnel/VulnHub/tree/main/FourAndSix2)
 * [Jarbas: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/Jarbas1)
 * [Lampiao: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/LAMPIAO1)
+* [FOWSNIFF: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/FOWSNIFF-1)
