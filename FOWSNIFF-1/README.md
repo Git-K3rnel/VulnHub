@@ -34,6 +34,14 @@ now we can try to login to pop3 service using one of these credentials, just sep
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/c2c3fcdc-a1eb-475a-be04-e8fae9fef567)
 
+here i found a valid credential so let's login to mail server :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/21e99fb9-e927-40ec-8c46-c82fc2802865)
+
+and let's check the content of the messages :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/62bb996a-b70d-44f2-89ba-c3b2a6708549)
+
 
 
 
