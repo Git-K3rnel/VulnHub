@@ -30,6 +30,9 @@ parede@fowsniff:4d6e42f56e127803285a0a7649b5ab11=orlando12
 sciana@fowsniff:f7fd98d380735e859f8b2ffbbede5a7e=07011972
 ```
 
+now we can try to login to pop3 service using one of these credentials, just separate users and passwords in two file and brute force the pop3 :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/c2c3fcdc-a1eb-475a-be04-e8fae9fef567)
 
 
 
