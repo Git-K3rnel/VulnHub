@@ -67,7 +67,6 @@ curl http://192.168.56.113/ | grep 'content="Drupal'
 
 ## 2.Gaining Access
 
-
 next we need to check any public exploit for this version :
 
 ```bash
