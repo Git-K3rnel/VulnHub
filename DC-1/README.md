@@ -54,3 +54,47 @@ PORT      STATE SERVICE VERSION
 MAC Address: 08:00:27:B8:2F:68 (Oracle VirtualBox virtual NIC)
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
+
+Exploring port 80 shows website is a Drupal CMS, so we need to exploit a drupal
+
+for finding the version use the command below:
+
+```bash
+curl http://192.168.56.113/ | grep 'content="Drupal'
+
+<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+```
+
+next we need to check any public exploit for this version :
+
+```bash
+root@kali: searchsploit drupal 7 | grep -i metasploit
+
+Drupal < 7.58 - 'Drupalgeddon3' (Authenticated) Remote Code (Metasploit)                                                              | php/webapps/44557.rb
+Drupal < 7.58 - 'Drupalgeddon3' (Authenticated) Remote Code (Metasploit)                                                              | php/webapps/44557.rb
+Drupal < 8.3.9 / < 8.4.6 / < 8.5.1 - 'Drupalgeddon2' Remote Code Execution (Metasploit)                                               | php/remote/44482.rb
+Drupal < 8.3.9 / < 8.4.6 / < 8.5.1 - 'Drupalgeddon2' Remote Code Execution (Metasploit)                                               | php/remote/44482.rb
+Drupal < 8.5.11 / < 8.6.10 - RESTful Web Services unserialize() Remote Command Execution (Metasploit)                                 | php/remote/46510.rb
+Drupal < 8.5.11 / < 8.6.10 - RESTful Web Services unserialize() Remote Command Execution (Metasploit)                                 | php/remote/46510.rb
+Drupal Module CODER 2.5 - Remote Command Execution (Metasploit)                                                                       | php/webapps/40149.rb
+Drupal Module RESTWS 7.x - PHP Remote Code Execution (Metasploit)
+```
+
+as it shows there are afew exploits with metasploit:
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/349468c4-b34c-464b-9ddc-1213ba7a7a73)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
