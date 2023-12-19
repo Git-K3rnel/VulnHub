@@ -1,4 +1,4 @@
-# DC-1
+use# DC-1
 
 ## 1.Enumeration
 
@@ -84,7 +84,9 @@ as it shows there are afew exploits with metasploit:
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/349468c4-b34c-464b-9ddc-1213ba7a7a73)
 
+i used `multi/http/drupal_drupageddon` :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/7de0d071-2ffe-496b-bf0b-336f6516ec22)
 
 
 
