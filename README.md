@@ -28,3 +28,4 @@ In this repo i provide write-ups for VulnHub machines :
 * [Jarbas: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/Jarbas1)
 * [Lampiao: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/LAMPIAO1)
 * [FOWSNIFF: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/FOWSNIFF-1)
+* [DC-1](https://github.com/Git-K3rnel/VulnHub/tree/main/DC-1)
