@@ -112,3 +112,4 @@ root@kali: nmap -v -sV --script http-joomla-brute --script-args 'userdb=/root/ct
 
 
 
+
