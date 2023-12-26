@@ -50,3 +50,68 @@ PORT     STATE SERVICE VERSION
 MAC Address: 08:00:27:20:A9:84 (Oracle VirtualBox virtual NIC)
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
+
+on port `21` we have anonymous access :
+
+```bash
+root@kali: ftp 192.168.56.116
+
+Connected to 192.168.56.116.
+220 Welcome to Pumpkin's FTP service.
+Name (192.168.56.116:root): anonymous
+331 Please specify the password.
+Password: 
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+
+ftp> dir
+229 Entering Extended Passive Mode (|||17078|).
+150 Here comes the directory listing.
+-rw-r--r--    1 0        0              88 Jun 13  2019 note.txt
+226 Directory send OK.
+
+ftp> get note.txt
+local: note.txt remote: note.txt
+229 Entering Extended Passive Mode (|||30226|).
+150 Opening BINARY mode data connection for note.txt (88 bytes).
+100% |********************************************************************************************************************|    88        6.15 KiB/s    00:00 ETA
+226 Transfer complete.
+```
+
+inside of note.txt is :
+
+```text
+root@kali: cat note.txt 
+Hello Dear! 
+Looking for route map to PumpkinGarden? I think jack can help you find it.
+```
+
+i first thaught `jack` if one of the users but then i checked the web page on port `1515` and in the page source there was a comment :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/f584a048-fe2c-4f18-aa02-a821505e5c2f)
+
+then i checked the `/img` directory and found `hidden_secret`, inside there is a `clue.txt` which contains a base64 string :
+
+```bash
+root@kali: echo -n 'c2NhcmVjcm93IDogNVFuQCR5' | base64 -d
+scarecrow : 5Qn@$y
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
