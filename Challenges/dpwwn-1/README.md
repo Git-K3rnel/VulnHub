@@ -148,3 +148,5 @@ uid=0(root) gid=0(root) groups=0(root)
 # cat flag.txt
 25d7ce0ee3cbf71efbac61f85d0c14fe
 ```
+
+This is how you can get root on this machine :)
