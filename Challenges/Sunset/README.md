@@ -74,7 +74,7 @@ local: backup remote: backup
 
 inside backup file we see this 5 hashes, because it is some how not in a good format
 
-i just copied and paste each line in a new file call `user.txt`, the hash type can be identified with `hashid` :
+i just copied and pasted each line in a new file called `user.txt`, the hash type can be identified with `hashid` :
 
 ```bash
 root@kali: hashid -mj '$6$$3QW/J4OlV3naFDbhuksxRXLrkR6iKo4gh.Zx1RfZC2OINKMiJ/6Ffyl33OFtBvCI7S4N1b8vlDylF2hG2N0NN/'
