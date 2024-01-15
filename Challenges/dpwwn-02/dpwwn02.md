@@ -49,3 +49,23 @@ PORT      STATE SERVICE  VERSION
 47967/tcp open  mountd   1-3 (RPC #100005)
 48661/tcp open  mountd   1-3 (RPC #100005)
 ```
+
+i first start chekcing the nfs port and see the available shares:
+
+```bash
+root@kali: showmount -e 10.10.10.10
+
+Export list for 10.10.10.10:
+/home/dpwwn02 (everyone)
+```
+
+then mount it on the file system:
+
+```bash
+root@kali: mount -t nfs 10.10.10.10:/home/dpwwn02 /mnt/dpwwn
+```
+
+
+
+
+
