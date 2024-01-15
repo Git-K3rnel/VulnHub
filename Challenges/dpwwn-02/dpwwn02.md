@@ -78,6 +78,34 @@ Starting gobuster in directory enumeration mode
 /wordpress            (Status: 301) [Size: 237] [--> http://10.10.10.10/wordpress/]
 ```
 
+then i used `wpscan` to check for users and plugins :
+
+```bash
+root@kali: wpscan --url http://10.10.10.10/wordpress -e u,p
+
+[i] Plugin(s) Identified:
+
+[+] site-editor
+ | Location: http://10.10.10.10/wordpress/wp-content/plugins/site-editor/
+ | Latest Version: 1.1.1 (up to date)
+ | Last Updated: 2017-05-02T23:34:00.000Z
+ |
+ | Found By: Urls In Homepage (Passive Detection)
+ |
+ | Version: 1.1.1 (80% confidence)
+ | Found By: Readme - Stable Tag (Aggressive Detection)
+ |  - http://10.10.10.10/wordpress/wp-content/plugins/site-editor/readme.txt
+
+
+[i] User(s) Identified:
+
+[+] admin
+ | Found By: Author Posts - Author Pattern (Passive Detection)
+ | Confirmed By:
+ |  Rss Generator (Passive Detection)
+ |  Author Id Brute Forcing - Author Pattern (Aggressive Detection)
+ |  Login Error Messages (Aggressive Detection)
+```
 
 
 
