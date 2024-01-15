@@ -107,5 +107,18 @@ root@kali: wpscan --url http://10.10.10.10/wordpress -e u,p
  |  Login Error Messages (Aggressive Detection)
 ```
 
+it did not show any vulnerability in the plugin, but i searched it in searchsploit for version 1.1.1 :
+
+```bash
+root@kali: searchsploit site editor
+
+WordPress Plugin Site Editor 1.1.1 - Local File Inclusion | php/webapps/44340.txt
+```
+
+and it says sending request to this path will include a local file :
+
+```bash
+
+```
 
 
