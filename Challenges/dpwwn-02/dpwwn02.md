@@ -65,6 +65,18 @@ then mount it on the file system:
 root@kali: mount -t nfs 10.10.10.10:/home/dpwwn02 /mnt/dpwwn
 ```
 
+but it was empty and had nothing to check.
+
+then i moved toward web on port 80 and start fuzzing the web application:
+
+```bash
+root@kali: gobuster dir --url http://10.10.10.10 --wordlist /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
+
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+/wordpress            (Status: 301) [Size: 237] [--> http://10.10.10.10/wordpress/]
+```
 
 
 
