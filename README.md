@@ -31,3 +31,4 @@ In this repo i provide write-ups for VulnHub machines :
 * [DC-1](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/DC-1)
 * [DC-3](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/DC-3)
 * [Sunset](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/Sunset)
+* [dpwwn-02](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/dpwwn-02)
