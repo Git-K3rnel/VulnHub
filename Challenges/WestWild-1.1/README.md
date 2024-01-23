@@ -11,6 +11,8 @@ Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)
 192.168.127.254 00:50:56:f1:df:13       VMware, Inc.
 ```
 
+The ip address is `192.168.127.250`, let's scan it.
+
 ## 2.Enumeration
 
 ```bash
@@ -63,3 +65,31 @@ Host script results:
 |_  message_signing: disabled (dangerous, but default)
 |_clock-skew: mean: 2h29m59s, deviation: 1h43m55s, median: 3h29m59s
 ```
+
+Let's start with smb :
+
+```bash
+root@kali: smbclient --no-pass -L 192.168.127.250
+
+Anonymous login successful
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        print$          Disk      Printer Drivers
+        wave            Disk      WaveDoor
+        IPC$            IPC       IPC Service (WestWild server (Samba, Ubuntu))
+```
+
+we can see the `wave` share is accessible, let's connect to it:
+
+```bash
+root@kali: smbclient --no-pass //192.168.127.250/wave
+```
+
+
+
+
+
+
+
+
