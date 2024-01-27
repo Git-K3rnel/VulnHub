@@ -43,3 +43,37 @@ PORT   STATE SERVICE VERSION
 MAC Address: 00:0C:29:05:05:03 (VMware)
 Service Info: Host: 127.0.1.1; OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
+
+On port 80 there is nothing but afew image and a readme file which has HEX info in it, so i turned it to ASCII :
+
+```bash
+root@kali: cat README.md | xxd -r -p | head
+
+����JFIF��Compressed by jpeg-recompress���
+...
+```
+
+as it showd it is compressed by jpeg recompress so just change the extension to jpeg:
+
+```bash
+root@kali: cat README.md | xxd -r -p > image.jpeg
+```
+
+now open it in browser or image viewer :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
