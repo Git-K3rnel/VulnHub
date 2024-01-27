@@ -33,3 +33,4 @@ In this repo i provide write-ups for VulnHub machines :
 * [Sunset](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/Sunset)
 * [dpwwn-02](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/dpwwn-02)
 * [WestWild-1.1](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/WestWild-1.1)
+* [Gallery-Broken](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/Gallery-Broken)
