@@ -65,13 +65,32 @@ now open it in browser or image viewer :
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/5fa1cb46-8150-4082-affb-a51799429005)
 
 
-there is nothing useful in this picutre, so i tried to enumerate the web directory with different fuzzing methods :
+there is nothing useful in this picutre, so i tried to enumerate the web directory with different methods :
 
 - Enumerating files
 - Enumerating directories
+- Bruteforcing with user bob, lead to nothing again
+- Checking all images metadata
 
-then bruteforcing with user bob, lead to nothing again
+i just got frustrated with this CTF, but for the last try i just used image names as user and password and tried to brute force the ssh :
 
+```text
+root@kali: cat user.txt
+broken
+5terre
+forest
+lights
+mountains
+gallery
+
+root@kali: cat pass.txt
+broken
+5terre
+forest
+lights
+mountains
+gallery
+```
 
 
 
