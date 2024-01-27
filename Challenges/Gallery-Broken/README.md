@@ -62,6 +62,9 @@ root@kali: cat README.md | xxd -r -p > image.jpeg
 now open it in browser or image viewer :
 
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/5fa1cb46-8150-4082-affb-a51799429005)
+
+
 
 
 
