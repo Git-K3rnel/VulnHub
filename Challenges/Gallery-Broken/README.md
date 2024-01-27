@@ -65,7 +65,12 @@ now open it in browser or image viewer :
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/5fa1cb46-8150-4082-affb-a51799429005)
 
 
+there is nothing useful in this picutre, so i tried to enumerate the web directory with different fuzzing methods :
 
+- Enumerating files
+- Enumerating directories
+
+then bruteforcing with user bob, lead to nothing again
 
 
 
