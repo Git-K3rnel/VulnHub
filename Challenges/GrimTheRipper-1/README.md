@@ -67,8 +67,18 @@ root@kali: echo -n 'LzEwMTAxMDE=' | base64 -d
 
 now we found `/1010101` to check on the server :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/eb82326f-43c5-429e-9348-50912634b1bb)
 
 
+when you navigate to `wordpress` directory, you will see that all links are broken, this is because all links point to `127.0.0.1`
+
+we can run a port forwarder to redirect these request to server :
+
+```bash
+root@kali: socat TCP-LISTEN:80,fork TCP:192.168.127.252:80
+```
+
+now all links works fine :
 
 
 
