@@ -48,11 +48,24 @@ robots                  [Status: 200, Size: 24, Words: 1, Lines: 4, Duration: 5m
 
 we found a new directory `index2` which when you navigate to its page source you find this :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/47ebbe17-926f-4a02-9ecf-eebb212461c1)
 
 
+Try to decode the base64 string :
 
+```bash
+root@kali: echo -n 'THpFd01UQXhNREU9IHRyeSBoYXJk' | base64 -d
+LzEwMTAxMDE= try hard 
+```
 
+and another decode :
 
+```bash
+root@kali: echo -n 'LzEwMTAxMDE=' | base64 -d                
+/1010101  
+```
+
+now we found `/1010101` to check on the server :
 
 
 
