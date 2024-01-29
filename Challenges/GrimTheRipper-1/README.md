@@ -78,12 +78,35 @@ we can run a port forwarder to redirect these request to server :
 root@kali: socat TCP-LISTEN:80,fork TCP:192.168.127.252:80
 ```
 
-now all links works fine :
+now all links work fine :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/aba2eba4-8ed8-4707-ae61-f79702af419b)
 
+now i use `wpscan` to find any plugin or user on the target :
 
+```bash
+root@kali: wpscan --url http://192.168.127.252/1010101/wordpress/ -e u,ap
 
+[+] Enumerating All Plugins (via Passive Methods)
 
+[i] No plugins Found.
+
+[+] Enumerating Users (via Passive and Aggressive Methods)
+ Brute Forcing Author IDs - Time: 00:00:01 <============================================================================================================> (10 / 10) 100.00% Time: 00:00:01
+[i] User(s) Identified:
+
+[+] admin
+ | Found By: Author Id Brute Forcing - Author Pattern (Aggressive Detection)
+ | Confirmed By: Login Error Messages (Aggressive Detection)
+```
+
+it found no plugin but found user `admin`.
+
+i tried different things but at last i just brute forced the admin user with wpscan to find the password :
+
+```bash
+
+```
 
 
 
