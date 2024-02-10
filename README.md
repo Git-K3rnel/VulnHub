@@ -35,3 +35,4 @@ In this repo i provide write-ups for VulnHub machines :
 * [WestWild-1.1](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/WestWild-1.1)
 * [Gallery-Broken](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/Gallery-Broken)
 * [GrimTheRipper: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/GrimTheRipper-1)
+* [Pluck](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/Pluck)
