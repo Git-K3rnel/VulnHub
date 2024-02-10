@@ -96,12 +96,31 @@ root@kali: tree .
 └── peter
 ```
 
+one of the private keys should work, so i checked one by one until i found that `id_key4` works to connect to ssh :
+
+```bash
+root@kali: ssh -i id_key4 paul@192.168.127.133
+```
+
+after logging in, we do not see a normal shell but some kind of restricted panel with options :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/ea73b986-0297-46eb-acb4-863077921902)
 
 
+## 3.Getting Shell
 
+After looking at out options one intresting is `edit file` since it gives us the VI environment and we know that we can escape the VI to shell :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/2224fd5b-3205-42d3-b8f4-221f214536fd)
 
+after that just type :
 
+- :set shell=/bin/bash
+- :shell
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/ec756748-4464-4c10-83d4-ba4d5f043558)
+
+yes, we just escaped the restircted environment and have a normal shell
 
 
 
