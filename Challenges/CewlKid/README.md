@@ -40,8 +40,37 @@ PORT     STATE SERVICE VERSION
 |_http-favicon: Unknown favicon MD5: E6E1C631192DE24218AC9348293A46CB
 ```
 
+I begin with port 80 and there is just a simple apache web page, next we go for port `8080` and there is a CMS here
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/c8c8f1a4-6e71-4d9d-917d-1f3fd88b54c0)
 
 
+we immediately see the login page for the CMS and now we need credentials, as the name of the CTF suggests that it is a hint
+
+i can see that `cewl` is the name of wordlist generator base on the site content, lets create a wordlist :
+
+```bash
+root@kali: cewl -w wordlist.txt -d 5 -m 4 http://192.168.56.121:8080
+```
+
+now we can check for admin login, just catch the request in burp and send it to intruder and wait for a different response length :
+
+
+yes. we found the password for login.
+
+
+## 3.Gaining Shell
+
+Inside the panel we see and admin menu which we can upload file in it, just upload a php reverse shell and the load it :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/e44ab129-72b0-43c1-84be-6513db3b7ad3)
+
+
+start a listener and navigate to `http://192.168.56.121/files/image/rev.php` to get the shell :
+
+```bash
+
+```
 
 
 
