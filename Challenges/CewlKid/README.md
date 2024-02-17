@@ -161,4 +161,65 @@ yes we found another user password
 
 Change user to `zerocewl` and check the system with `pspy64` to monitor the processes :
 
-![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/6ffa90bc-eea5-487e-b6db-587eefa858cb)
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/fa946de9-bfa4-4510-9c43-3c2b006303f4)
+
+
+now we see plain credentials of user `cewlbeans`
+
+## 7.Privilege Escalation (cewlbeans)
+
+change user to cewlbeans and check for sudo permissions :
+
+```bash
+cewlbeans@cewlkid:/$ sudo -l
+sudo -l
+[sudo] password for cewlbeans: fondateurs
+
+Matching Defaults entries for cewlbeans on cewlkid:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User cewlbeans may run the following commands on cewlkid:
+    (ALL : ALL) ALL
+```
+
+now we can freely switch to root :
+
+```bash
+cewlbeans@cewlkid:/$ sudo bash
+
+root@cewlkid:~# cat root.txt
+        ______  ___________    __    ____  __       __  ___  __   _______                    
+       /      ||   ____\   \  /  \  /   / |  |     |  |/  / |  | |       \                   
+      |  ,----'|  |__   \   \/    \/   /  |  |     |  '  /  |  | |  .--.  |                  
+      |  |     |   __|   \            /   |  |     |    <   |  | |  |  |  |                  
+      |  `----.|  |____   \    /\    /    |  `----.|  .  \  |  | |  '--'  |                  
+       \______||_______|   \__/  \__/     |_______||__|\__\ |__| |_______/                   
+                                                                                             
+                  .______        ______     ______   .___________.                           
+                  |   _  \      /  __  \   /  __  \  |           |                           
+                  |  |_)  |    |  |  |  | |  |  |  | `---|  |----`                           
+                  |      /     |  |  |  | |  |  |  |     |  |                                
+                  |  |\  \----.|  `--'  | |  `--'  |     |  |                                
+                  | _| `._____| \______/   \______/      |__|                                
+                                                                                             
+.______      .___  ___. ___   ___  __    __   ________  ____    __    ____  ______           
+|   _  \     |   \/   | \  \ /  / |  |  |  | |       /  \   \  /  \  /   / /  __  \   ______ 
+|  |_)  |    |  \  /  |  \  V  /  |  |__|  | `---/  /    \   \/    \/   / |  |  |  | |______|
+|      /     |  |\/|  |   >   <   |   __   |    /  /      \            /  |  |  |  |  ______ 
+|  |\  \----.|  |  |  |  /  .  \  |  |  |  |   /  /----.   \    /\    /   |  `--'  | |______|
+| _| `._____||__|  |__| /__/ \__\ |__|  |__|  /________|    \__/  \__/     \______/          
+RmxhZwo=
+```
+
+This is how you can finish this box :)
+
+
+
+
+
+
+
+
+
+
