@@ -83,7 +83,7 @@ $ $ id
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
 
-## 4.Privilege Escalation (ipsum)
+## 4.Privilege Escalation (lorem)
 
 Using `sudo -l` we find our sudo permissions and this is where we see that we can run `/usr/bin/cat` as user ipsum :
 
@@ -119,9 +119,11 @@ ipsum : SpeakPeople22!
 lorem : PeopleSpeak44!
 ```
 
-## 5.Privilege Escalation (lorem)
+Change the user to lorem
 
-Change the user to lorem and check sudo permissions again :
+## 5.Privilege Escalation (zerocewl)
+
+ Now check sudo permissions again :
 
 ```bash
 sudo -l
@@ -154,21 +156,21 @@ Use the "--show" option to display all of the cracked passwords reliably
 Session completed. 
 ```
 
-yes we found another user password
+yes we found another user password, Change user to `zerocewl`
 
 
-## 6.Privilege Escalation (zerocewl)
+## 6.Privilege Escalation (cewlbeans)
 
-Change user to `zerocewl` and check the system with `pspy64` to monitor the processes :
+ Check the system with `pspy64` to monitor the processes :
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/fa946de9-bfa4-4510-9c43-3c2b006303f4)
 
 
-now we see plain credentials of user `cewlbeans`
+now we see plain credentials of user `cewlbeans`, change user to cewlbeans.
 
-## 7.Privilege Escalation (cewlbeans)
+## 7.Privilege Escalation (root)
 
-change user to cewlbeans and check for sudo permissions :
+ Check for sudo permissions :
 
 ```bash
 cewlbeans@cewlkid:/$ sudo -l
