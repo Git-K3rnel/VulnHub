@@ -159,4 +159,6 @@ yes we found another user password
 
 ## 6.Privilege Escalation (zerocewl)
 
-Change user to `zerocewl`
+Change user to `zerocewl` and check the system with `pspy64` to monitor the processes :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/6ffa90bc-eea5-487e-b6db-587eefa858cb)
