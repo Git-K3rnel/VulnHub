@@ -59,3 +59,33 @@ Host script results:
 |_  message_signing: disabled (dangerous, but default)
 |_nbstat: NetBIOS name: DAWN, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
 ```
+
+Checking on port 80 had nothing interesting, i started fuzzing and found these :
+
+```bash
+root@kali: gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://192.168.56.122
+
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+/logs                 (Status: 301) [Size: 315] [--> http://192.168.56.122/logs/]
+/cctv                 (Status: 301) [Size: 315] [--> http://192.168.56.122/cctv/]
+```
+
+on `/logs` we see some system log files but only management.log is accessible :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/c4d80524-cc60-4922-86e8-f95b3a03b4c6)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
