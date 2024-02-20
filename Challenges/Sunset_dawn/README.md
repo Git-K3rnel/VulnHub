@@ -151,4 +151,8 @@ so i just put a random file in it using smbclient and checked the `management.lo
 ```
 meaning that the system tries to execute files `web-control` and `product-control` using `sh`
 
+## 3.Privilege Escalation
+
+Let's make a file called `web-control` and put a reverse shell in it
+
 
