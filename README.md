@@ -37,3 +37,4 @@ In this repo i provide write-ups for VulnHub machines :
 * [GrimTheRipper: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/GrimTheRipper-1)
 * [Pluck](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/Pluck)
 * [H.A.S.T.E](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/H.A.S.T.E)
+* [SUNSET: DAWN](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/Sunset_dawn)
