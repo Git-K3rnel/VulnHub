@@ -140,5 +140,15 @@ root@kali: smbmap -H 192.168.56.122
 
 we see that we have READ and WRITE permission.
 
+so i just put a random file in it using smbclient and checked the `management.log`, if you upload any thing on this folder these lines of logs are generated :
+
+```text
+2024/02/20 04:12:01 [31;1mCMD: UID=0    PID=3283   | /bin/sh -c chmod 777 /home/dawn/ITDEPT/product-control [0m
+2024/02/20 04:12:01 [31;1mCMD: UID=0    PID=3282   | /bin/sh -c /home/ganimedes/phobos [0m
+2024/02/20 04:12:01 [31;1mCMD: UID=0    PID=3281   | /bin/sh -c chmod 777 /home/dawn/ITDEPT/web-control [0m
+2024/02/20 04:12:01 [31;1mCMD: UID=0    PID=3288   | /bin/sh -c chmod 777 /home/dawn/ITDEPT/web-control [0m
+2024/02/20 04:12:01 [31;1mCMD: UID=0    PID=3287   | /bin/sh -c chmod 777 /home/dawn/ITDEPT/product-control [0m
+```
+meaning that the system tries to execute files `web-control` and `product-control` using `sh`
 
 
