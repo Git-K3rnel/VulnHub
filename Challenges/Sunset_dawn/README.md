@@ -77,13 +77,44 @@ on `/logs` we see some system log files but only management.log is accessible :
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/c4d80524-cc60-4922-86e8-f95b3a03b4c6)
 
 
+on this log there is nothing but some internal path like :
+
+- /home/dawn/ITDEPT/product-control
+- /home/dawn/ITDEPT/product-control
+- /home/ganimedes/phobos
+
+we can infere from these paths that there are two users on the system so far :
+
+- dawn
+- ganimedes
+
+after that i looked at port 445/139 to find any available share on the system :
+
+```bash
+root@kali: smbclient -L 192.168.56.122
+Password for [WORKGROUP\root]:
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        print$          Disk      Printer Drivers
+        ITDEPT          Disk      PLEASE DO NOT REMOVE THIS SHARE. IN CASE YOU ARE NOT AUTHORIZED TO USE THIS SYSTEM LEAVE IMMEADIATELY.
+        IPC$            IPC       IPC Service (Samba 4.9.5-Debian)
+Reconnecting with SMB1 for workgroup listing.
+
+        Server               Comment
+        ---------            -------
+
+        Workgroup            Master
+        ---------            -------
+        WORKGROUP            DAWN
+```
 
 
+and yes there is `ITDEPT` here, so let's check the content :
 
+```bash
 
-
-
-
+```
 
 
 
