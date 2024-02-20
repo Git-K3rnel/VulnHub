@@ -113,10 +113,32 @@ Reconnecting with SMB1 for workgroup listing.
 and yes there is `ITDEPT` here, so let's check the content :
 
 ```bash
+root@kali: smbclient --no-pass //192.168.56.122/ITDEPT
+Try "help" to get a list of possible commands.
+smb: \> ls
+  .                                   D        0  Tue Feb 20 04:09:04 2024
+  ..                                  D        0  Fri Aug  2 23:21:39 2019
 
+                7158264 blocks of size 1024. 2803624 blocks available
+smb: \>
 ```
 
+there is nothing here but if we check the permission on this share :
 
+```bash
+root@kali: smbmap -H 192.168.56.122
+[*] Detected 1 hosts serving SMB
+[*] Established 1 SMB session(s)                                
+                                                                                                    
+[+] IP: 192.168.56.122:445      Name: 192.168.56.122            Status: Authenticated
+        Disk                                                    Permissions     Comment
+        ----                                                    -----------     -------
+        print$                                                  NO ACCESS       Printer Drivers
+        ITDEPT                                                  READ, WRITE     PLEASE DO NOT REMOVE THIS SHARE. IN CASE YOU ARE NOT AUTHORIZED TO USE THIS SYSTEM LEAVE IMMEADIATELY.
+        IPC$                                                    NO ACCESS       IPC Service (Samba 4.9.5-Debian)
+```
+
+we see that we have READ and WRITE permission.
 
 
 
