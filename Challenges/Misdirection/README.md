@@ -49,8 +49,11 @@ using SQLi :
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/f5fd7c46-edbf-40a6-a984-a401b26e8f7e)
 
+i did fuzzing and found nothing good to work on.
 
+then i turned my attention on port 8080 and started fuzzing it, i found `/wrodpress` on this port which was another misdirection and had nothing
 
+no user, no vulnerable plugin or anything (just a rabbit hole)
 
 
 
