@@ -55,8 +55,24 @@ then i turned my attention on port 8080 and started fuzzing it, i found `/wrodpr
 
 no user, no vulnerable plugin or anything (just a rabbit hole)
 
+```bash
+root@kali: ffuf -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://192.168.127.133:8080/FUZZ
 
+images                  [Status: 301, Size: 326, Words: 20, Lines: 10, Duration: 6ms]
+help                    [Status: 301, Size: 324, Words: 20, Lines: 10, Duration: 9ms]
+scripts                 [Status: 301, Size: 327, Words: 20, Lines: 10, Duration: 2ms]
+css                     [Status: 301, Size: 323, Words: 20, Lines: 10, Duration: 3ms]
+wordpress               [Status: 301, Size: 329, Words: 20, Lines: 10, Duration: 2ms]
+development             [Status: 301, Size: 331, Words: 20, Lines: 10, Duration: 5ms]
+manual                  [Status: 301, Size: 326, Words: 20, Lines: 10, Duration: 2ms]
+js                      [Status: 301, Size: 322, Words: 20, Lines: 10, Duration: 3ms]
+shell                   [Status: 301, Size: 325, Words: 20, Lines: 10, Duration: 7ms]
+debug                   [Status: 301, Size: 325, Words: 20, Lines: 10, Duration: 4ms]
+                        [Status: 200, Size: 10918, Words: 3499, Lines: 376, Duration: 4ms]
+server-status           [Status: 403, Size: 305, Words: 22, Lines: 12, Duration: 2ms]
+```
 
+i checked all the directories found by fuzzing untill i reached `/debug`
 
 
 
