@@ -123,7 +123,34 @@ uid=1000(brexit) gid=1000(brexit) groups=1000(brexit),24(cdrom),30(dip),46(plugd
 
 ## 5.Privilege Escalation (root)
 
+Now we search for filed writable for `brexit` group :
 
+```bash
+find / -writable -group brexit -type f 2>/dev/null
+.
+.
+.
+/home/brexit/.gnupg/trustdb.gpg
+/home/brexit/.gnupg/pubring.kbx
+/home/brexit/.cache/motd.legal-displayed
+/home/brexit/.cache/pip/selfcheck.json
+/home/brexit/.cache/pip/http/3/a/f/3/a/3af3addf06e983a6c02f46e7bea70c221d3ff95bf1418fa6da354e14
+/home/brexit/.cache/pip/http/d/9/f/5/0/d9f5007c5cc7fe7a953d81df1938d0a96573b4be7f6b4aea55ab2559
+/home/brexit/.cache/pip/http/d/6/3/b/3/d63b3263a620e99b23b4f69598defad34ecb501ae5ca54e4dac695dd
+/home/brexit/.cache/pip/http/0/8/4/f/5/084f5a8368fb89a7efa9c04f435e93864cabf099a23e186572afd976
+/home/brexit/.cache/pip/http/0/4/1/8/c/0418c83b80f7f7bfaec2738bfbbee53d2c1562196c0781702f6eddc8
+/home/brexit/.cache/pip/http/0/c/3/c/2/0c3c2ab80ac45d92b76521577b3c4b537bd92ce9e61cf051701e1b5e
+/home/brexit/.cache/pip/http/9/f/2/9/2/9f292e59213099651b5fcfd03d5cd2be236234e87bcc0df5dbd85d73
+/home/brexit/.cache/pip/http/4/d/2/7/2/4d272e6453941ce8b0a37a02cdb1685fc612c33441fa74691fb40656
+/home/brexit/.cache/pip/http/5/2/2/2/0/522208f7faac55ab0e11ff112febf93d0d03cfe79067a75199dfd54d
+/home/brexit/.cache/pip/http/5/0/f/d/c/50fdc589a6c4862d95953d91e6727214af0438991e623198dd5f178c
+/home/brexit/.cache/pip/http/7/1/8/d/c/718dc0b3a9262afd90c31576e94cc7660a7a2809c30afe2937429e35
+/home/brexit/.cache/pip/http/a/1/9/5/3/a19537d3cf37c122db841d6fe4cd322bc10d1a558bb00d146b85cb9a
+/home/brexit/.cache/pip/http/a/3/7/b/8/a37b86be8276b0c9eabc32797fb2b8516f6f704f46b0354b02b72053
+/home/brexit/.cache/pip/http/a/6/9/b/d/a69bdb984343de3b3653d7a852dbd14dd4ccdd03ced4b06d1352ba0b
+/home/brexit/.cache/pip/http/a/6/5/4/2/a6542724bf8d60e8f3764dc45cacba88484798f4b12a65f6b4aa7227
+/etc/passwd
+```
 
 
 
