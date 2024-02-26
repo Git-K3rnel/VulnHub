@@ -72,9 +72,11 @@ debug                   [Status: 301, Size: 325, Words: 20, Lines: 10, Duration:
 server-status           [Status: 403, Size: 305, Words: 22, Lines: 12, Duration: 2ms]
 ```
 
-i checked all the directories found by fuzzing untill i reached `/debug`
+i checked all the directories found by fuzzing untill i reached `/debug` :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/63020c17-85d5-4451-a790-1ed081891850)
 
+this is a virtual shell on web, which we can insert any command on it
 
 
 
