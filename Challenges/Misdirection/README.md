@@ -42,3 +42,22 @@ PORT     STATE SERVICE VERSION
 MAC Address: 00:0C:29:B7:D5:DA (VMware)
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
+
+i started checking port `80` and at this page there was nothing interesting, a login page and sign up whcih did not work for registring a user or
+
+using SQLi :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/f5fd7c46-edbf-40a6-a984-a401b26e8f7e)
+
+
+
+
+
+
+
+
+
+
+
+
+
