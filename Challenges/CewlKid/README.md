@@ -53,11 +53,9 @@ i can see that `cewl` is the name of wordlist generator base on the site content
 root@kali: cewl -w wordlist.txt -d 5 -m 4 http://192.168.56.121:8080
 ```
 
-now we can check for admin login, just catch the request in burp and send it to intruder and wait for a different response length :
+now we can check for admin login, just catch the request in burp and send it to intruder and wait for a different response length
 
-
-yes. we found the password for login.
-
+the passwrod is `letraset`
 
 ## 3.Gaining Shell
 
