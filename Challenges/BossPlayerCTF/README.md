@@ -15,3 +15,16 @@ let's scan the ip address `192.168.56.123`
 
 ### 2.Enumeration
 
+```bash
+root@kali:nmap -sT -sV -v -p- -oN nmap.out 192.168.56.123
+Host is up (0.00060s latency).
+Not shown: 65533 closed tcp ports (conn-refused)
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.9p1 Debian 10 (protocol 2.0)
+80/tcp open  http    Apache httpd 2.4.38 ((Debian))
+MAC Address: 08:00:27:DE:8C:54 (Oracle VirtualBox virtual NIC)
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+```
+
+Check web page :
+
