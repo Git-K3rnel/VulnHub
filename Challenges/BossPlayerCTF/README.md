@@ -26,5 +26,10 @@ MAC Address: 08:00:27:DE:8C:54 (Oracle VirtualBox virtual NIC)
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
 
-Check web page :
+check web page :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/53d19546-781b-4327-ba96-1a53c7cd6d75)
+
+check source page:
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/2d30e9b0-1ca1-4b34-bfe0-d91c54c69ae9)
