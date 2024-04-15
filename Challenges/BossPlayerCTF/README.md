@@ -33,3 +33,44 @@ check web page :
 check source page:
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/2d30e9b0-1ca1-4b34-bfe0-d91c54c69ae9)
+
+let's decode it :
+
+```bash
+root@kali: echo -n 'WkRJNWVXRXliSFZhTW14MVkwaEtkbG96U214ak0wMTFZMGRvZDBOblBUMEsK' | base64 -d | base64 -d | base64 -d
+workinginprogress.php
+```
+
+navigate to this new address : `http://192.168.56.123/workinginprogress.php`
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/216ba80e-f0db-4fe0-aee0-e121c1be5610)
+
+in this page we need to fuzz for different paramteters to find the correct one, i use burp suit for this and afew common paramters:
+
+and finally found the correct paramter `cmd` and `id` command that is executed on the system
+```text
+http://192.168.56.123/workinginprogress.php?cmd=id
+```
+
+### 3.Gaining Shell
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
