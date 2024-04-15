@@ -66,7 +66,6 @@ Search for SUID binaries
 
 ```bash
 $ find / -user root -perm /4000 2>/dev/null
-find / -user root -perm /4000 2>/dev/null
 /usr/bin/mount
 /usr/bin/umount
 /usr/bin/gpasswd
