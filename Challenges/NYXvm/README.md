@@ -36,3 +36,12 @@ ffuf -w /root/wordlist/raft-medium-words.txt -u http://192.168.127.133/FUZZ -e .
 and i found a file called `key.php` :
 
 
+
+
+
+
+
+
+
+
+
