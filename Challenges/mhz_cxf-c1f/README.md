@@ -87,7 +87,7 @@ $ id
 uid=1001(first_stage) gid=1001(first_stage) groups=1001(first_stage)
 ```
 
-### 4.Privilege Escalation
+### 4.Privilege Escalation (mhz_c1f)
 
 first check /home directory and `/home/mhz_c1f/Paintings` :
 
@@ -99,16 +99,29 @@ first check /home directory and `/home/mhz_c1f/Paintings` :
 these images should be transfered to you kali machine to check for any hidden data within them :
 
 ```bash
-scp first_stage@192.168.56.125:/home/mhz_c1f/Paintings/'19th century American.jpeg' .
-scp first_stage@192.168.56.125:/home/mhz_c1f/Paintings/'Russian beauty.jpeg' .
-scp first_stage@192.168.56.125:/home/mhz_c1f/Paintings/'Frank McCarthy.jpeg'  .
-scp first_stage@192.168.56.125:/home/mhz_c1f/Paintings/'spinning the wool.jpeg' .
+root@kali: scp first_stage@192.168.56.125:/home/mhz_c1f/Paintings/'19th century American.jpeg' .
+root@kali: scp first_stage@192.168.56.125:/home/mhz_c1f/Paintings/'Russian beauty.jpeg' .
+root@kali: scp first_stage@192.168.56.125:/home/mhz_c1f/Paintings/'Frank McCarthy.jpeg'  .
+root@kali: scp first_stage@192.168.56.125:/home/mhz_c1f/Paintings/'spinning the wool.jpeg' .
 ```
 
-check one by one by `steghide` and in the image `'spinning the wool.jpeg'`
+check one by one by `steghide` and in the image `'spinning the wool.jpeg'`, you will find `remb2.txt` :
 
+```bash
+root@kali: teghide extract -sf 'spinning the wool.jpeg'
+wrote extracted data to "remb2.txt".
+```
 
+and check the content of remb2.txt
 
+```text
+ooh , i know should delete this , but i cant' remember it 
+screw me 
+
+mhz_c1f:1@ec1f
+```
+
+there is another username and password
 
 
 
