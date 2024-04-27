@@ -73,7 +73,24 @@ Host script results:
 |_    Message signing enabled but not required
 ```
 
+Let's check for port 80, which is a default apache page, try to fuzz the website and you find `/wordpress`
 
+try to enumerate the wordpress site :
+
+```bash
+root@kali: wpscan --url http://192.168.56.103/wordpress -e u,vp
+
+[i] User(s) Identified:
+
+[+] c0rrupt3d_brain
+ | Found By: Author Posts - Author Pattern (Passive Detection)
+ | Confirmed By:
+ |  Rss Generator (Passive Detection)
+ |  Wp Json Api (Aggressive Detection)
+ |   - http://192.168.56.103/wordpress/index.php/wp-json/wp/v2/users/?per_page=100&page=1
+ |  Author Id Brute Forcing - Author Pattern (Aggressive Detection)
+ |  Login Error Messages (Aggressive Detection)
+```
 
 
 
