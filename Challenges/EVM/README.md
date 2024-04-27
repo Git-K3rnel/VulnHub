@@ -92,8 +92,25 @@ root@kali: wpscan --url http://192.168.56.103/wordpress -e u,vp
  |  Login Error Messages (Aggressive Detection)
 ```
 
+we found a user, `c0rrupt3d_brain`, we can check for brute force attack on this user:
 
+```bash
+root@kali: wpscan --url http://192.168.56.103/wordpress -U user.txt -P /usr/share/wordlists/rockyou.txt
+```
 
+and yes, it finds password, `24992499`, and we can login to wordpress panel by this user
+
+after logging in try to access `Appearance -> Theme Editor -> 404.php` and upload a php reverse shell
+
+and a netcat listener to get the shell
+
+### 3.Gaining Shell
+
+After uploading the shellm, navigate to `http://192.168.56.103/wordpress/wp-content/themes/twentynineteen/404.php` and you will get the shell :
+
+```bash
+
+```
 
 
 
