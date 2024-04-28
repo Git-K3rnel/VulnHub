@@ -52,5 +52,16 @@ after that you can see the actual page of the website:
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/c65f2b46-18d2-4350-ad30-fa1535fe4ca9)
 
+i tried SQLi on register and login page but nothing happened, then i created a user and logged in to the site :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/df73b1e1-267b-42bf-bc35-1baa7ca64f7f)
 
+after seeing the traffic in burp and navigating to profile menue i saw the request :
+
+```text
+http://192.168.127.134/index.php?page=profile&user_id=12
+```
+
+i change the `user_id` parameter to `1` and it showed another user profile :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/0fa3c04e-7b86-4e6c-9614-6bfa403881c8)
