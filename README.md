@@ -45,3 +45,4 @@ In this repo i provide write-ups for VulnHub machines :
 * [mhz_cxf: c1f](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/mhz_cxf-c1f)
 * [Android4](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/Android4)
 * [EVM: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/EVM)
+* [Me and My Girlfriend](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/MeAndMyGirlfriend)
