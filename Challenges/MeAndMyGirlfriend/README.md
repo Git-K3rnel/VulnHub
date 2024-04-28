@@ -44,9 +44,13 @@ and the page source says :
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/172e804f-93fe-4a5e-9658-7c3262a6ffb6)
 
+config the browser to send traffic to burp and config burp to add new header to each request, `X-Forwarded-For: 127.0.0.1` :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/9740cf2b-7016-4a7b-adfd-5985aeeb3606)
 
+after that you can see the actual page of the website:
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/c65f2b46-18d2-4350-ad30-fa1535fe4ca9)
 
 
 
