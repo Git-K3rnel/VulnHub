@@ -65,3 +65,30 @@ http://192.168.127.134/index.php?page=profile&user_id=12
 i change the `user_id` parameter to `1` and it showed another user profile :
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/0fa3c04e-7b86-4e6c-9614-6bfa403881c8)
+
+
+send the request to intruder and try number 1 to 50 for example, and also add `X-Forwarded-For: 127.0.0.1` header to the request
+
+then you will see that multiple user and passwords are shown :
+
+- users
+
+```text
+abdikasepak
+alice
+sedihaingmah
+sundatea
+aingmaung
+eweuhtandingan
+```
+
+- passwords
+
+```text
+dorrrrr
+4lic3
+cedihhihihi
+indONEsia
+qwerty!!!
+skuyatuh
+```
