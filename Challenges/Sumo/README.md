@@ -43,9 +43,38 @@ root@kali: nikto -h 192.168.127.133
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/b0b2b5ff-8ca4-4de2-8e60-05778cf42758)
 
+site is vulnerable to shellshock, we can confirm it by nmap too :
+
+```bash
+nmap 192.168.127.133 -p 80 --script=http-shellshock --script-args uri=/cgi-bin/test
+Starting Nmap 7.94SVN ( https://nmap.org ) at 2024-05-01 06:14 EDT
+Nmap scan report for 192.168.127.133
+Host is up (0.00039s latency).
+
+PORT   STATE SERVICE
+80/tcp open  http
+| http-shellshock: 
+|   VULNERABLE:
+|   HTTP Shellshock vulnerability
+|     State: VULNERABLE (Exploitable)
+|     IDs:  CVE:CVE-2014-6271
+|       This web application might be affected by the vulnerability known
+|       as Shellshock. It seems the server is executing commands injected
+|       via malicious HTTP headers.
+|             
+|     Disclosure date: 2014-09-24
+|     References:
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-7169
+|       http://seclists.org/oss-sec/2014/q3/685
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-6271
+|_      http://www.openwall.com/lists/oss-security/2014/09/24/10
+MAC Address: 00:0C:29:6C:B0:85 (VMware)
+```
+
+we just need to execute a reverse shell command to get the shell
 
 
-
+### 3.Gaining Shell
 
 
 
