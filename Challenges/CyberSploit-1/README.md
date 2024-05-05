@@ -34,3 +34,44 @@ MAC Address: 00:0C:29:95:0C:5F (VMware)
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 ```
 
+check web page and see page source :
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/53ac75f8-1570-4c3c-b7d0-e99ace8118e4)
+
+
+we have username `itsskv`, now we check for `robots.txt` and we find a base64 string, let's decode:
+
+```bash
+root@kali: echo -n 'R29vZCBXb3JrICEKRmxhZzE6IGN5YmVyc3Bsb2l0e3lvdXR1YmUuY29tL2MvY3liZXJzcGxvaXR9' | base64 -d
+Good Work !
+Flag1: cybersploit{youtube.com/c/cybersploit}
+```
+
+i tried enumerating different things and i found nothing, then tried to brute force the SSH service with `rockyou.txt` and it didn not work
+
+then i used flag1 ( `cybersploit{youtube.com/c/cybersploit}` ) as password and yes i connected to machine :
+
+```bash
+ssh itsskv@192.168.127.134
+itsskv@192.168.127.134's password: 
+Welcome to Ubuntu 12.04.5 LTS (GNU/Linux 3.13.0-32-generic i686)
+
+ * Documentation:  https://help.ubuntu.com/
+
+332 packages can be updated.
+273 updates are security updates.
+
+New release '14.04.6 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+
+Your Hardware Enablement Stack (HWE) is supported until April 2017.
+```
+
+
+
+
+
+
+
+
