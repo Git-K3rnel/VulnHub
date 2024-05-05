@@ -47,3 +47,4 @@ In this repo i provide write-ups for VulnHub machines :
 * [EVM: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/EVM)
 * [Me and My Girlfriend](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/MeAndMyGirlfriend)
 * [Sumo](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/Sumo)
+* [Cybersploit: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/CyberSploit-1)
