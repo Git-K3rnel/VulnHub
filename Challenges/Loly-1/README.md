@@ -44,3 +44,28 @@ root@kali: nikto -h 192.168.127.135
 + 8102 requests: 0 error(s) and 12 item(s) reported on remote host
 + End Time:           2024-05-06 04:35:09 (GMT-4) (18 seconds)
 ```
+
+we need to scan the wordpress site using `wpscan` :
+
+```bash
+root@kali: wpscan --url http://192.168.127.135/wordpress/ -e u,ap
+```
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/f4a42583-023c-4d66-ac55-9243f6b5c983)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
