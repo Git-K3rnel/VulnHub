@@ -48,3 +48,4 @@ In this repo i provide write-ups for VulnHub machines :
 * [Me and My Girlfriend](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/MeAndMyGirlfriend)
 * [Sumo](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/Sumo)
 * [Cybersploit: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/CyberSploit-1)
+* [Loly: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/Loly-1)
