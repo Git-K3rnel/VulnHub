@@ -62,7 +62,7 @@ root@kali: wpscan --url http://192.168.127.135/wordpress/ -e u,ap -U users.txt -
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/1d1936e5-c66d-4d86-8f3b-542c210f700a)
 
 
-
+now we have valid credentials, `loly:fernando`, we can login to wodpress site
 
 
 
