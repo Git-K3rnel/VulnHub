@@ -1,4 +1,4 @@
-# Loly: 1
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/bfeaf4da-2536-4bb4-9a13-9810436e2aff)# Loly: 1
 
 ### 1.Get VM IP
 
@@ -53,7 +53,13 @@ root@kali: wpscan --url http://192.168.127.135/wordpress/ -e u,ap
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/f4a42583-023c-4d66-ac55-9243f6b5c983)
 
+yes we found a user, let's brute force this user :
 
+```bash
+root@kali: wpscan --url http://192.168.127.135/wordpress/ -e u,ap -U users.txt -P /usr/share/wordlists/rockyou.txt
+```
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/1d1936e5-c66d-4d86-8f3b-542c210f700a)
 
 
 
