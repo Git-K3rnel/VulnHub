@@ -1,4 +1,4 @@
-![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/bfeaf4da-2536-4bb4-9a13-9810436e2aff)# Loly: 1
+# Loly: 1
 
 ### 1.Get VM IP
 
