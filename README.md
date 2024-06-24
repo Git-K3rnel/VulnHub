@@ -50,3 +50,4 @@ In this repo i provide write-ups for VulnHub machines :
 * [Cybersploit: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/CyberSploit-1)
 * [Cybersploit: 2](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/CyberSploit-2)
 * [Loly: 1](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/Loly-1)
+* [Mercury](https://github.com/Git-K3rnel/VulnHub/tree/main/Challenges/Mercury)
